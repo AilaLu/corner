@@ -7,7 +7,9 @@ const router = express.Router();
 //   res.send("Hello World!");
 // });
 // setting a cookie on the response with the name of XSRF-TOKEN to the value of the req.csrfToken method's return. Then, you are sending the text, Hello World! as the response's body.
+const apiRouter = require("./api");
 
+router.use("/api", apiRouter);
 // Add a XSRF-TOKEN cookie, This route should not be available in production
 router.get("/api/csrf/restore", (req, res) => {
   const csrfToken = req.csrfToken();

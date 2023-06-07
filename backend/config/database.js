@@ -4,14 +4,14 @@ const config = require("./index");
 
 module.exports = {
   development: {
-    storage: config.dbFile,
+    storage: config.dbFile, //dev phase read from file
     dialect: "sqlite",
     seederStorage: "sequelize",
     logQueryParameters: true,
     typeValidation: true,
   },
   production: {
-    use_env_variable: "DATABASE_URL",
+    use_env_variable: "DATABASE_URL", //production phase read from a url
     dialect: "postgres",
     seederStorage: "sequelize",
     dialectOptions: {
