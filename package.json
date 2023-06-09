@@ -24,4 +24,3 @@
   "homepage": "https://github.com/AilaLu/corner#readme"
 }
 
-//The scripts defined in this package.json file will be run by Render, not the scripts defined in the backend/package.json.
