@@ -1,0 +1,27 @@
+{
+  "name": "corner",
+  "version": "1.0.0",
+  "description": "## Database Schema Design",
+  "main": "index.js",
+  "scripts": {
+    "install": "npm --prefix backend install backend",
+    "dev:backend": "npm install --prefix backend start",
+    "sequelize": "npm run --prefix backend sequelize",
+    "sequelize-cli": "npm run --prefix backend sequelize-cli",
+    "start": "npm start --prefix backend",
+    "build": "npm run --prefix backend build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AilaLu/corner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AilaLu/corner/issues"
+  },
+  "homepage": "https://github.com/AilaLu/corner#readme"
+}
+
+//The scripts defined in this package.json file will be run by Render, not the scripts defined in the backend/package.json.
