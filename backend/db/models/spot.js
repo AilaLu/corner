@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
     /**
@@ -10,23 +8,95 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Spot.belongTo(models.User, {
+        foreignKey: "ownerId",
+      }),
+        Spot.belongsToMany(models.User, {
+          through: models.Booking,
+          foreignKey: "spotId",
+          otherKey: "userId",
+        }),
+        Spot.hasMany(models.Booking, {
+          foreignKey: "spotId",
+          onDelete: "CASCADE",
+          hooks: true,
+        }),
+        Spot.hasMany(models.Review, {
+          foreignKey: "spotId",
+          onDelete: "CASCADE",
+          hooks: true,
+        }),
+        Spot.hasMany(models.SpotImage, {
+          foreignKey: "spotId",
+          onDelete: "CASCADE",
+          hooks: true,
+        }),
+        Spot.belongsToMany(models.User, {
+          through: models.Review,
+          foreignKey: "spotId",
+          otherKey: "userId",
+        });
     }
   }
-  Spot.init({
-    ownerId: DataTypes.INTEGER,
-    address: DataTypes.STRING,
-    city: DataTypes.STRING,
-    state: DataTypes.STRING,
-    country: DataTypes.STRING,
-    lat: DataTypes.FLOAT,
-    lng: DataTypes.FLOAT,
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    price: DataTypes.FLOAT
-  }, {
-    sequelize,
-    modelName: 'Spot',
-  });
+  Spot.init(
+    {
+      ownerId: {
+        unique: true,
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      address: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      city: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      state: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      country: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      lat: {
+        allowNull: false,
+        type: DataTypes.FLOAT,
+        validate: {
+          min: -90,
+          max: 90,
+        },
+      },
+      lng: {
+        allowNull: false,
+        type: DataTypes.FLOAT,
+        validate: {
+          min: -180,
+          max: 180,
+        },
+      },
+      name: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+          len: [0, 49],
+        },
+      },
+      description: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      price: {
+        allowNull: false,
+        type: DataTypes.FLOAT,
+      },
+    },
+    {
+      sequelize,
+      modelName: "Spot",
+    }
+  );
   return Spot;
 };
