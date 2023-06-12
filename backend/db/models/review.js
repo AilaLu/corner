@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Review extends Model {
     /**
@@ -10,17 +8,55 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Review.belongTo(models.User, {
+        foreignKey: "userId",
+      });
+      Review.belongTo(models.Spot, {
+        foreignKey: "spotId",
+      });
+      Review.hasMany(models.ReviewImage, {
+        foreignKey: "reviewId",
+        onDelete: "CASCADE",
+        hooks: true,
+      });
     }
   }
-  Review.init({
-    spotId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
-    review: DataTypes.STRING,
-    stars: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'Review',
-  });
+  Review.init(
+    {
+      spotId: {
+        unique: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      userId: {
+        unique: true,
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      review: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          noEntry(value) {
+            if (value === "") {
+              throw new Error("Requires a review");
+            }
+          },
+        },
+      },
+      stars: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          min: 1,
+          max: 5,
+        },
+      },
+    },
+    {
+      sequelize,
+      modelName: "Review",
+    }
+  );
   return Review;
 };
