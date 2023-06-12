@@ -15,12 +15,10 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
         spotId: {
-          unique: true,
           allowNull: false,
           type: Sequelize.INTEGER,
         },
         userId: {
-          unique: true,
           allowNull: false,
           type: Sequelize.INTEGER,
         },

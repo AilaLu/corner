@@ -24,12 +24,10 @@ module.exports = (sequelize, DataTypes) => {
   Review.init(
     {
       spotId: {
-        unique: true,
         type: DataTypes.INTEGER,
         allowNull: false,
       },
       userId: {
-        unique: true,
         type: DataTypes.INTEGER,
         allowNull: false,
       },

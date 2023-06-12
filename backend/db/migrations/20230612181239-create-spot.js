@@ -16,7 +16,6 @@ module.exports = {
         },
         ownerId: {
           allowNull: false,
-          unique: true,
           type: Sequelize.INTEGER,
         },
         address: {

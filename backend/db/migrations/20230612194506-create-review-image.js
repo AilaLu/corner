@@ -15,7 +15,6 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
         reviewId: {
-          unique: true,
           allowNull: false,
           type: Sequelize.INTEGER,
         },
