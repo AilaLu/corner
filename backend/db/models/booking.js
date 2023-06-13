@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Booking.belongTo(models.User, {
+      Booking.belongsTo(models.User, {
         foreignKey: "userId",
       });
-      Booking.belongTo(models.Spot, {
+      Booking.belongsTo(models.Spot, {
         foreignKey: "spotId",
       });
     }
