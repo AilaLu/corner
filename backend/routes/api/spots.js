@@ -71,4 +71,32 @@ router.get("/current", requireAuth, async (req, res) => {
   // console.log(userSpots);
   res.json({ Spots: userSpots });
 });
+
+//Get details of a Spot from an id
+router.get("/:spotId", async (req, res) => {
+  let spot = await Spot.findByPk(req.params.spotId, {
+    include: [
+      { model: Review },
+      { model: SpotImage, attributes: ["id", "url", "preview"] },
+      { model: User, as: "Owner", attributes: ["id", "firstName", "lastName"] },
+    ],
+  });
+  if (!spot) {
+    res.status(404);
+    return res.json({
+      message: "Spot couldn't be found",
+    });
+  }
+  let spotJson = spot.toJSON();
+  let reviews = spotJson.Reviews;
+  spotJson.numReviews = reviews.length;
+  let totalRating = 0;
+  reviews = reviews.map((review) => {
+    totalRating += review.stars;
+  });
+  const avgRating = totalRating / reviews.length;
+  spotJson.avgRating = avgRating;
+  delete spotJson.Reviews;
+  res.json(spotJson);
+});
 module.exports = router;

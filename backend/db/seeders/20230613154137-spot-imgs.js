@@ -16,6 +16,11 @@ module.exports = {
           preview: true,
         },
         {
+          spotId: 1,
+          url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTy3bf5SdMNzdB0fDx9xr9HL3an4nSkVVWSAPhOzwIzzT45j4mwuTxxbdr8wv7JwshtY4&usqp=CAU",
+          preview: true,
+        },
+        {
           spotId: 2,
           url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjZw2eMTnZQ40Xj049trOQ72lZQommvGcDBb8899l4PuEhRVk2JUbnSDpJqJeGsNo9pi8&usqp=CAU",
           preview: true,
