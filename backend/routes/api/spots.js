@@ -99,4 +99,65 @@ router.get("/:spotId", async (req, res) => {
   delete spotJson.Reviews;
   res.json(spotJson);
 });
+
+const createSpotChecker = (req, res, next) => {
+  const {
+    ownerId,
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+  } = req.body;
+
+  const errors = {};
+  if (!address) errors.address = "Street address is required";
+  if (!city) errors.city = "City is required";
+  if (!state) errors.state = "State is required";
+  if (!country) errors.country = "Country is required";
+  if (lat < -90 || lat > 90) errors.lat = "Latitude is not valid";
+  if (lng < -180 || lng > 180) errors.lng = "Longitude is not valid";
+  if (name.length >= 50) errors.name = "Name must be less than 50 )characters";
+  if (!description) errors.description = "Description is required";
+  if (!price) errors.price = "Price per day is required";
+
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: errors,
+    });
+  }
+
+  next();
+};
+
+//Create a Spot
+router.post("/", requireAuth, createSpotChecker, async (req, res) => {
+  const { address, city, state, country, lat, lng, name, description, price } =
+    req.body;
+
+  // const owner = await User.findOne({
+  //   where: { id: req.user.id },
+  // });
+
+  const newSpot = await Spot.create({
+    ownerId: req.user.id,
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+  });
+  res.status(201);
+  res.json(newSpot);
+});
+
 module.exports = router;
