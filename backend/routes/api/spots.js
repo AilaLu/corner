@@ -114,6 +114,12 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
       message: "Spot couldn't be found",
     });
   }
+  if (spot.ownerId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden, Spot must belong to the current user",
+    });
+  }
+
   const { url, preview } = req.body;
   const newSpotImg = await SpotImage.create({
     spotId: req.params.spotId,
@@ -196,7 +202,7 @@ router.get("/current", requireAuth, async (req, res) => {
     let reviews = spotJson.Reviews;
     // console.log(reviews);
 
-    reviews = reviews.map((review) => {
+    reviews.forEach((review) => {
       totalRating += review.stars;
       // console.log(totalRating);
     });
@@ -234,8 +240,9 @@ router.get("/:spotId", async (req, res) => {
   let reviews = spotJson.Reviews;
   spotJson.numReviews = reviews.length;
   let totalRating = 0;
-  reviews = reviews.map((review) => {
+  reviews.forEach((review) => {
     totalRating += review.stars;
+    // console.log(totalRating);
   });
   const avgRating = totalRating / reviews.length;
   spotJson.avgRating = avgRating;
@@ -270,9 +277,8 @@ router.get("/:spotId/reviews", async (req, res) => {
 router.put("/:spotId", requireAuth, createSpotChecker, async (req, res) => {
   let spot = await Spot.findByPk(req.params.spotId);
   if (spot.ownerId !== req.user.id) {
-    res.status(401);
-    return res.json({
-      message: "Spot must belong to the current user",
+    return res.status(403).json({
+      message: "Forbidden, Spot must belong to the current user",
     });
   }
   if (!spot) {
@@ -311,7 +317,9 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
   }
 
   if (spot.ownerId !== req.user.id) {
-    return res.status(401).json({ message: "Unauthorized" });
+    return res.status(403).json({
+      message: "Forbidden, Spot must belong to the current user",
+    });
   }
 
   await spot.destroy();
