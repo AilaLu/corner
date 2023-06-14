@@ -260,6 +260,34 @@ router.post(
   }
 );
 
+//Get all Bookings for a Spot based on the Spot's id
+router.get("/:spotId/bookings", async (req, res) => {
+  const spot = await Spot.findByPk(req.params.spotId);
+  let ownerBookings = await Booking.findAll({
+    include: [{ model: User, attributes: ["id", "firstName", "lastName"] }],
+    where: { spotId: req.params.spotId },
+  });
+  let userBookings = await Booking.findAll({
+    attributes: ["spotId", "startDate", "endDate"],
+    where: { spotId: req.params.spotId },
+  });
+  if (!spot) {
+    res.status(404);
+    return res.json({
+      message: "Spot couldn't be found",
+    });
+  }
+  //If you ARE NOT the owner of the spot.
+  if (spot.ownerId !== req.user.id) {
+    return res.json({
+      Bookings: userBookings,
+    });
+  }
+  // If you ARE the owner of the spot.
+  return res.json({
+    Bookings: ownerBookings,
+  });
+});
 //Get all Spots owned by the Current User
 router.get("/current", requireAuth, async (req, res) => {
   let spots = await Spot.findAll({
