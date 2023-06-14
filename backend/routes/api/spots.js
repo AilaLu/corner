@@ -1,6 +1,6 @@
 // backend/routes/api/spots.js
 const express = require("express");
-// const { Op } = require("sequelize");
+const { Op } = require("sequelize");
 // const { check } = require("express-validator");
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { handleValidationErrors } = require("../../utils/validation");
@@ -185,6 +185,78 @@ router.post(
     });
     res.status(201);
     res.json(newSpotReview);
+  }
+);
+
+const createBookingChecker = (req, res, next) => {
+  const { startDate, endDate } = req.body;
+
+  const errors = {};
+  if (endDate <= startDate)
+    errors.endDate = "endDate cannot be on or before startDate";
+
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: errors,
+    });
+  }
+
+  next();
+};
+
+//Create a Booking for a Spot based on the Spot's id
+router.post(
+  "/:spotId/bookings",
+  requireAuth,
+  createBookingChecker,
+  async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+    if (!spot) {
+      res.status(404);
+      res.json({
+        message: "Spot couldn't be found",
+      });
+    }
+    if (spot.ownerId === req.user.id) {
+      return res.status(403).json({
+        message: "Forbidden, Spot must NOT belong to the current user",
+      });
+    }
+    const bookingConflicted = await Booking.findOne({
+      where: {
+        [Op.or]: {
+          startDate: { [Op.between]: [req.body.startDate, req.body.endDate] },
+        },
+        endDate: { [Op.between]: [req.body.startDate, req.body.endDate] },
+      },
+    });
+    if (bookingConflicted) {
+      res.status(403);
+      res.json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          startDate: "Start date conflicts with an existing booking",
+          endDate: "End date conflicts with an existing booking",
+        },
+      });
+    }
+    const newSpotBooking = await Booking.create({
+      userId: req.user.id,
+      spotId: req.params.spotId,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
+    });
+    //formatting the date with
+    res.json({
+      id: newSpotBooking.id,
+      spotId: newSpotBooking.spotId,
+      userId: newSpotBooking.userId,
+      startDate: newSpotBooking.startDate.toISOString().split("T")[0],
+      endDate: newSpotBooking.endDate.toISOString().split("T")[0],
+      createdAt: newSpotBooking.createdAt,
+      updatedAt: newSpotBooking.updatedAt,
+    });
   }
 );
 
