@@ -180,4 +180,36 @@ router.get("/:spotId", async (req, res) => {
   res.json(spotJson);
 });
 
+router.put("/:spotId", requireAuth, createSpotChecker, async (req, res) => {
+  let spot = await Spot.findByPk(req.params.spotId);
+  if (spot.ownerId !== req.user.id) {
+    res.status(401);
+    return res.json({
+      message: "Spot must belong to the current user",
+    });
+  }
+  if (!spot) {
+    res.status(404);
+    return res.json({
+      message: "Spot couldn't be found",
+    });
+  }
+  const { address, city, state, country, lat, lng, name, description, price } =
+    req.body;
+
+  const editSpot = await spot.update({
+    ownerId: req.user.id,
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+  });
+  res.json(editSpot);
+});
+
 module.exports = router;
