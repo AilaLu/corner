@@ -249,28 +249,25 @@ router.get("/:spotId", async (req, res) => {
 
 //Get all Reviews by a Spot's id
 router.get("/:spotId/reviews", async (req, res) => {
-  let spot = await Spot.findByPk(req.params.spotId, {
+  let reviews = await Review.findAll({
     include: [
-      { model: Review },
       {
         model: ReviewImage,
         attributes: ["id", "url"],
-        through: {
-          attributes: ["reviewId"],
-        },
       },
       { model: User, attributes: ["id", "firstName", "lastName"] },
     ],
-    where: { ownerId: req.user.id },
+    where: { spotId: req.params.spotId },
   });
-  if (!spot) {
+  if (!reviews) {
     res.status(404);
     return res.json({
       message: "Spot couldn't be found",
     });
   }
-  let spotJson = spot.toJSON();
-  res.json(spotJson);
+  res.json({
+    Reviews: reviews,
+  });
 });
 
 //Edit spot
