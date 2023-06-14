@@ -22,12 +22,12 @@ router.get("/", async (req, res) => {
 
   let spotWithRatings = spots.map((spot) => {
     let spotJson = spot.toJSON();
-    // console.log(spot);
+    console.log(spotJson);
     let totalRating = 0;
     let reviews = spotJson.Reviews;
     // console.log(reviews);
 
-    reviews = reviews.map((review) => {
+    reviews.forEach((review) => {
       totalRating += review.stars;
       // console.log(totalRating);
     });
