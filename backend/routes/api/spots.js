@@ -119,6 +119,60 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
     preview: newSpotImg.preview,
   });
 });
+
+const createReviewChecker = (req, res, next) => {
+  const { review, stars } = req.body;
+
+  const errors = {};
+  if (!review) errors.review = "Review text is required";
+  if (isNaN(stars) || stars > 5 || stars < 1)
+    errors.stars = "Stars must be an integer from 1 to 5";
+
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: errors,
+    });
+  }
+
+  next();
+};
+//Create a Review for a Spot based on the Spot's id
+router.post(
+  "/:spotId/reviews",
+  requireAuth,
+  createReviewChecker,
+  async (req, res) => {
+    const spot = await Spot.findByPk(req.params.spotId);
+    if (!spot) {
+      res.status(404);
+      res.json({
+        message: "Spot couldn't be found",
+      });
+    }
+    const reviewExisted = await Review.findOne({
+      where: {
+        userId: req.user.id,
+        spotId: req.params.spotId,
+      },
+    });
+    if (reviewExisted) {
+      res.status(403); //or 500 in ReadMe
+      res.json({
+        message: "User already has a review for this spot",
+      });
+    }
+    const { review, stars } = req.body;
+    const newSpotReview = await Review.create({
+      userId: req.user.id,
+      spotId: req.params.spotId,
+      review,
+      stars,
+    });
+    res.json(newSpotReview.id);
+  }
+);
+
 //Get all Spots owned by the Current User
 router.get("/current", requireAuth, async (req, res) => {
   let spots = await Spot.findAll({
@@ -212,7 +266,7 @@ router.put("/:spotId", requireAuth, createSpotChecker, async (req, res) => {
   res.json(editSpot);
 });
 
-router.delete("/:spotId", async (req, res, next) => {
+router.delete("/:spotId", requireAuth, async (req, res, next) => {
   let spot = await Spot.findByPk(req.params.spotId);
 
   if (!spot) {
@@ -220,6 +274,10 @@ router.delete("/:spotId", async (req, res, next) => {
     return res.json({
       message: "Spot couldn't be found",
     });
+  }
+
+  if (spot.ownerId !== req.user.id) {
+    return res.status(401).json({ message: "Unauthorized" });
   }
 
   await spot.destroy();
