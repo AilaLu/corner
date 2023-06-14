@@ -163,13 +163,14 @@ router.post(
       });
     }
     const { review, stars } = req.body;
-    const newSpotReview = await Review.create({
+    const newSpotReview = await spot.createReview({
       userId: req.user.id,
       spotId: req.params.spotId,
       review,
       stars,
     });
-    res.json(newSpotReview.id);
+    res.status(201);
+    res.json(newSpotReview);
   }
 );
 
