@@ -144,6 +144,7 @@ const createReviewChecker = (req, res, next) => {
 
   next();
 };
+
 //Create a Review for a Spot based on the Spot's id
 router.post(
   "/:spotId/reviews",
@@ -171,124 +172,6 @@ router.post(
     }
     const { review, stars } = req.body;
     const newSpotReview = await Review.create({
-      userId: req.user.id,
-      spotId: req.params.spotId,
-      review,
-      stars,
-    });
-    res.json({
-      id: newSpotReview.id,
-      userId: newSpotReview.userId,
-      spotId: newSpotReview.spotId,
-      review: newSpotReview.review,
-      stars: newSpotReview.stars,
-    });
-  }
-);
-
-const createReviewChecker = (req, res, next) => {
-  const { review, stars } = req.body;
-
-  const errors = {};
-  if (!review) errors.review = "Review text is required";
-  if (isNaN(stars) || stars > 5 || stars < 1)
-    errors.stars = "Stars must be an integer from 1 to 5";
-
-  if (Object.keys(errors).length > 0) {
-    return res.status(400).json({
-      message: "Bad Request",
-      errors: errors,
-    });
-  }
-
-  next();
-};
-//Create a Review for a Spot based on the Spot's id
-router.post(
-  "/:spotId/reviews",
-  requireAuth,
-  createReviewChecker,
-  async (req, res) => {
-    const spot = await Spot.findByPk(req.params.spotId);
-    if (!spot) {
-      res.status(404);
-      res.json({
-        message: "Spot couldn't be found",
-      });
-    }
-    const reviewExisted = await Review.findOne({
-      where: {
-        userId: req.user.id,
-        spotId: req.params.spotId,
-      },
-    });
-    if (reviewExisted) {
-      res.status(403); //or 500 in ReadMe
-      res.json({
-        message: "User already has a review for this spot",
-      });
-    }
-    const { review, stars } = req.body;
-    const newSpotReview = await Review.create({
-      userId: req.user.id,
-      spotId: req.params.spotId,
-      review,
-      stars,
-    });
-    res.json({
-      id: newSpotReview.id,
-      userId: newSpotReview.userId,
-      spotId: newSpotReview.spotId,
-      review: newSpotReview.review,
-      stars: newSpotReview.stars,
-    });
-  }
-);
-
-const createReviewChecker = (req, res, next) => {
-  const { review, stars } = req.body;
-
-  const errors = {};
-  if (!review) errors.review = "Review text is required";
-  if (isNaN(stars) || stars > 5 || stars < 1)
-    errors.stars = "Stars must be an integer from 1 to 5";
-
-  if (Object.keys(errors).length > 0) {
-    return res.status(400).json({
-      message: "Bad Request",
-      errors: errors,
-    });
-  }
-
-  next();
-};
-//Create a Review for a Spot based on the Spot's id
-router.post(
-  "/:spotId/reviews",
-  requireAuth,
-  createReviewChecker,
-  async (req, res) => {
-    const spot = await Spot.findByPk(req.params.spotId);
-    if (!spot) {
-      res.status(404);
-      res.json({
-        message: "Spot couldn't be found",
-      });
-    }
-    const reviewExisted = await Review.findOne({
-      where: {
-        userId: req.user.id,
-        spotId: req.params.spotId,
-      },
-    });
-    if (reviewExisted) {
-      res.status(403); //or 500 in ReadMe
-      res.json({
-        message: "User already has a review for this spot",
-      });
-    }
-    const { review, stars } = req.body;
-    const newSpotReview = await spot.createReview({
       userId: req.user.id,
       spotId: req.params.spotId,
       review,
