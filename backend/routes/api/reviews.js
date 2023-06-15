@@ -73,22 +73,21 @@ router.get("/current", requireAuth, async (req, res) => {
           "lng",
           "name",
           "price",
-          "previewImage",
         ],
       },
     ],
     where: { userId: req.user.id },
   });
-  let reviewsJson = reviews.toJSON();
-  let reviewswSpotImg = reviewsJson.map(async (review) => {
-    review.Spot.previewImage = await Spot.findOne({
-      where: {
-        id: review.spotId,
-      },
-    }).SpotImages[0].url;
-  });
+  // let reviewsJson = reviews.toJSON();
+  // let reviewswSpotImg = reviewsJson.map(async (review) => {
+  //   review.Spot.previewImage = await Spot.findOne({
+  //     where: {
+  //       id: review.spotId,
+  //     },
+  //   }).SpotImages[0].url;
+  // });
   res.json({
-    Reviews: reviewswSpotImg,
+    Reviews: reviews,
   });
 });
 
