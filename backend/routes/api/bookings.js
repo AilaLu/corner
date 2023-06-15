@@ -33,19 +33,22 @@ router.get("/current", requireAuth, async (req, res) => {
           "name",
           "price",
         ],
+        include: [{ model: SpotImage, attributes: ["url"] }],
       },
     ],
     where: { userId: req.user.id },
   });
-  // let bookingswSpotImg = bookings.map(async (booking) => {
-  //   booking.Spot.previewImage = await Spot.findOne({
-  //     where: {
-  //       id: booking.spotId,
-  //     },
-  //   }).SpotImages[0].url;
-  // });
+  let bookingsWSpotImg = bookings.map((booking) => {
+    let bookingJson = booking.toJSON();
+    console.log(bookingJson);
+    if (bookingJson.Spot.SpotImages.length) {
+      bookingJson.Spot.previewImage = bookingJson.Spot.SpotImages[0].url;
+    }
+    delete bookingJson.Spot.SpotImages;
+    return bookingJson;
+  });
   res.json({
-    Bookings: bookings,
+    Bookings: bookingsWSpotImg,
   });
 });
 
