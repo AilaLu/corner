@@ -14,10 +14,63 @@ const {
 } = require("../../db/models");
 const router = express.Router();
 
+const createQuerySpotChecker = (req, res, next) => {
+  let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } =
+    req.query;
+
+  page = parseInt(page);
+  size = parseInt(size);
+  // if (lat < -90 || lat > 90) errors.lat = "Latitude is not valid";
+  // if (lng < -180 || lng > 180) errors.lng = "Longitude is not valid";
+  const errors = {};
+
+  //Number.isNaN() true if the given value is NaN and its type is Number
+  if (Number.isNaN(page) || page < 1 || page > 10)
+    errors.page = "Page must be greater than or equal to 1";
+  if (Number.isNaN(page) || size < 1 || size > 20)
+    errors.size = "Size must be greater than or equal to 1";
+  if (maxLat > 90) errors.maxLat = "Maximum latitude is invalid";
+  if (minLat < -90) errors.minLat = "Minimum latitude is invalid";
+  if (minLng < -180) errors.minLng = "Maximum longitude is invalid";
+  if (maxLng > 180) errors.maxLng = "Minimum longitude is invalid";
+  if (minPrice < 0)
+    errors.minPrice = "Minimum price must be greater than or equal to 0";
+  if (maxPrice < 0)
+    errors.maxPrice = "Maximum price must be greater than or equal to 0";
+
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({
+      message: "Bad Request",
+      errors: errors,
+    });
+  }
+
+  next();
+};
+
 //Get all Spots
-router.get("/", async (req, res) => {
+router.get("/", createQuerySpotChecker, async (req, res) => {
+  let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } =
+    req.query;
+
+  //pagination
+  page = parseInt(page);
+  size = parseInt(size);
+
+  if (!page) page = 1;
+  if (!size) size = 20;
+
+  //query filter
+  const where = {};
+  where.price = { [Op.between]: [minPrice, maxPrice] };
+  where.lat = { [Op.between]: [minLat, maxLat] };
+  where.lng = { [Op.between]: [minLng, maxLng] };
+
   const spots = await Spot.findAll({
     include: [{ model: Review }, { model: SpotImage, attributes: ["url"] }],
+    where,
+    limit: size,
+    offset: size * (page - 1),
   });
 
   let spotWithRatings = spots.map((spot) => {
@@ -43,7 +96,7 @@ router.get("/", async (req, res) => {
     return spotJson;
   });
   // console.log(spotWithRatings);
-  res.json({ Spots: spotWithRatings });
+  res.json({ Spots: spotWithRatings, page, size });
 });
 
 const createSpotChecker = (req, res, next) => {
