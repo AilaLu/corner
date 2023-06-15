@@ -133,8 +133,11 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
         "Forbidden, booking must belong to the current user or the Spot must belong to the current user",
     });
   }
-  const today = new Date().toISOString().split("T")[0];
-  if (today >= req.body.startDate) {
+  const today = new Date();
+  //.toISOString().split("T")[0];
+  // console.log(booking.startDate);
+  // console.log(today);
+  if (today >= booking.startDate) {
     return res.status(403).json({
       message: "Bookings that have been started can't be deleted",
     });
