@@ -25,9 +25,9 @@ const createQuerySpotChecker = (req, res, next) => {
   const errors = {};
 
   //Number.isNaN() true if the given value is NaN and its type is Number
-  if (Number.isNaN(page) || page < 1 || page > 10)
+  if (page && isNaN(page) && page < 1)
     errors.page = "Page must be greater than or equal to 1";
-  if (Number.isNaN(page) || size < 1 || size > 20)
+  if (page && isNaN(page) && page < 1)
     errors.size = "Size must be greater than or equal to 1";
   if (maxLat > 90) errors.maxLat = "Maximum latitude is invalid";
   if (minLat < -90) errors.minLat = "Minimum latitude is invalid";
@@ -430,15 +430,15 @@ router.get("/:spotId/reviews", async (req, res) => {
 //Edit spot
 router.put("/:spotId", requireAuth, createSpotChecker, async (req, res) => {
   let spot = await Spot.findByPk(req.params.spotId);
-  if (spot.ownerId !== req.user.id) {
-    return res.status(403).json({
-      message: "Forbidden, Spot must belong to the current user",
-    });
-  }
   if (!spot) {
     res.status(404);
     return res.json({
       message: "Spot couldn't be found",
+    });
+  }
+  if (spot.ownerId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden, Spot must belong to the current user",
     });
   }
   const { address, city, state, country, lat, lng, name, description, price } =
