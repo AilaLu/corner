@@ -272,20 +272,27 @@ router.post(
         message: "Spot couldn't be found",
       });
     }
+
     if (spot.ownerId === req.user.id) {
       return res.status(403).json({
         message: "Forbidden, Spot must NOT belong to the current user",
       });
     }
+
+    let { startDate, endDate } = req.body;
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
     const bookingConflicted = await Booking.findOne({
       where: {
-        [Op.or]: {
-          startDate: { [Op.between]: [req.body.startDate, req.body.endDate] },
+        [Op.and]: {
+          spotId: req.params.spotId,
+          [Op.or]: {
+            startDate: { [Op.between]: [startDate, endDate] },
+          },
+          endDate: { [Op.between]: [startDate, endDate] },
         },
-        endDate: { [Op.between]: [req.body.startDate, req.body.endDate] },
       },
     });
-    console.log(bookingConflicted);
     if (bookingConflicted) {
       res.status(403);
       return res.json({
