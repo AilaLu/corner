@@ -62,9 +62,10 @@ router.get("/", createQuerySpotChecker, async (req, res) => {
 
   //query filter
   const where = {};
-  where.price = { [Op.between]: [minPrice, maxPrice] };
-  where.lat = { [Op.between]: [minLat, maxLat] };
-  where.lng = { [Op.between]: [minLng, maxLng] };
+  if (minPrice && maxPrice)
+    where.price = { [Op.between]: [minPrice, maxPrice] };
+  if (maxLat && minLat) where.lat = { [Op.between]: [minLat, maxLat] };
+  if (minLng && maxLng) where.lng = { [Op.between]: [minLng, maxLng] };
 
   const spots = await Spot.findAll({
     include: [{ model: Review }, { model: SpotImage, attributes: ["url"] }],
