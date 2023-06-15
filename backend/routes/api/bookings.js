@@ -76,15 +76,15 @@ router.put(
   async (req, res) => {
     const { startDate, endDate } = req.body;
     let booking = await Booking.findByPk(req.params.bookingId);
-    if (booking.userId !== req.user.id) {
-      return res.status(403).json({
-        message: "Forbidden, booking must belong to the current user",
-      });
-    }
     if (!booking) {
       res.status(404);
       return res.json({
         message: "booking couldn't be found",
+      });
+    }
+    if (booking.userId !== req.user.id) {
+      return res.status(403).json({
+        message: "Forbidden, booking must belong to the current user",
       });
     }
     const today = new Date().toISOString().split("T")[0];

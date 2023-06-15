@@ -85,7 +85,7 @@ router.get("/", createQuerySpotChecker, async (req, res) => {
       totalRating += review.stars;
       // console.log(totalRating);
     });
-    const avgRating = totalRating / reviews.length;
+    const avgRating = (totalRating / reviews.length).toFixed(2);
     spotJson.avgRating = avgRating;
     // console.log(spot);
     if (spotJson.SpotImages.length) {
@@ -214,7 +214,7 @@ router.post(
     const spot = await Spot.findByPk(req.params.spotId);
     if (!spot) {
       res.status(404);
-      res.json({
+      return res.json({
         message: "Spot couldn't be found",
       });
     }
@@ -226,7 +226,7 @@ router.post(
     });
     if (reviewExisted) {
       res.status(403); //or 500 in ReadMe
-      res.json({
+      return res.json({
         message: "User already has a review for this spot",
       });
     }
@@ -268,7 +268,7 @@ router.post(
     const spot = await Spot.findByPk(req.params.spotId);
     if (!spot) {
       res.status(404);
-      res.json({
+      return res.json({
         message: "Spot couldn't be found",
       });
     }
@@ -285,9 +285,10 @@ router.post(
         endDate: { [Op.between]: [req.body.startDate, req.body.endDate] },
       },
     });
+    console.log(bookingConflicted);
     if (bookingConflicted) {
       res.status(403);
-      res.json({
+      return res.json({
         message: "Sorry, this spot is already booked for the specified dates",
         errors: {
           startDate: "Start date conflicts with an existing booking",
@@ -301,7 +302,7 @@ router.post(
       startDate: req.body.startDate,
       endDate: req.body.endDate,
     });
-    //formatting the date with
+    //formatting the date with toISOString().split("T")[0] or splice(0, 10)
     res.json({
       id: newSpotBooking.id,
       spotId: newSpotBooking.spotId,
@@ -360,7 +361,7 @@ router.get("/current", requireAuth, async (req, res) => {
       totalRating += review.stars;
       // console.log(totalRating);
     });
-    const avgRating = totalRating / reviews.length;
+    const avgRating = (totalRating / reviews.length).toFixed(2);
     spotJson.avgRating = avgRating;
     // console.log(spot);
     if (spotJson.SpotImages.length) {
@@ -398,7 +399,7 @@ router.get("/:spotId", async (req, res) => {
     totalRating += review.stars;
     // console.log(totalRating);
   });
-  const avgRating = totalRating / reviews.length;
+  const avgRating = (totalRating / reviews.length).toFixed(2);
   spotJson.avgRating = avgRating;
   delete spotJson.Reviews;
   res.json(spotJson);
@@ -416,7 +417,9 @@ router.get("/:spotId/reviews", async (req, res) => {
     ],
     where: { spotId: req.params.spotId },
   });
-  if (!reviews) {
+
+  let spot = await Spot.findByPk(req.params.spotId);
+  if (!spot) {
     res.status(404);
     return res.json({
       message: "Spot couldn't be found",

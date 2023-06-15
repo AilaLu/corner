@@ -88,7 +88,7 @@ router.get("/current", requireAuth, async (req, res) => {
     return reviewJson;
   });
   res.json({
-    reviews: reviewsWSpotImg,
+    Reviews: reviewsWSpotImg,
   });
 });
 
@@ -113,15 +113,15 @@ const createReviewChecker = (req, res, next) => {
 //Edit review
 router.put("/:reviewId", requireAuth, createReviewChecker, async (req, res) => {
   let review = await Review.findByPk(req.params.reviewId);
-  if (review.userId !== req.user.id) {
-    return res.status(403).json({
-      message: "Forbidden, review must belong to the current user",
-    });
-  }
   if (!review) {
     res.status(404);
     return res.json({
       message: "Review couldn't be found",
+    });
+  }
+  if (review.userId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden, review must belong to the current user",
     });
   }
 
