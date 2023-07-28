@@ -10,3 +10,10 @@ const Carrot = () => {
     </div>
   );
 };
+
+// EXAMPLE OF AN EVENT LISTENER
+onClick((event) => {
+  element.contains(event.target); // true/false
+  // evaluates to true if click happened inside of the element
+  // evaluates to false if click happened outside of the element
+});
