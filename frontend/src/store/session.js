@@ -1,8 +1,10 @@
 import { csrfFetch } from "./csrf";
 
+//types
 const SET_USER = "session/setUser";
 const REMOVE_USER = "session/removeUser";
 
+//action creators
 const setUser = (user) => {
   return {
     type: SET_USER,
@@ -10,18 +12,18 @@ const setUser = (user) => {
   };
 };
 
-// How do you retain the session user information across a refresh? By loading the application after accessing the route to get the current session user GET /api/session and adding the user info to the Redux store again.
+const removeUser = () => {
+  return {
+    type: REMOVE_USER,
+  };
+};
 
+// How do you retain the session user information across a refresh? By loading the application after accessing the route to get the current session user GET /api/session and adding the user info to the Redux store again.
 export const restoreUser = () => async (dispatch) => {
   const response = await csrfFetch("/api/session");
   const data = await response.json();
   dispatch(setUser(data.user));
   return response;
-};
-const removeUser = () => {
-  return {
-    type: REMOVE_USER,
-  };
 };
 
 export const login = (user) => async (dispatch) => {
@@ -38,6 +40,24 @@ export const login = (user) => async (dispatch) => {
   return response;
 };
 
+export const signup = (user) => async (dispatch) => {
+  const { username, firstName, lastName, email, password } = user;
+  const response = await csrfFetch("/api/users", {
+    method: "POST",
+    body: JSON.stringify({
+      username,
+      firstName,
+      lastName,
+      email,
+      password,
+    }),
+  });
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+};
+
+//reducers
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
