@@ -10,6 +10,14 @@ const setUser = (user) => {
   };
 };
 
+// How do you retain the session user information across a refresh? By loading the application after accessing the route to get the current session user GET /api/session and adding the user info to the Redux store again.
+
+export const restoreUser = () => async (dispatch) => {
+  const response = await csrfFetch("/api/session");
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
+};
 const removeUser = () => {
   return {
     type: REMOVE_USER,
