@@ -40,7 +40,6 @@ router.get("/current", requireAuth, async (req, res) => {
   });
   let bookingsWSpotImg = bookings.map((booking) => {
     let bookingJson = booking.toJSON();
-    console.log(bookingJson);
     if (bookingJson.Spot.SpotImages.length) {
       bookingJson.Spot.previewImage = bookingJson.Spot.SpotImages[0].url;
     }
@@ -148,8 +147,8 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
   }
   const today = new Date();
   //.toISOString().split("T")[0];
-  // console.log(booking.startDate);
-  // console.log(today);
+  // print out (booking.startDate);
+  // print out (today);
   if (today >= booking.startDate) {
     return res.status(403).json({
       message: "Bookings that have been started can't be deleted",
