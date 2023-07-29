@@ -1,9 +1,10 @@
+// frontend/src/App.js
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
-// import AllSpots from "./components/Spots/AllSpots";
+import AllSpotsHome from "./components/Spots/AllSpotsHome";
 
 function App() {
   const dispatch = useDispatch();
@@ -13,17 +14,19 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
-      <h1>corner</h1>
+    <div className="app-frame">
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/">{/* <AllSpots /> */}</Route>
+          <Route path="/">
+            <AllSpotsHome />
+          </Route>
+          <Route path=""></Route>
           <Route path="/login"></Route>
           <Route path="/signup"></Route>
         </Switch>
       )}
-    </>
+    </div>
   );
 }
 

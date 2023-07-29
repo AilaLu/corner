@@ -1,4 +1,9 @@
 /* TODO Add site wide styles */
-* {
-  border: 5px, solid, rgb(35, 35, 35);
+.app-frame {
+  border: 5px solid grey;
+}
+
+.components-border {
+  border: 3px rgb(198, 77, 77) solid;
+  padding: 50px;
 }
