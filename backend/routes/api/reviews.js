@@ -18,7 +18,6 @@ const router = express.Router();
 // Add an Image to a Review based on the Review's id
 router.post("/:reviewId/images", requireAuth, async (req, res) => {
   const review = await Review.findByPk(req.params.reviewId);
-  console.log(review);
   if (!review) {
     res.status(404);
     res.json({

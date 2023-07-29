@@ -76,18 +76,14 @@ router.get("/", createQuerySpotChecker, async (req, res) => {
 
   let spotWithRatings = spots.map((spot) => {
     let spotJson = spot.toJSON();
-    console.log(spotJson);
     let totalRating = 0;
     let reviews = spotJson.Reviews;
-    // console.log(reviews);
 
     reviews.forEach((review) => {
       totalRating += review.stars;
-      // console.log(totalRating);
     });
     const avgRating = (totalRating / reviews.length).toFixed(2);
     spotJson.avgRating = avgRating;
-    // console.log(spot);
     if (spotJson.SpotImages.length) {
       spotJson.previewImage = spotJson.SpotImages[0].url;
     }
@@ -96,7 +92,6 @@ router.get("/", createQuerySpotChecker, async (req, res) => {
 
     return spotJson;
   });
-  // console.log(spotWithRatings);
   res.json({ Spots: spotWithRatings, page, size });
 });
 
@@ -359,18 +354,14 @@ router.get("/current", requireAuth, async (req, res) => {
 
   let userSpots = spots.map((spot) => {
     let spotJson = spot.toJSON();
-    // console.log(spot);
     let totalRating = 0;
     let reviews = spotJson.Reviews;
-    // console.log(reviews);
 
     reviews.forEach((review) => {
       totalRating += review.stars;
-      // console.log(totalRating);
     });
     const avgRating = (totalRating / reviews.length).toFixed(2);
     spotJson.avgRating = avgRating;
-    // console.log(spot);
     if (spotJson.SpotImages.length) {
       spotJson.previewImage = spotJson.SpotImages[0].url;
     }
@@ -379,7 +370,6 @@ router.get("/current", requireAuth, async (req, res) => {
 
     return spotJson;
   });
-  // console.log(userSpots);
   res.json({ Spots: userSpots });
 });
 
@@ -404,7 +394,6 @@ router.get("/:spotId", async (req, res) => {
   let totalRating = 0;
   reviews.forEach((review) => {
     totalRating += review.stars;
-    // console.log(totalRating);
   });
   const avgRating = (totalRating / reviews.length).toFixed(2);
   spotJson.avgRating = avgRating;
