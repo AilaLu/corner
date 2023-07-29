@@ -6,7 +6,8 @@
 import React from "react";
 import { useModal } from "../../context/Modal";
 
-// you can use the OpenModalButton component for many different use cases! You can use it to render buttons trigger the login and sign up forms as modals, but you could use it anywhere in your application where you want t
+// you can use the OpenModalButton component for many different use cases! You can use it to render buttons trigger the login and sign up forms as modals, but you could use it anywhere in your application where you want to trigger a modal to open by the click of a button!
+
 function OpenModalButton({
   modalComponent, // component to render inside the modal
   buttonText, // text of the button that opens the modal
