@@ -33,7 +33,7 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul>
+    <ul className="components-border">
       <li>
         <NavLink exact to="/">
           Home

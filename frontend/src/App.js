@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import AllSpotsHome from "./components/Spots/AllSpotsHome";
+import SpotDetailPage from "./components/Spots/SpotDetailPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -18,10 +19,17 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/">
+          <Route exact path="/">
             <AllSpotsHome />
           </Route>
-          <Route path=""></Route>
+          <Route exact path="/spots/new">
+            {/* <SpotForm /> */}
+          </Route>
+          {/* goes bofore wildcard spotId} */}
+          <Route exact path="/spots/:spotId">
+            <SpotDetailPage />
+          </Route>
+          <Route path="spot"></Route>
           <Route path="/login"></Route>
           <Route path="/signup"></Route>
         </Switch>

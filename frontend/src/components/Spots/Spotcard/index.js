@@ -1,10 +1,23 @@
 import React from "react";
 import "./Spotcard.css";
 
-function Spotcard() {
+function Spotcard({ spot }) {
   return (
     <>
-      <h1 className="components-border">Spotcard</h1>
+      <section className="components-border">
+        <h1>Spotcard{spot.id}</h1>
+        <img src={spot.previewImage} alt={spot.name}></img>
+        <h2>
+          {spot.city}, {spot.state}
+        </h2>
+        <div>
+          <i className="fa-solid fa-star"></i> {spot.avgRating}
+        </div>
+        <div>
+          <i className="fa-solid fa-dollar-sign"></i>
+          {spot.price} night
+        </div>
+      </section>
     </>
   );
 }
