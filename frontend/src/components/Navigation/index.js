@@ -33,14 +33,21 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul className="components-border">
-      <li>
-        <NavLink exact to="/">
-          Home
-        </NavLink>
-      </li>
-      {isLoaded && sessionLinks}
-    </ul>
+    <div className="components-border">
+      <div className="flex-space-between">
+        <div className="logo">
+          <NavLink exact to="/">
+            Home
+            {/* <img
+              src="https://companieslogo.com/img/orig/ABNB-4aaade0f.png?t=1633511992"
+              alt=""
+            /> */}
+          </NavLink>
+        </div>
+        <NavLink to="/spots/new">Create a new spot</NavLink>
+        <div>{isLoaded && sessionLinks}</div>
+      </div>
+    </div>
   );
 }
 

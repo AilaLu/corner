@@ -37,7 +37,7 @@ export const spotDetailThunk = (spotId) => async (dispatch) => {
   }
 };
 
-export const createSpot = (spot) => async (dispatch) => {
+export const createSpotThunk = (spot) => async (dispatch) => {
   const res = await fetch("/api/spots", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
