@@ -345,6 +345,7 @@ router.get("/:spotId/bookings", async (req, res) => {
     Bookings: ownerBookings,
   });
 });
+
 //Get all Spots owned by the Current User
 router.get("/current", requireAuth, async (req, res) => {
   let spots = await Spot.findAll({

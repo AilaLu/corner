@@ -48,7 +48,7 @@ export const spotDetailThunk = (spotId) => async (dispatch) => {
   }
 };
 
-export const createSpotThunk = (newSpot) => async (dispatch) => {
+export const createSpotThunk = (newSpot, spotImgs) => async (dispatch) => {
   const res = await csrfFetch("/api/spots", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -58,6 +58,12 @@ export const createSpotThunk = (newSpot) => async (dispatch) => {
   if (res.ok) {
     const newSpotResponse = await res.json();
     // console.log("2. newSpot from database", newSpotResponse);
+    for (let imgObj of spotImgs)
+      await csrfFetch(`/api/spots/${newSpotResponse.id}/images`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(imgObj),
+      });
     return newSpotResponse;
   } else {
     const errors = await res.json();

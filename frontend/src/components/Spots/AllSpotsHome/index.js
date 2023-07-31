@@ -4,11 +4,10 @@ import Spotcard from "../Spotcard";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getSpotsThunk } from "../../../store/spots";
-import { Link } from "react-router-dom";
 
 function AllSpotsHome() {
   const spots = Object.values(
-    useSelector((state) => (state.spots ? state.spots.allSpots : []))
+    useSelector((state) => (state.spots.allSpots ? state.spots.allSpots : []))
   );
   const dispatch = useDispatch();
 

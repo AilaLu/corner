@@ -5,7 +5,9 @@ import { useEffect } from "react";
 import { getCurrentSpotsThunk } from "../../../store/spots";
 
 function ManageSpots() {
-  let spots = useSelector((state) => (state.spots ? state.spots.allSpots : []));
+  let spots = useSelector((state) =>
+    state.spots.allSpots ? state.spots.allSpots : []
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {

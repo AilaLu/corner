@@ -1,7 +1,7 @@
 import React from "react";
 import "./SpotDetailPage.css";
-import { Link, useParams, useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { spotDetailThunk } from "../../../store/spots";
@@ -10,10 +10,9 @@ function SpotDetailPage() {
   let { spotId } = useParams();
   spotId = Number(spotId);
   const dispatch = useDispatch();
-  // const [goTospot, setGoTospot] = useState(spotId);
 
   const spot = useSelector((state) =>
-    state.spots ? state.spots.singleSpot[spotId] : null
+    state.spots.singleSpot ? state.spots.singleSpot[spotId] : null
   );
 
   useEffect(() => {

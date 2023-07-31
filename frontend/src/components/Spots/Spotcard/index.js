@@ -1,10 +1,21 @@
 import React from "react";
 import "./Spotcard.css";
+import { useHistory } from "react-router-dom";
 
 function Spotcard({ spot }) {
+  const history = useHistory();
+
+  const goToSpotDetail = (e) => {
+    e.preventDefault();
+    history.push(`/spots/${spot.id}`);
+  };
+
   return (
     <>
-      <section className="components-border">
+      <section
+        className="components-border hover-cursor-pointer"
+        onClick={goToSpotDetail}
+      >
         <h1>Spotcard{spot.id}</h1>
         <img src={spot.previewImage} alt={spot.name}></img>
         <h2>

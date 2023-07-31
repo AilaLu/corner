@@ -9,7 +9,7 @@ const UpdateSpotForm = () => {
   spotId = Number(spotId);
 
   const spot = useSelector((state) =>
-    state.spots ? state.spots.singleSpot[spotId] : null
+    state.spots.singleSpot ? state.spots.singleSpot[spotId] : null
   );
   const dispatch = useDispatch();
 

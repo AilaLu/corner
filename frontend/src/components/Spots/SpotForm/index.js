@@ -11,17 +11,17 @@ const SpotForm = ({ spot, formType }) => {
   const [address, setAddress] = useState(spot?.address);
   const [city, setCity] = useState(spot?.city);
   const [state, setState] = useState(spot?.state);
-  const [lat, setLat] = useState(spot?.lat);
-  const [lng, setLng] = useState(spot?.lng);
+  // const [lat, setLat] = useState(spot?.lat);
+  // const [lng, setLng] = useState(spot?.lng);
   const [name, setName] = useState(spot?.name);
   const [description, setDescription] = useState(spot?.description);
   const [price, setPrice] = useState(spot?.price);
 
   const [previewImage, setPreviewImage] = useState(spot?.previewImage);
-  // const [image2, setImage2] = useState(spot?.image2);
-  // const [image3, setImage3] = useState(spot?.image3);
-  // const [image4, setImage4] = useState(spot?.image4);
-  // const [image5, setImage5] = useState(spot?.image5);
+  const [image2, setImage2] = useState(spot?.image2);
+  const [image3, setImage3] = useState(spot?.image3);
+  const [image4, setImage4] = useState(spot?.image4);
+  const [image5, setImage5] = useState(spot?.image5);
 
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
@@ -34,34 +34,34 @@ const SpotForm = ({ spot, formType }) => {
     setErrors({});
     spot = { ...spot, country, address, city, state, name, description, price };
 
-    // const spotImgArray = [
-    //   {
-    //     url: previewImage,
-    //     preview: true,
-    //   },
-    //   {
-    //     url: image2,
-    //     preview: false,
-    //   },
-    //   {
-    //     url: image3,
-    //     preview: false,
-    //   },
-    //   {
-    //     url: image4,
-    //     preview: false,
-    //   },
-    //   {
-    //     url: image5,
-    //     preview: false,
-    //   },
-    // ];
+    const spotImgArray = [
+      {
+        url: previewImage,
+        preview: true,
+      },
+      {
+        url: image2,
+        preview: false,
+      },
+      {
+        url: image3,
+        preview: false,
+      },
+      {
+        url: image4,
+        preview: false,
+      },
+      {
+        url: image5,
+        preview: false,
+      },
+    ];
     // console.log("1. user input", spot);
     if (formType === "Update spot") {
-      const editedSpot = await dispatch(updateSpotThunk(spot));
+      const editedSpot = await dispatch(updateSpotThunk(spot, spotImgArray));
       spot = editedSpot;
     } else if (formType === "Create spot") {
-      const newSpot = await dispatch(createSpotThunk(spot));
+      const newSpot = await dispatch(createSpotThunk(spot, spotImgArray));
       // console.log("3. back to form", newSpot);
       spot = newSpot;
     }
@@ -83,7 +83,6 @@ const SpotForm = ({ spot, formType }) => {
             Guests will only get your exact address once they booked a
             reservation.
           </p>
-          <div className="errors">{errors.country}</div>
           <label htmlFor="country">
             Country:
             <input
@@ -94,7 +93,7 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setCountry(e.target.value)}
             />
           </label>
-          <div className="errors">{errors.address}</div>
+          <div className="errors">{errors.country}</div>
           <label>
             Street Address:
             <input
@@ -104,7 +103,7 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setAddress(e.target.value)}
             />
           </label>
-          <div className="errors">{errors.city}</div>
+          <div className="errors">{errors.address}</div>
           <label>
             City:
             <input
@@ -114,7 +113,7 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setCity(e.target.value)}
             />
           </label>
-          <div className="errors">{errors.state}</div>
+          <div className="errors">{errors.city}</div>
           <label>
             State:
             <input
@@ -124,6 +123,7 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setState(e.target.value)}
             />
           </label>
+          <div className="errors">{errors.state}</div>
         </section>
 
         <section className="spot-description underline-container">
@@ -177,22 +177,60 @@ const SpotForm = ({ spot, formType }) => {
           <div className="errors">{errors.price}</div>
         </section>
 
-        {/* <section className="spot-imgs underline-container">
+        <section className="spot-imgs underline-container">
           <h3>Liven up your spot with photos</h3>
           <p>Liven up your spot with photos</p>
           <label>
             <input
               type="url"
-              placeholder="Image URL"
+              placeholder="Preview Image URL"
               value={previewImage}
               onChange={(e) => setPreviewImage(e.target.value)}
             />
           </label>
           <div className="errors">{errors.previewImage}</div>
-        </section> */}
+
+          <label>
+            <input
+              type="url"
+              placeholder="Image URL"
+              value={image2}
+              onChange={(e) => setImage2(e.target.value)}
+            />
+          </label>
+          <div className="errors">{errors.image2}</div>
+          <label>
+            <input
+              type="url"
+              placeholder="Image URL"
+              value={image3}
+              onChange={(e) => setImage3(e.target.value)}
+            />
+          </label>
+          <div className="errors">{errors.image3}</div>
+          <label>
+            <input
+              type="url"
+              placeholder="Image URL"
+              value={image4}
+              onChange={(e) => setImage4(e.target.value)}
+            />
+          </label>
+          <div className="errors">{errors.image4}</div>
+
+          <label>
+            <input
+              type="url"
+              placeholder="Image URL"
+              value={image5}
+              onChange={(e) => setImage5(e.target.value)}
+            />
+          </label>
+          <div className="errors">{errors.image5}</div>
+        </section>
 
         <div className="buttons-container">
-          <button className="red-button" type="submit">
+          <button className="red-button center-self" type="submit">
             {formType}
           </button>
         </div>
