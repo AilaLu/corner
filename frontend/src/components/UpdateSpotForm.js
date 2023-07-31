@@ -1,40 +1,28 @@
-// import { useParams } from 'react-router-dom';
-// import { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-
-// import { fetchDetailedReport } from '../store/reports';
-
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { spotDetailThunk } from "../store/spots";
 import SpotForm from "../components/Spots/SpotForm";
 
-const EditReportForm = () => {
-  const spot = {};
-  //   const { reportId } = useParams();
-  //   const report = useSelector((state) =>
-  //     state.reports ? state.reports[reportId] : null
-  //   );
-  //   const dispatch = useDispatch();
+const UpdateSpotForm = () => {
+  let { spotId } = useParams();
 
-  //   useEffect(() => {
-  //     dispatch(fetchDetailedReport(reportId));
-  //   }, [dispatch, reportId]);
+  const spot = useSelector((state) =>
+    state.spots ? state.spots[spotId] : null
+  );
+  const dispatch = useDispatch();
 
-  //   if (!report) return(<></>);
+  useEffect(() => {
+    dispatch(spotDetailThunk(spotId));
+  }, [dispatch, spotId]);
 
-  //   /* **DO NOT CHANGE THE RETURN VALUE** */
+  if (!spot) return null;
+
   return (
     <div className="components-border">
-      <h2>Edit form</h2>
-      <SpotForm spot={spot} formType="Create spot" />
+      <SpotForm spot={spot} formType="Update spot" />
     </div>
-    //     Object.keys(report).length > 1 && (
-    //       <>
-    //         <ReportForm
-    //           report={report}
-    //           formType="Update Report"
-    //         />
-    //       </>
   );
-  //   );
 };
 
-export default EditReportForm;
+export default UpdateSpotForm;

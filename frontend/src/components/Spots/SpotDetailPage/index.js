@@ -11,16 +11,10 @@ function SpotDetailPage() {
   spotId = Number(spotId);
   const dispatch = useDispatch();
   // const [goTospot, setGoTospot] = useState(spotId);
-  // const spots = Object.values(
-  //   useSelector((state) => (state.spots ? state.spots : []))
-  // );
-  const spot = useSelector((state) =>
-    state.spots ? state.spots[spotId] : null
-  );
 
-  console.log("4. the spotID detail page ", spotId);
-  // console.log("4.5 the spots", spots);
-  console.log("5. the spot", spot);
+  const spot = useSelector((state) =>
+    state.spots ? state.spots.singleSpot[spotId] : null
+  );
 
   useEffect(() => {
     dispatch(spotDetailThunk(spotId));

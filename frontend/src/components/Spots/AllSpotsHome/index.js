@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 function AllSpotsHome() {
   const spots = Object.values(
-    useSelector((state) => (state.spots ? state.spots : []))
+    useSelector((state) => (state.spots ? state.spots.allSpots : []))
   );
   const dispatch = useDispatch();
 

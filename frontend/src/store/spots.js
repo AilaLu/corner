@@ -48,7 +48,7 @@ export const createSpotThunk = (newSpot) => async (dispatch) => {
 
   if (res.ok) {
     const newSpotResponse = await res.json();
-    console.log("2. newSpot from database", newSpotResponse);
+    // console.log("2. newSpot from database", newSpotResponse);
     return newSpotResponse;
   } else {
     const errors = await res.json();
@@ -56,19 +56,49 @@ export const createSpotThunk = (newSpot) => async (dispatch) => {
   }
 };
 
-const initialState = {}; //store shape on github, with 2 keys inside
+export const updateSpotThunk = (updatedSpot) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${updatedSpot.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedSpot),
+  });
+
+  if (res.ok) {
+    const updatedSpotResponse = await res.json();
+    return updatedSpotResponse;
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+};
+
+export const deleteSpotThunk = (spotId) => async (dispatch) => {
+  const res = await fetch(`/api/spots/${spotId}`, {
+    method: "DELETE",
+  });
+
+  if (res.ok) {
+    console.log("be happy");
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+};
+
+const initialState = { allSpots: {}, singleSpot: {} }; //store shape on github, with 2 keys inside
 
 /** Spots reducers: */
 const spotsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SPOTS:
-      const spotsState = {};
+      const allSpots = {};
       action.spots.forEach((spot) => {
-        spotsState[spot.id] = spot;
+        allSpots[spot.id] = spot;
       });
-      return spotsState;
+      return { allSpots: allSpots };
     case GET_SPOT_DETAIL:
-      return { ...state, [action.spot.id]: action.spot };
+      const singleSpot = { [action.spot.id]: action.spot };
+      return { singleSpot: singleSpot };
     // case UPDATE_spot:
     //   return { ...state, [action.spot.id]: action.spot };
     // case REMOVE_spot:

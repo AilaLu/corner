@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createSpotThunk } from "../../../store/spots";
+import { updateSpotThunk } from "../../../store/spots";
 import "./SpotForm.css";
 
 const SpotForm = ({ spot, formType }) => {
@@ -55,13 +56,13 @@ const SpotForm = ({ spot, formType }) => {
     //     preview: false,
     //   },
     // ];
-    console.log("1. user input", spot);
+    // console.log("1. user input", spot);
     if (formType === "Update spot") {
-      // const editedSpot = await dispatch(updatespot(spot));
-      // spot = editedSpot;
+      const editedSpot = await dispatch(updateSpotThunk(spot));
+      spot = editedSpot;
     } else if (formType === "Create spot") {
       const newSpot = await dispatch(createSpotThunk(spot));
-      console.log("3. back to form", newSpot);
+      // console.log("3. back to form", newSpot);
       spot = newSpot;
     }
 
@@ -74,10 +75,9 @@ const SpotForm = ({ spot, formType }) => {
 
   return (
     <div className="center-container">
-      {/* <h2>SpotForm</h2> */}
       <form onSubmit={handleSubmit}>
         <section className="spot-location underline-container">
-          <h2>Create a new spot</h2>
+          <h2>{formType}</h2>
           <h3>Where's your place located?</h3>
           <p>
             Guests will only get your exact address once they booked a
