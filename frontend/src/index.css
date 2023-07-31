@@ -15,13 +15,24 @@
 } */
 
 .red-button {
-  display: block;
-  margin: auto;
   background-color: tomato;
   color: white;
   padding: 10px 100px;
 }
 
-.center {
+.center-children {
   text-align: center;
+}
+
+.center-self {
+  display: block;
+  margin: auto;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.hover-cursor-pointer:hover {
+  cursor: pointer;
 }

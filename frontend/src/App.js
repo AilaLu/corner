@@ -6,8 +6,9 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import AllSpotsHome from "./components/Spots/AllSpotsHome";
 import SpotDetailPage from "./components/Spots/SpotDetailPage";
-import CreateSpotForm from "./components/CreateSpotForm";
-import UpdateSpotForm from "./components/UpdateSpotForm";
+import CreateSpotForm from "./components/Spots/CreateSpotForm";
+import UpdateSpotForm from "./components/Spots/UpdateSpotForm";
+import ManageSpots from "./components/Spots/ManageSpots";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ function App() {
           <Route exact path="/spots/new">
             <CreateSpotForm />
           </Route>
+          <Route exact path="/spots/current">
+            <ManageSpots />
+          </Route>
           <Route exact path="/spots/:spotId">
             <SpotDetailPage />
           </Route>
@@ -35,6 +39,7 @@ function App() {
           </Route>
           <Route path="/login"></Route>
           <Route path="/signup"></Route>
+          <Route>Can't find page</Route>
         </Switch>
       )}
     </div>

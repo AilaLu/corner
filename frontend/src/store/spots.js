@@ -27,6 +27,15 @@ export const getSpotsThunk = () => async (dispatch) => {
   }
 };
 
+export const getCurrentSpotsThunk = () => async (dispatch) => {
+  const res = await csrfFetch("/api/spots/current");
+  if (res.ok) {
+    const spots = await res.json();
+    const spotsArr = spots.Spots;
+    dispatch(getSpotsAction(spotsArr));
+  }
+};
+
 export const spotDetailThunk = (spotId) => async (dispatch) => {
   const res = await fetch(`/api/spots/${spotId}`);
 
@@ -73,12 +82,13 @@ export const updateSpotThunk = (updatedSpot) => async (dispatch) => {
 };
 
 export const deleteSpotThunk = (spotId) => async (dispatch) => {
-  const res = await fetch(`/api/spots/${spotId}`, {
+  const res = await csrfFetch(`/api/spots/${spotId}`, {
     method: "DELETE",
   });
 
   if (res.ok) {
-    console.log("be happy");
+    dispatch(getCurrentSpotsThunk());
+    // dispatch the thunk that get all user spots in delete spot thunk.
   } else {
     const errors = await res.json();
     return errors;
@@ -99,12 +109,6 @@ const spotsReducer = (state = initialState, action) => {
     case GET_SPOT_DETAIL:
       const singleSpot = { [action.spot.id]: action.spot };
       return { singleSpot: singleSpot };
-    // case UPDATE_spot:
-    //   return { ...state, [action.spot.id]: action.spot };
-    // case REMOVE_spot:
-    //   const newState = { ...state };
-    //   delete newState[action.spotId];
-    //   return newState;
     default:
       return state;
   }

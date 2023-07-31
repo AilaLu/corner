@@ -1,4 +1,4 @@
-import SpotForm from "../components/Spots/SpotForm";
+import SpotForm from "./SpotForm";
 
 const CreateSpotForm = () => {
   const spot = {};

@@ -1,14 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { spotDetailThunk } from "../store/spots";
-import SpotForm from "../components/Spots/SpotForm";
+import { spotDetailThunk } from "../../store/spots";
+import SpotForm from "./SpotForm";
 
 const UpdateSpotForm = () => {
   let { spotId } = useParams();
+  spotId = Number(spotId);
 
   const spot = useSelector((state) =>
-    state.spots ? state.spots[spotId] : null
+    state.spots ? state.spots.singleSpot[spotId] : null
   );
   const dispatch = useDispatch();
 
