@@ -1,14 +1,11 @@
 import SpotForm from "../components/Spots/SpotForm";
 
 const CreateSpotForm = () => {
-  const spot = {
-    understanding: "",
-    improvement: "",
-  };
+  const spot = {};
 
   return (
     <div className="components-border">
-      <SpotForm spot={spot} formType="Create a new spot" />
+      <SpotForm spot={spot} formType="Create spot" />
     </div>
   );
 };

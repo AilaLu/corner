@@ -4,32 +4,37 @@
 
 // import { fetchDetailedReport } from '../store/reports';
 
-// import ReportForm from './ReportForm';
+import SpotForm from "../components/Spots/SpotForm";
 
-// const EditReportForm = () => {
-//   const { reportId } = useParams();
-//   const report = useSelector((state) =>
-//     state.reports ? state.reports[reportId] : null
-//   );
-//   const dispatch = useDispatch();
+const EditReportForm = () => {
+  const spot = {};
+  //   const { reportId } = useParams();
+  //   const report = useSelector((state) =>
+  //     state.reports ? state.reports[reportId] : null
+  //   );
+  //   const dispatch = useDispatch();
 
-//   useEffect(() => {
-//     dispatch(fetchDetailedReport(reportId));
-//   }, [dispatch, reportId]);
+  //   useEffect(() => {
+  //     dispatch(fetchDetailedReport(reportId));
+  //   }, [dispatch, reportId]);
 
-//   if (!report) return(<></>);
+  //   if (!report) return(<></>);
 
-//   /* **DO NOT CHANGE THE RETURN VALUE** */
-//   return (
-//     Object.keys(report).length > 1 && (
-//       <>
-//         <ReportForm
-//           report={report}
-//           formType="Update Report"
-//         />
-//       </>
-//     )
-//   );
-// };
+  //   /* **DO NOT CHANGE THE RETURN VALUE** */
+  return (
+    <div className="components-border">
+      <h2>Edit form</h2>
+      <SpotForm spot={spot} formType="Create spot" />
+    </div>
+    //     Object.keys(report).length > 1 && (
+    //       <>
+    //         <ReportForm
+    //           report={report}
+    //           formType="Update Report"
+    //         />
+    //       </>
+  );
+  //   );
+};
 
-// export default EditReportForm;
+export default EditReportForm;

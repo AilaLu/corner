@@ -7,27 +7,36 @@ import { useDispatch, useSelector } from "react-redux";
 import { spotDetailThunk } from "../../../store/spots";
 
 function SpotDetailPage() {
-  const { spotId } = useParams();
+  let { spotId } = useParams();
+  spotId = Number(spotId);
   const dispatch = useDispatch();
   // const [goTospot, setGoTospot] = useState(spotId);
+  // const spots = Object.values(
+  //   useSelector((state) => (state.spots ? state.spots : []))
+  // );
   const spot = useSelector((state) =>
     state.spots ? state.spots[spotId] : null
   );
+
+  console.log("4. the spotID detail page ", spotId);
+  // console.log("4.5 the spots", spots);
+  console.log("5. the spot", spot);
 
   useEffect(() => {
     dispatch(spotDetailThunk(spotId));
   }, [dispatch, spotId]);
 
+  if (!spot) return null;
   return (
     <div className="components-border">
       <h3>
-        SpotDetailPage {spot.id} {spot.name}
+        SpotDetail SpotDetailPage {spot.id} {spot.name}
       </h3>
       <h4>
         {spot.city} {spot.state} {spot.country}
       </h4>
 
-      {/* <section className="spot-imgs">
+      <section className="spot-imgs">
         <ul>
           {spot.SpotImages.map((img) => (
             <li key={img.url}>
@@ -35,9 +44,9 @@ function SpotDetailPage() {
             </li>
           ))}
         </ul>
-      </section> */}
+      </section>
 
-      {/* <section className="spot-description-and reserve-card">
+      <section className="spot-description-and reserve-card">
         <section className="spot-description">
           <h3>
             Hosted By {spot.Owner.firstName} {spot.Owner.lastName}
@@ -51,9 +60,11 @@ function SpotDetailPage() {
               {spot.avgRating} {spot.numReviews}
             </div>
           </div>
-          <button>Reserve</button>
+          <div className="buttons-container">
+            <button className="red-button">Reserve</button>
+          </div>
         </section>
-      </section> */}
+      </section>
       {/* reviews */}
     </div>
   );

@@ -1,3 +1,5 @@
+import { csrfFetch } from "../store/csrf";
+
 //type CRUD
 /** Action Type Constants: */
 export const GET_SPOTS = "spots/GET_SPOTS";
@@ -37,16 +39,17 @@ export const spotDetailThunk = (spotId) => async (dispatch) => {
   }
 };
 
-export const createSpotThunk = (spot) => async (dispatch) => {
-  const res = await fetch("/api/spots", {
+export const createSpotThunk = (newSpot) => async (dispatch) => {
+  const res = await csrfFetch("/api/spots", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(spot),
+    body: JSON.stringify(newSpot),
   });
 
   if (res.ok) {
-    const newspot = await res.json();
-    return newspot;
+    const newSpotResponse = await res.json();
+    console.log("2. newSpot from database", newSpotResponse);
+    return newSpotResponse;
   } else {
     const errors = await res.json();
     return errors;

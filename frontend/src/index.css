@@ -1,9 +1,27 @@
 /* TODO Add site wide styles */
-.app-frame {
+/* .app-frame {
   border: 5px solid grey;
-}
+} */
 
 .components-border {
   border: 3px rgb(198, 77, 77) solid;
   padding: 50px;
+}
+
+/* .buttons-container {
+  border: 2px solid black;
+  text-align: center;
+  background-color: burlywood;
+} */
+
+.red-button {
+  display: block;
+  margin: auto;
+  background-color: tomato;
+  color: white;
+  padding: 10px 100px;
+}
+
+.center {
+  text-align: center;
 }
