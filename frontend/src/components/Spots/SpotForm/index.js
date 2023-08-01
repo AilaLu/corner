@@ -62,8 +62,9 @@ const SpotForm = ({ spot, formType }) => {
       spot = editedSpot;
     } else if (formType === "Create spot") {
       const newSpot = await dispatch(createSpotThunk(spot, spotImgArray));
-      // console.log("3. back to form", newSpot);
+      console.log("3. back to form", newSpot);
       spot = newSpot;
+      console.log(spot);
     }
 
     if (spot.errors) {

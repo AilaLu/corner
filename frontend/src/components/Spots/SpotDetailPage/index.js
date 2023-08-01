@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { spotDetailThunk } from "../../../store/spots";
+import AllReviews from "../../Reviews/AllReviews";
 
 function SpotDetailPage() {
   let { spotId } = useParams();
@@ -58,7 +59,7 @@ function SpotDetailPage() {
           </div>
         </section>
       </section>
-      {/* reviews */}
+      <AllReviews />
     </div>
   );
 }

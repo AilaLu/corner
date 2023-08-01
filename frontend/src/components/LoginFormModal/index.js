@@ -29,7 +29,7 @@ function LoginFormModal() {
   };
 
   return (
-    <>
+    <div className="center-children">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -52,8 +52,11 @@ function LoginFormModal() {
         </label>
         {errors.credential && <p>{errors.credential}</p>}
         <button type="submit">Log In</button>
+        <button className="demo-user-login" type="submit">
+          Demo User
+        </button>
       </form>
-    </>
+    </div>
   );
 }
 

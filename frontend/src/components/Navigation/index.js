@@ -15,7 +15,7 @@ function Navigation({ isLoaded }) {
     sessionLinks = <ProfileButton user={sessionUser} />;
   } else {
     sessionLinks = (
-      <li>
+      <div>
         <OpenModalButton
           buttonText="Log In"
           modalComponent={<LoginFormModal />}
@@ -24,7 +24,7 @@ function Navigation({ isLoaded }) {
           buttonText="Sign Up"
           modalComponent={<SignupFormModal />}
         />
-      </li>
+      </div>
     );
   }
 

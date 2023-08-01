@@ -1,16 +1,18 @@
-import { deleteSpotThunk } from "../../../store/spots";
+// import { deleteSpotThunk } from "../../../store/spots";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Spotcard from "../Spotcard";
+import OpenModalButton from "../../OpenModalButton";
+import DeleteModal from "../DeleteSpotModal";
 
 export default function ManageSpotcard({ spot }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleDelete = (e) => {
-    e.preventDefault();
-    dispatch(deleteSpotThunk(spot.id));
-  };
+  // const handleDelete = (e) => {
+  //   e.preventDefault();
+  //   dispatch(deleteSpotThunk(spot.id));
+  // };
 
   const handleEdit = (e) => {
     e.preventDefault();
@@ -30,12 +32,10 @@ export default function ManageSpotcard({ spot }) {
         >
           Edit
         </button>
-        <button
-          className="red-button hover-cursor-pointer"
-          onClick={handleDelete}
-        >
-          Delete
-        </button>
+        <OpenModalButton
+          buttonText="Delete"
+          modalComponent={<DeleteModal deleteType={"spot"} spotId={spot.id} />}
+        />
       </div>
     </div>
   );

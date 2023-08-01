@@ -55,6 +55,7 @@ export const createSpotThunk = (newSpot, spotImgs) => async (dispatch) => {
     body: JSON.stringify(newSpot),
   });
 
+  console.log(res);
   if (res.ok) {
     const newSpotResponse = await res.json();
     // console.log("2. newSpot from database", newSpotResponse);
@@ -67,6 +68,7 @@ export const createSpotThunk = (newSpot, spotImgs) => async (dispatch) => {
     return newSpotResponse;
   } else {
     const errors = await res.json();
+    console.log(errors);
     return errors;
   }
 };
@@ -93,6 +95,7 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
   });
 
   if (res.ok) {
+    console.log("delete res ok");
     dispatch(getCurrentSpotsThunk());
     // dispatch the thunk that get all user spots in delete spot thunk.
   } else {
