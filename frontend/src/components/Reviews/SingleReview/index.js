@@ -1,21 +1,23 @@
 import React from "react";
 
-export default function SingleReview({ spot }) {
+export default function SingleReview({ review }) {
+  let time;
+  if (review.createdAt !== review.updatedAt) {
+    time = review.updatedAt;
+  }
+  if (review.createdAt === review.updatedAt) {
+    time = review.createdAt;
+  }
+
   return (
     <>
       <section className="components-border">
-        <h1>Review{spot.id}</h1>
-        <img src={spot.previewImage} alt={spot.name}></img>
-        <h2>
-          {spot.city}, {spot.state}
-        </h2>
+        <h1>{review.id}</h1>
+        <div>{review.User.firstName}</div>
         <div>
-          <i className="fa-solid fa-star"></i> {spot.avgRating}
+          {time.slice(5, 7)} {time.slice(0, 4)}
         </div>
-        <div>
-          <i className="fa-solid fa-dollar-sign"></i>
-          {spot.price} night
-        </div>
+        <p>{review.review}</p>
       </section>
     </>
   );

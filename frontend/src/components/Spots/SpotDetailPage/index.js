@@ -49,9 +49,12 @@ function SpotDetailPage() {
         </section>
         <section className="reserve-card">
           <div>
+            <i className="fa-solid fa-dollar-sign"></i>
             {spot.price}
             <div>
-              {spot.avgRating} {spot.numReviews}
+              <i className="fa-solid fa-star"></i>
+              {spot.avgRating} <i className="fa-solid fa-hashtag"></i>
+              {spot.numReviews}
             </div>
           </div>
           <div className="buttons-container">
@@ -59,7 +62,7 @@ function SpotDetailPage() {
           </div>
         </section>
       </section>
-      <AllReviews />
+      <AllReviews spotId={spotId} />
     </div>
   );
 }
