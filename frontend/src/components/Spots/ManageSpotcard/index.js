@@ -34,7 +34,7 @@ export default function ManageSpotcard({ spot }) {
         </button>
         <OpenModalButton
           buttonText="Delete"
-          modalComponent={<DeleteModal deleteType={"spot"} spotId={spot.id} />}
+          modalComponent={<DeleteModal spotId={spot.id} />}
         />
       </div>
     </div>

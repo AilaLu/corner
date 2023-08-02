@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { deleteReviewThunk } from "../../../store/spots";
 
-export default function DeleteModal({ spotId }) {
+export default function DeleteReviewModal({ spotId }) {
   const dispatch = useDispatch();
 
   const { closeModal } = useModal();
