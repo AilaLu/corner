@@ -18,8 +18,8 @@ export default function AllReviews({ spotId }) {
 
   if (!reviews) return null;
   return (
-    <>
-      <h1 className="components-border">Reviews</h1>
+    <div className="components-border">
+      <button className="grey button">Post Your Review</button>
       <ul>
         {reviews.map((review) => (
           <li key={review.id}>
@@ -27,6 +27,6 @@ export default function AllReviews({ spotId }) {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }

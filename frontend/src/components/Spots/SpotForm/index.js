@@ -231,7 +231,7 @@ const SpotForm = ({ spot, formType }) => {
         </section>
 
         <div className="buttons-container">
-          <button className="red-button center-self" type="submit">
+          <button className="red button center-self" type="submit">
             {formType}
           </button>
         </div>

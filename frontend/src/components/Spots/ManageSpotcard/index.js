@@ -27,7 +27,7 @@ export default function ManageSpotcard({ spot }) {
       <Spotcard spot={spot} />
       <div className="edit-delete-buttons-container">
         <button
-          className="red-button hover-cursor-pointer"
+          className="red button hover-cursor-pointer"
           onClick={handleEdit}
         >
           Edit

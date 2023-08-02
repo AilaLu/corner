@@ -58,9 +58,16 @@ function SpotDetailPage() {
             </div>
           </div>
           <div className="buttons-container">
-            <button className="red-button">Reserve</button>
+            <button className="red button">Reserve</button>
           </div>
         </section>
+      </section>
+      <section className="spot-reviews">
+        <div>
+          <i className="fa-solid fa-star"></i>
+          {spot.avgRating} <i className="fa-solid fa-hashtag"></i>
+          {spot.numReviews}
+        </div>
       </section>
       <AllReviews spotId={spotId} />
     </div>

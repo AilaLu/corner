@@ -20,10 +20,17 @@
   background-color: burlywood;
 } */
 
-.red-button {
-  background-color: tomato;
+.button {
   color: white;
   padding: 10px 100px;
+}
+
+.red {
+  background-color: tomato;
+}
+
+.grey {
+  background-color: grey;
 }
 
 .center-children {
