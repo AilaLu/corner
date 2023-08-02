@@ -70,7 +70,7 @@ const SpotForm = ({ spot, formType }) => {
     if (spot.errors) {
       setErrors(spot.errors);
     } else {
-      history.push(`/spots/${spot.id}`);
+      // history.push(`/spots/${spot.id}`);
     }
   };
 

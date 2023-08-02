@@ -25,6 +25,10 @@
   padding: 10px 100px;
 }
 
+.errors {
+  color: tomato;
+}
+
 .red {
   background-color: tomato;
 }
