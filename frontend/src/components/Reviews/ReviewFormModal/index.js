@@ -35,7 +35,7 @@ export default function ReviewFormModal({ spotId }) {
           <span>Stars</span>
         </div>
         <button className="disabled button" type="submit">
-          Yes(Delete Review)
+          Submit Your Review
         </button>
       </form>
     </div>

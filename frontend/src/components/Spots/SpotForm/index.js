@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createSpotThunk } from "../../../store/spots";
@@ -62,9 +62,9 @@ const SpotForm = ({ spot, formType }) => {
       spot = editedSpot;
     } else if (formType === "Create spot") {
       const newSpot = await dispatch(createSpotThunk(spot, spotImgArray));
-      console.log("3. back to form", newSpot);
+      // console.log("3. back to form", newSpot);
       spot = newSpot;
-      console.log(spot);
+      console.log(spot.errors);
     }
 
     if (spot.errors) {
@@ -73,6 +73,10 @@ const SpotForm = ({ spot, formType }) => {
       history.push(`/spots/${spot.id}`);
     }
   };
+
+  useEffect(() => {
+    console.log("useeffect detected");
+  }, [errors]);
 
   return (
     <div className="center-container">
