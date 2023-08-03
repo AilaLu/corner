@@ -72,7 +72,7 @@ function SpotDetailPage() {
             </div>
           </div>
           <div className="buttons-container">
-            <button className="red button">Reserve</button>
+            <button className="red big button">Reserve</button>
           </div>
         </section>
       </section>
