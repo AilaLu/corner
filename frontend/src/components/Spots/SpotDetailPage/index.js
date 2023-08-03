@@ -30,6 +30,7 @@ function SpotDetailPage() {
   //new spot not showing review numbers and show New!
   if (isNaN(spot.avgRating)) oldSpot = "hide";
   if (spot.avgRating > 0) newSpot = "hide";
+  //if the current user is the spot owner, hide the Post your review popup modal in the AllReviews component
   if (sessionUser.id === spot.ownerId) hidePostBtn = "hide";
 
   return (
