@@ -4,6 +4,7 @@ import { useModal } from "../../../context/Modal";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { createReviewThunk } from "../../../store/reviews";
+import { getSpotReviewsThunk } from "../../../store/reviews";
 
 export default function ReviewFormModal({ spotId }) {
   const starEmpty = "fa-regular fa-star";
