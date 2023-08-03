@@ -42,6 +42,10 @@
   background-color: lightgray;
 }
 
+.time {
+  color: rgb(173, 173, 173);
+}
+
 .red {
   background-color: tomato;
 }

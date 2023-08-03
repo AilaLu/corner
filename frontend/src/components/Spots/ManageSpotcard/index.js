@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Spotcard from "../Spotcard";
 import OpenModalButton from "../../OpenModalButton";
-import DeleteModal from "../DeleteSpotModal";
+import DeleteSpotModal from "../DeleteSpotModal";
 
 export default function ManageSpotcard({ spot }) {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ export default function ManageSpotcard({ spot }) {
         </button>
         <OpenModalButton
           buttonText="Delete"
-          modalComponent={<DeleteModal spotId={spot.id} />}
+          modalComponent={<DeleteSpotModal spotId={spot.id} />}
         />
       </div>
     </div>

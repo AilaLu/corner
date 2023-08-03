@@ -99,7 +99,6 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
   });
 
   if (res.ok) {
-    console.log("delete res ok");
     dispatch(getCurrentSpotsThunk());
     // dispatch the thunk that get all user spots in delete spot thunk.
   } else {

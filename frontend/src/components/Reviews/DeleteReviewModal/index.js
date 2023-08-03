@@ -1,15 +1,14 @@
 // Render a pop up to see if you want to delete or not
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
-import { deleteReviewThunk } from "../../../store/spots";
-
-export default function DeleteReviewModal({ spotId }) {
+import { deleteReviewThunk } from "../../../store/reviews";
+export default function DeleteReviewModal({ review }) {
   const dispatch = useDispatch();
 
   const { closeModal } = useModal();
   const handleYes = (e) => {
     e.preventDefault();
-    // dispatch(deleteSpotThunk(spotId)).then(closeModal);
+    dispatch(deleteReviewThunk(review)).then(closeModal);
   };
 
   return (

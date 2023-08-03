@@ -19,26 +19,34 @@ export default function AllReviews({ spotId, hidePostBtn }) {
 
   const sessionUser = useSelector((state) => state.session.user);
   //if the user have posted on this spot already, hide the post your view button with the popup Modal
-  let postReviewAlready = "";
-  if (reviews.find((review) => review.userId === sessionUser.id))
-    postReviewAlready = "hide";
+  let posted = "";
+  let sessionUserReview = reviews.find(
+    (review) => review.userId === sessionUser.id
+  );
+  if (sessionUserReview) posted = "hide";
 
   if (!reviews) return null;
   if (!sessionUser) return null;
   return (
     <div className="components-border">
-      <div className={`${hidePostBtn} ${postReviewAlready}`}>
+      <div className={`${hidePostBtn} ${posted}`}>
         <OpenModalButton
           buttonText="Post Your Review"
           modalComponent={<ReviewFormModal spotId={spotId} />}
         />
       </div>
       <ul>
-        {reviews.map((review) => (
-          <li key={review.id}>
-            <SingleReview review={review} />
-          </li>
-        ))}
+        {reviews
+          .slice() //make a shallow copy if you don't want the original array reversed
+          .reverse() //or you can use toReversed() without the slice()
+          .map((review) => (
+            <li key={review.id}>
+              <SingleReview
+                review={review}
+                sessionUserReview={sessionUserReview}
+              />
+            </li>
+          ))}
       </ul>
     </div>
   );

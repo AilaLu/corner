@@ -33,6 +33,7 @@ export const getSpotReviewsThunk = (spotId) => async (dispatch) => {
   }
 };
 
+//! check everything especially route
 // export const getUserReviewsThunk = () => async (dispatch) => {
 //   const res = await csrfFetch("/api/reviews/current");
 //   if (res.ok) {
@@ -63,6 +64,19 @@ export const createReviewThunk = (newReview, spotId) => async (dispatch) => {
     }
   } catch (error) {
     const errors = await error.json();
+    return errors;
+  }
+};
+
+export const deleteReviewThunk = (review) => async (dispatch) => {
+  const res = await csrfFetch(`/api/reviews/${review.id}`, {
+    method: "DELETE",
+  });
+
+  if (res.ok) {
+    dispatch(getSpotReviewsThunk(review.spotId));
+  } else {
+    const errors = await res.json();
     return errors;
   }
 };
