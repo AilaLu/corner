@@ -108,10 +108,7 @@ const createSpotChecker = (req, res, next) => {
     description,
     price,
   } = req.body;
-  console.log(
-    "logging spot name from api ====================================",
-    typeof name
-  );
+
   const errors = {};
   if (!address) errors.address = "Street address is required";
   if (!city) errors.city = "City is required";

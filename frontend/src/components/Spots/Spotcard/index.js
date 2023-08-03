@@ -10,6 +10,11 @@ function Spotcard({ spot }) {
     history.push(`/spots/${spot.id}`);
   };
 
+  let oldSpot = "";
+  let newSpot = "";
+  if (isNaN(spot.avgRating)) oldSpot = "hide";
+  if (spot.avgRating > 0) newSpot = "hide";
+
   return (
     <>
       <section
@@ -22,7 +27,9 @@ function Spotcard({ spot }) {
           {spot.city}, {spot.state}
         </h2>
         <div>
-          <i className="fa-solid fa-star"></i> {spot.avgRating}
+          <i className="fa-solid fa-star"></i>{" "}
+          <span className={oldSpot}>{spot.avgRating}</span>{" "}
+          <span className={newSpot}>New</span>
         </div>
         <div>
           <i className="fa-solid fa-dollar-sign"></i>

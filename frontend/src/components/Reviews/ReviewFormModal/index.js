@@ -11,43 +11,60 @@ export default function ReviewFormModal({ spotId }) {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
   const [stars, setStars] = useState(rating);
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
 
   const { closeModal } = useModal();
 
   const sessionUser = useSelector((state) => state.session.user);
 
-  const handleSubmitReview = (e) => {
+  const handleSubmitReview = async (e) => {
     e.preventDefault();
+    setErrors({});
     let nextReview = {
       review,
       stars,
       User: { ...sessionUser },
       spotId,
     };
-    dispatch(createReviewThunk(nextReview, spotId)).then(closeModal);
+    let newReview = await dispatch(createReviewThunk(nextReview, spotId)).then(
+      closeModal
+    );
+
+    // if (newReview.errors) {
+    // setErrors(newReview.errors);
+    // }
+    console.log(
+      "***in review form*** --getting the errors of invalid reviews from the backend----,",
+      newReview
+    );
   };
 
+  //tracking the clicked rating changing
   useEffect(() => {
     setStars(rating);
   }, [rating]);
 
+  //a component to set all the event listeners to div tag class
   const starIcon = (number) => {
     const onChange = (number) => {
       setRating(parseInt(number));
     };
     const props = {};
     props.onMouseEnter = () => setStars(number);
+    //on hover the star reflects it
     props.onMouseLeave = () => setStars(rating);
+    //on leave still shows the prev rating
     props.onClick = () => onChange(number);
+    //on click set the rating to the number
     return (
-      <div
+      <i
         key={number}
         className={stars >= number ? starFilled : starEmpty}
         {...props}
       >
-        {/* <i className={starEmpty}></i> */}
-      </div>
+        {" "}
+      </i> //the star icon from fontawesome with all the event listeners!
     );
   };
 

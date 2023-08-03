@@ -16,16 +16,26 @@ function SpotDetailPage() {
     state.spots.singleSpot ? state.spots.singleSpot[spotId] : null
   );
 
+  const sessionUser = useSelector((state) => state.session.user);
+
   useEffect(() => {
     dispatch(spotDetailThunk(spotId));
   }, [dispatch, spotId]);
+  let oldSpot = "";
+  let newSpot = "";
+  let hidePostBtn = "";
 
   if (!spot) return null;
+  if (!sessionUser) return null;
+  //new spot not showing review numbers and show New!
+  if (isNaN(spot.avgRating)) oldSpot = "hide";
+  if (spot.avgRating > 0) newSpot = "hide";
+  if (sessionUser.id === spot.ownerId) hidePostBtn = "hide";
+
   return (
     <div className="components-border">
-      <h3>
-        SpotDetail SpotDetailPage {spot.id} {spot.name}
-      </h3>
+      <h1>SpotDetail SpotDetailPage {spot.id} </h1>
+      <h3>{spot.name}</h3>
       <h4>
         {spot.city} {spot.state} {spot.country}
       </h4>
@@ -51,10 +61,13 @@ function SpotDetailPage() {
           <div>
             <i className="fa-solid fa-dollar-sign"></i>
             {spot.price}
-            <div>
+            <div className="review-stats">
               <i className="fa-solid fa-star"></i>
-              {spot.avgRating} <i className="fa-solid fa-hashtag"></i>
-              {spot.numReviews}
+              <span className={oldSpot}>{spot.avgRating}</span>{" "}
+              <span className={newSpot}>New</span>
+              {/* <i class="fa-solid fa-circle"></i> */}
+              <i className={`fa-solid fa-hashtag ${oldSpot}`}></i>
+              <span className={oldSpot}>{spot.numReviews}</span>
             </div>
           </div>
           <div className="buttons-container">
@@ -63,13 +76,15 @@ function SpotDetailPage() {
         </section>
       </section>
       <section className="spot-reviews">
-        <div>
+        <div className="review-stats">
           <i className="fa-solid fa-star"></i>
-          {spot.avgRating} <i className="fa-solid fa-hashtag"></i>
-          {spot.numReviews}
+          <span className={oldSpot}>{spot.avgRating}</span>{" "}
+          <span className={newSpot}>New</span>{" "}
+          <i className={`fa-solid fa-hashtag ${oldSpot}`}></i>
+          <span className={oldSpot}>{spot.numReviews}</span>
         </div>
       </section>
-      <AllReviews spotId={spotId} />
+      <AllReviews spotId={spotId} hidePostBtn={hidePostBtn} />
     </div>
   );
 }

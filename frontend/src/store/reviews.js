@@ -54,6 +54,7 @@ export const createReviewThunk = (newReview, spotId) => async (dispatch) => {
     // console.log(res);
     if (res.ok) {
       const newReviewResponse = await res.json();
+      dispatch(getSpotReviewsThunk());
       // console.log("2. newReview from database", newReviewResponse);
       return newReviewResponse;
     } else {
