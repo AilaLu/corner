@@ -18,7 +18,7 @@ export default function AllReviews({ spotId, hidePostBtn }) {
   }, [dispatch]);
 
   const sessionUser = useSelector((state) => state.session.user);
-  //if the user have posted on this spot already, hide the post your view button
+  //if the user have posted on this spot already, hide the post your view button with the popup Modal
   let postReviewAlready = "";
   if (reviews.find((review) => review.userId === sessionUser.id))
     postReviewAlready = "hide";
