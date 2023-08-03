@@ -24,15 +24,37 @@ const SpotForm = ({ spot, formType }) => {
   const [image5, setImage5] = useState("");
 
   const [errors, setErrors] = useState({});
+  // const [validationErrors, setValidationErrors] = useState({});
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
   const sessionUser = useSelector((state) => state.session.user);
   let backendErrors = {};
 
+  // console.log("errors from api =========", errors);
+
+  useEffect(() => {
+    const errors = {};
+    if (!address) errors.address = "Street address is required";
+    if (!city) errors.city = "City is required";
+    if (!state) errors.state = "State is required";
+    if (!country) errors.country = "Country is required";
+    if (!name) errors.name = "Spot title is required";
+    if (name.length >= 50) errors.name = "Name must be less than 50 characters";
+    if (!description) errors.description = "Description is required";
+    if (description.length <= 30)
+      errors.description = "Description must be more than 30 characters";
+    if (!price) errors.price = "Price per day is required";
+    if (!previewImage) errors.previewImage = "Preview Image is required";
+    setErrors(errors);
+  }, [country, address, city, state, description, name, price, previewImage]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors({});
+    setHasSubmitted(true);
+    // setErrors({});
     spot = {
       ...spot,
       country,
@@ -78,21 +100,11 @@ const SpotForm = ({ spot, formType }) => {
     }
     backendErrors = spot.errors;
     if (backendErrors) {
-      setErrors(backendErrors);
+      // setErrors(backendErrors);
     } else {
       history.push(`/spots/${spot.id}`);
     }
   };
-
-  // useEffect(() => {
-  //   let frontendErrors = {};
-  //   if (!previewImage.length) {
-  //     frontendErrors.previewImage = "PreviewImage is required";
-  //   }
-  //   const mergedObjErrors = Object.assign(backendErrors, frontendErrors);
-  //   console.log(mergedObjErrors);
-  //   setErrors(mergedObjErrors);
-  // }, []);
 
   return (
     <div className="center-container">
@@ -114,7 +126,12 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setCountry(e.target.value)}
             />
           </label>
-          <div className="errors">{errors.country}</div>
+          {/*  {hasSubmitted &&
+              validationErrors.name &&
+              `* ${validationErrors.name}`} */}
+          <div className="errors">
+            {hasSubmitted && errors.country && `${errors.country}`}
+          </div>
           <label>
             Street Address:
             <input
@@ -250,11 +267,9 @@ const SpotForm = ({ spot, formType }) => {
           <div className="errors">{errors.image5}</div>
         </section>
 
-        <div className="buttons-container">
-          <button className="red button center-self" type="submit">
-            {formType}
-          </button>
-        </div>
+        <button className="small red button center-self" type="submit">
+          {formType}
+        </button>
       </form>
     </div>
   );

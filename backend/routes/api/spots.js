@@ -119,7 +119,7 @@ const createSpotChecker = (req, res, next) => {
   if (name.length >= 50) errors.name = "Name must be less than 50 )characters";
   if (!description) errors.description = "Description is required";
   if (!price) errors.price = "Price per day is required";
-  console.log("errors from api =========", errors);
+  // console.log("errors from api =========", errors);
   if (Object.keys(errors).length > 0) {
     return res.status(400).json({
       message: "Bad Request",

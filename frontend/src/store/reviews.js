@@ -27,7 +27,6 @@ export const getSpotReviewsThunk = (spotId) => async (dispatch) => {
   const res = await fetch(`/api/spots/${spotId}/reviews`);
   if (res.ok) {
     const reviews = await res.json();
-    //thunk response is the postman response, with a obj of Reviews, page, size. Reviews has an array of objs
     const reviewsArr = reviews.Reviews;
     dispatch(getSpotReviewsAction(reviewsArr));
   }
@@ -38,7 +37,6 @@ export const getSpotReviewsThunk = (spotId) => async (dispatch) => {
 //   const res = await csrfFetch("/api/reviews/current");
 //   if (res.ok) {
 //     const reviews = await res.json();
-//     //thunk response is the postman response, with a obj of Reviews, page, size. Reviews has an array of objs
 //     const reviewsArr = reviews.Reviews;
 //     dispatch(getUserReviewsAction(reviewsArr));
 //   }
