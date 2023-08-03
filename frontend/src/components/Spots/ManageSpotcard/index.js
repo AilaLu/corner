@@ -22,8 +22,6 @@ export default function ManageSpotcard({ spot }) {
   if (!spot) return null;
   return (
     <div className="components-border">
-      <h1>ManageSpotcard</h1>
-
       <Spotcard spot={spot} />
       <div className="edit-delete-buttons-container">
         <button

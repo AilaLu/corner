@@ -1,4 +1,8 @@
 .navlink-to-btn {
   border: 2px solid black;
-  margin: 50px;
+  text-decoration: none;
+}
+
+.manage-spots {
+  margin-bottom: 20px;
 }

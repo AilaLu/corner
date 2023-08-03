@@ -18,7 +18,7 @@ function ManageSpots() {
   if (!spots) return null;
   return (
     <div className="components-border">
-      <h1>Manage Spots</h1>
+      <h1 className="manage-spots">Manage Spots</h1>
       <NavLink className="navlink-to-btn button grey small" to="/spots/new">
         Create a new spot
       </NavLink>
