@@ -17,23 +17,34 @@ const SpotForm = ({ spot, formType }) => {
   const [description, setDescription] = useState(spot?.description);
   const [price, setPrice] = useState(spot?.price);
 
-  const [previewImage, setPreviewImage] = useState(spot?.previewImage);
-  const [image2, setImage2] = useState(spot?.image2);
-  const [image3, setImage3] = useState(spot?.image3);
-  const [image4, setImage4] = useState(spot?.image4);
-  const [image5, setImage5] = useState(spot?.image5);
+  const [previewImage, setPreviewImage] = useState("");
+  const [image2, setImage2] = useState("");
+  const [image3, setImage3] = useState("");
+  const [image4, setImage4] = useState("");
+  const [image5, setImage5] = useState("");
 
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const history = useHistory();
 
   const sessionUser = useSelector((state) => state.session.user);
+  let backendErrors = {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
-    spot = { ...spot, country, address, city, state, name, description, price };
-
+    spot = {
+      ...spot,
+      country,
+      address,
+      city,
+      state,
+      name,
+      description,
+      price,
+      Owner: { ...sessionUser },
+    };
+    console.log("what spot is in the spotForm==============", spot);
     const spotImgArray = [
       {
         url: previewImage,
@@ -64,19 +75,24 @@ const SpotForm = ({ spot, formType }) => {
       const newSpot = await dispatch(createSpotThunk(spot, spotImgArray));
       // console.log("3. back to form", newSpot);
       spot = newSpot;
-      console.log(spot.errors);
     }
-
-    if (spot.errors) {
-      setErrors(spot.errors);
+    backendErrors = spot.errors;
+    if (backendErrors) {
+      setErrors(backendErrors);
     } else {
-      // history.push(`/spots/${spot.id}`);
+      history.push(`/spots/${spot.id}`);
     }
   };
 
-  useEffect(() => {
-    console.log("useeffect detected");
-  }, [errors]);
+  // useEffect(() => {
+  //   let frontendErrors = {};
+  //   if (!previewImage.length) {
+  //     frontendErrors.previewImage = "PreviewImage is required";
+  //   }
+  //   const mergedObjErrors = Object.assign(backendErrors, frontendErrors);
+  //   console.log(mergedObjErrors);
+  //   setErrors(mergedObjErrors);
+  // }, []);
 
   return (
     <div className="center-container">

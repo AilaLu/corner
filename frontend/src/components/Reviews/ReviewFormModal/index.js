@@ -1,23 +1,54 @@
 // Render a pop up to see if you want to delete or not
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
-import { useState } from "react";
-import { createReviewThunk } from "../../../store/spots";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { createReviewThunk } from "../../../store/reviews";
 
 export default function ReviewFormModal({ spotId }) {
+  const starEmpty = "fa-regular fa-star";
+  const starFilled = "fa-solid fa-star";
   const [review, setReview] = useState("");
-  const [starValue, setStarValue] = useState(0);
-  const [star1, setStar1] = useState("fa-regular fa-star");
-  const [star2, setStar2] = useState("fa-regular fa-star");
-  const [star3, setStar3] = useState("fa-regular fa-star");
-  const [star4, setStar4] = useState("fa-regular fa-star");
-  const [star5, setStar5] = useState("fa-regular fa-star");
+  const [rating, setRating] = useState(0);
+  const [stars, setStars] = useState(rating);
   const dispatch = useDispatch();
 
   const { closeModal } = useModal();
+
+  const sessionUser = useSelector((state) => state.session.user);
+
   const handleSubmitReview = (e) => {
     e.preventDefault();
-    // dispatch(createSpotThunk(spotId)).then(closeModal);
+    let nextReview = {
+      review,
+      stars,
+      User: { ...sessionUser },
+      spotId,
+    };
+    dispatch(createReviewThunk(nextReview, spotId)).then(closeModal);
+  };
+
+  useEffect(() => {
+    setStars(rating);
+  }, [rating]);
+
+  const starIcon = (number) => {
+    const onChange = (number) => {
+      setRating(parseInt(number));
+    };
+    const props = {};
+    props.onMouseEnter = () => setStars(number);
+    props.onMouseLeave = () => setStars(rating);
+    props.onClick = () => onChange(number);
+    return (
+      <div
+        key={number}
+        className={stars >= number ? starFilled : starEmpty}
+        {...props}
+      >
+        {/* <i className={starEmpty}></i> */}
+      </div>
+    );
   };
 
   return (
@@ -33,38 +64,10 @@ export default function ReviewFormModal({ spotId }) {
           />
         </label>
         <div className="review-stars">
-          <i
-            onMouseOver={(e) => setStar1("fa-solid fa-star")}
-            onMouseLeave={(e) => setStar1("fa-regular fa-star")}
-            onClick={(e) => setStarValue(1)}
-            className={star1}
-          ></i>
-          <i
-            onMouseOver={(e) => setStar2("fa-solid fa-star")}
-            onMouseLeave={(e) => setStar2("fa-regular fa-star")}
-            onClick={(e) => setStarValue(2)}
-            className={star2}
-          ></i>
-          <i
-            onMouseOver={(e) => setStar3("fa-solid fa-star")}
-            onMouseLeave={(e) => setStar3("fa-regular fa-star")}
-            onClick={(e) => setStarValue(3)}
-            className={star3}
-          ></i>
-          <i
-            onMouseOver={(e) => setStar4("fa-solid fa-star")}
-            onMouseLeave={(e) => setStar4("fa-regular fa-star")}
-            onClick={(e) => setStarValue(4)}
-            className={star4}
-          ></i>
-          <i
-            onMouseOver={(e) => setStar5("fa-solid fa-star")}
-            onMouseLeave={(e) => setStar5("fa-regular fa-star")}
-            onClick={(e) => setStarValue(5)}
-            className={star5}
-          ></i>
-          <span>Stars</span>
-          <div>{starValue}</div>
+          <div className="rating-input">
+            {[1, 2, 3, 4, 5].map((number) => starIcon(number))}
+            <span> {stars} Stars</span>
+          </div>
         </div>
         <button className="disabled button" type="submit">
           Submit Your Review

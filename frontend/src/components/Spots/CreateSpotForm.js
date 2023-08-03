@@ -1,7 +1,15 @@
 import SpotForm from "./SpotForm";
 
 const CreateSpotForm = () => {
-  const spot = {};
+  let spot = {
+    country: "",
+    address: "",
+    city: "",
+    state: "",
+    name: "",
+    description: "",
+    price: "",
+  };
 
   return (
     <div className="components-border">

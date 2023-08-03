@@ -43,6 +43,29 @@ export const getSpotReviewsThunk = (spotId) => async (dispatch) => {
 //   }
 // };
 
+export const createReviewThunk = (newReview, spotId) => async (dispatch) => {
+  try {
+    const res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newReview),
+    });
+
+    // console.log(res);
+    if (res.ok) {
+      const newReviewResponse = await res.json();
+      // console.log("2. newReview from database", newReviewResponse);
+      return newReviewResponse;
+    } else {
+      const errors = await res.json();
+      return errors;
+    }
+  } catch (error) {
+    const errors = await error.json();
+    return errors;
+  }
+};
+
 const initialState = { spot: {}, user: {} }; //the Redux store shape on github
 
 const reviewsReducer = (state = initialState, action) => {

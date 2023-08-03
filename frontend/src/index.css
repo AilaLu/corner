@@ -23,10 +23,15 @@
 .button {
   color: white;
   padding: 10px 100px;
+  border-radius: 10px;
 }
 
 .errors {
   color: tomato;
+}
+
+.disabled {
+  background-color: lightgray;
 }
 
 .red {
