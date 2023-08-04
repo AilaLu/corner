@@ -39,7 +39,9 @@
 }
 
 .disabled {
-  background-color: lightgray;
+  color: rgb(173, 173, 173);
+  background-color: white;
+  border: 2px solid rgb(173, 173, 173);
 }
 
 .time {
