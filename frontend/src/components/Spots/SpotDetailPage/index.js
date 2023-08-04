@@ -35,8 +35,11 @@ function SpotDetailPage() {
 
   return (
     <div className="components-border">
-      <h1>SpotDetail SpotDetailPage {spot.id} </h1>
-      <h3>{spot.name}</h3>
+      {/* <h1>SpotDetail SpotDetailPage {spot.id} </h1> */}
+      <h3>
+        Spot{spot.id}
+        {spot.name}
+      </h3>
       <h4>
         {spot.city} {spot.state} {spot.country}
       </h4>

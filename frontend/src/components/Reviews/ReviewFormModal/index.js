@@ -46,13 +46,14 @@ export default function ReviewFormModal({ spotId }) {
     let newReview = await dispatch(createReviewThunk(nextReview, spotId));
     await closeModal();
 
-    if (newReview.errors) {
-      setErrors(newReview.errors);
+    const backendErrors = newReview.errors;
+    if (backendErrors) {
+      setErrors(backendErrors);
     }
-    console.log(
-      "***in review form*** --getting the errors of invalid reviews from the backend----,",
-      newReview
-    );
+    // console.log(
+    //   "***in review form*** --getting the errors of invalid reviews from the backend----,",
+    //   newReview
+    // );
   };
 
   //tracking the clicked rating changing

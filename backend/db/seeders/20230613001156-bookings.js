@@ -13,20 +13,20 @@ module.exports = {
         {
           spotId: 1,
           userId: 3,
-          startDate: "2021-11-19",
-          endDate: "2021-11-20",
+          startDate: "2024-1-19",
+          endDate: "2024-1-20",
         },
         {
-          spotId: 1,
+          spotId: 2,
           userId: 3,
-          startDate: "2021-12-19",
-          endDate: "2021-12-20",
+          startDate: "2024-3-19",
+          endDate: "2024-3-20",
         },
         {
-          spotId: 1,
-          userId: 3,
-          startDate: "2022-1-19",
-          endDate: "2022-1-20",
+          spotId: 2,
+          userId: 1,
+          startDate: "2023-12-24",
+          endDate: "2024-1-20",
         },
       ],
       {}
@@ -39,7 +39,7 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        startDate: { [Op.in]: ["2021-11-19", "2021-12-19", "2022-1-19"] },
+        startDate: { [Op.in]: ["2024-1-19", "2024-3-19", "2023-12-24"] },
       },
       {}
     );

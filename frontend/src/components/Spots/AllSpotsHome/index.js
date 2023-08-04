@@ -17,10 +17,10 @@ function AllSpotsHome() {
 
   return (
     <>
-      <h1 className="components-border">AllSpotsHome</h1>
-      <ul>
+      {/* <h1 AllSpotsHome</h1> */}
+      <ul className="components-border spot-cards">
         {spots.map((spot) => (
-          <li key={spot.id}>
+          <li className="spot-card" key={spot.id}>
             <Spotcard spot={spot} />
           </li>
         ))}

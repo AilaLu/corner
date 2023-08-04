@@ -21,9 +21,10 @@ function Spotcard({ spot }) {
         className="components-border hover-cursor-pointer"
         onClick={goToSpotDetail}
       >
-        <h1>Spotcard{spot.id}</h1>
+        {/* <h1>Spotcard{spot.id}</h1> */}
         <img src={spot.previewImage} alt={spot.name}></img>
         <h2>
+          {spot.id}
           {spot.city}, {spot.state}
         </h2>
         <div>
