@@ -1,4 +1,5 @@
 import { csrfFetch } from "../store/csrf";
+import { spotDetailThunk } from "./spots";
 
 //type CRUD
 /** Action Type Constants: */
@@ -54,6 +55,8 @@ export const createReviewThunk = (newReview, spotId) => async (dispatch) => {
     if (res.ok) {
       const newReviewResponse = await res.json();
       dispatch(getSpotReviewsThunk(spotId));
+      //to get the most updated avgRating
+      dispatch(spotDetailThunk(spotId));
       // console.log("2. newReview from database", newReviewResponse);
       return newReviewResponse;
     } else {
@@ -61,8 +64,8 @@ export const createReviewThunk = (newReview, spotId) => async (dispatch) => {
       return errors;
     }
   } catch (error) {
-    const errors = await error.json();
-    return errors;
+    // const errors = await error.json();
+    return error;
   }
 };
 
@@ -73,6 +76,8 @@ export const deleteReviewThunk = (review) => async (dispatch) => {
 
   if (res.ok) {
     dispatch(getSpotReviewsThunk(review.spotId));
+    //to get the most updated avgRating
+    dispatch(spotDetailThunk(review.spotId));
   } else {
     const errors = await res.json();
     return errors;
