@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCurrentSpotsThunk } from "../../../store/spots";
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+// import { Tooltip } from "react-tooltip";
+
 function ManageSpots() {
   let spots = useSelector((state) =>
     state.spots.allSpots ? state.spots.allSpots : []
@@ -24,10 +26,20 @@ function ManageSpots() {
       </NavLink>
       <ul>
         {spots.map((spot) => (
-          <li key={spot.id}>
+          <li
+            key={spot.id}
+            // data-tooltip-content={spot.name}
+            // data-tooltip-id="spot-card-tooltip"
+          >
             <ManageSpotcard spot={spot} />
           </li>
         ))}
+        {/* <Tooltip
+          id="spot-card-tooltip"
+          place="bottom"
+          type="dark"
+          effect="float"
+        /> */}
       </ul>
     </div>
   );

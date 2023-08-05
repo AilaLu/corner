@@ -85,6 +85,11 @@ module.exports = {
           url: "https://a0.muscache.com/im/pictures/83171368/8c4b0201_original.jpg?im_w=1200",
           preview: false,
         },
+        {
+          spotId: 4,
+          url: "https://a0.muscache.com/im/pictures/miso/Hosting-50445753/original/e566a73d-6478-46f6-aea0-fe485464425f.jpeg?im_w=720",
+          preview: true,
+        },
       ],
       {}
     );

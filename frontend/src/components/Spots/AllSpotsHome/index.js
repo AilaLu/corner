@@ -4,6 +4,7 @@ import Spotcard from "../Spotcard";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getSpotsThunk } from "../../../store/spots";
+// import { Tooltip } from "react-tooltip";
 
 function AllSpotsHome() {
   const spots = Object.values(
@@ -18,13 +19,24 @@ function AllSpotsHome() {
   return (
     <>
       {/* <h1 AllSpotsHome</h1> */}
-      <ul className="components-border spot-cards">
+      <div className="components-border spot-cards">
         {spots.map((spot) => (
-          <li className="spot-card" key={spot.id}>
-            <Spotcard spot={spot} />
-          </li>
+          <div className="spot-card" key={spot.id}>
+            <div
+            // data-tooltip-content={spot.name}
+            // data-tooltip-id="spot-card-tooltip"
+            >
+              <Spotcard spot={spot} />
+            </div>
+            {/* <Tooltip
+              id="spot-card-tooltip"
+              place="bottom"
+              type="dark"
+              effect="float"
+            /> */}
+          </div>
         ))}
-      </ul>
+      </div>
     </>
   );
 }

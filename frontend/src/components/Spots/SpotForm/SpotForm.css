@@ -2,3 +2,26 @@
   border-bottom: 1px solid black;
   padding-bottom: 30px;
 }
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  width: 120px;
+  background-color: grey;
+  color: white;
+  text-align: center;
+  /* border-radius: 6px; */
+  padding: 5px 0;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+}

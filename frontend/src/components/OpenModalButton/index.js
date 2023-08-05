@@ -13,7 +13,7 @@ function OpenModalButton({
   buttonText, // text of the button that opens the modal
   onButtonClick, // optional: callback function that will be called once the button that opens the modal is clicked
   onModalClose, // optional: callback function that will be called once the modal is closed
-  // modalBtnStyle,//delete is the small grey button
+  buttonStyle, //delete is the small grey button, signup login is just text
 }) {
   const { setModalContent, setOnModalClose } = useModal();
 
@@ -24,7 +24,7 @@ function OpenModalButton({
   };
 
   return (
-    <button className="small grey button" onClick={onClick}>
+    <button onClick={onClick} className={buttonStyle}>
       {buttonText}
     </button>
   );

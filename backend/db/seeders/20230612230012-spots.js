@@ -45,8 +45,22 @@ module.exports = {
           // lat: 37.7645358,
           // lng: -122.4730327,
           name: "Retreat mountain view",
-          description: "Place where web developers are created",
+          description:
+            "a brand new and fully off-grid 12 feet high tree house on 2 acres of tropical rainforest on the Big Island of Hawaii. Experience stargazing like no where else in the world, while warming up at the camp fire. Chill out in the large hanging net or spend rainy days in the hot bath tub. Wake up to your yoga routine on the spacious deck in this tranquil hide out. Conveniently located right between Hilo and VOLCANO NATIONAL PARK.",
           price: 250,
+        },
+        {
+          ownerId: 3,
+          address: "5, Chapel Ct",
+          city: "Greentown",
+          state: "Pennsylvania",
+          country: "United States",
+          // lat: 37.7645358,
+          // lng: -122.4730327,
+          name: "“Treehouse Heaven” Lakehouse",
+          description:
+            "This 3 bedroom & 2 full bath lakefront chalet is located on a very desirable cove at Lake Wallenpaupack and features a lake front view from the large two story deck. Lounge in the sun and take a dip in the lake off the private dock. Enjoy beautiful sunsets while roasting smores and telling campfire stories around the fire pit.",
+          price: 500,
         },
       ],
       {}

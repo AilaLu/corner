@@ -1,4 +1,9 @@
 /* TODO Add site wide styles */
+
+:root {
+  width: 1024px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -6,12 +11,12 @@
 }
 
 .app-frame {
-  border: 5px solid grey;
+  border: 3px solid grey;
 }
 
 .components-border {
   border: 1px rgb(206, 117, 53) solid;
-  padding: 50px;
+  /* padding: 50px; */
 }
 
 /* .buttons-container {
@@ -24,6 +29,10 @@
   color: white;
   border: 2px solid black;
   box-shadow: 2px 2px 0px black;
+}
+
+.black-line {
+  border: 2px solid black;
 }
 
 .small {
@@ -74,6 +83,14 @@ ul {
 }
 
 img {
-  width: 200px;
+  width: 100%;
   height: 200px;
+}
+
+.rounded {
+  border-radius: 30px;
+}
+
+.padding-bottom {
+  padding-bottom: 20px;
 }
