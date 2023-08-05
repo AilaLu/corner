@@ -18,3 +18,32 @@
 .oldSpot {
   display: inline;
 }
+
+.spot-imgs {
+  display: flex;
+  flex-direction: row;
+}
+
+.four-img {
+}
+
+.spot-description-and-reserve-card {
+  display: flex;
+  border-bottom: 2px solid rgb(195, 194, 194);
+}
+
+.reserve-card {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.flex-space-between {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.review-stats {
+  /* padding-top: 20px; */
+}

@@ -44,27 +44,32 @@ function SpotDetailPage() {
         {spot.city} {spot.state} {spot.country}
       </h4>
 
-      <section className="spot-imgs">
-        <ul>
-          {spot.SpotImages.map((img) => (
-            <li key={img.url}>
+      <section className="spot-imgs padding-bottom">
+        <div className="previewImg">
+          <img src={spot?.SpotImages[0].url} alt={spot.name} />
+        </div>
+        <div className="four-img">
+          {spot?.SpotImages?.slice(1).map((img) => (
+            <div key={img.url}>
               <img src={img.url} alt={spot.name} />
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </section>
 
-      <section className="spot-description-and reserve-card">
+      <section className="spot-description-and-reserve-card padding-bottom">
         <section className="spot-description">
           <h3>
             Hosted By {spot.Owner.firstName} {spot.Owner.lastName}
           </h3>
           <p>{spot.description}</p>
         </section>
-        <section className="reserve-card">
-          <div>
-            <i className="fa-solid fa-dollar-sign"></i>
-            {spot.price}
+        <section className="reserve-card black-line rounded">
+          <div className="flex-space-between padding-bottom">
+            <div className="price">
+              <i className="fa-solid fa-dollar-sign"></i>
+              {spot.price} night
+            </div>
             <div className="review-stats">
               <i className="fa-solid fa-star"></i>
               <span className={oldSpot}>{spot.avgRating}</span>{" "}
