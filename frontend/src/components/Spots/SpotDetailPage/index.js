@@ -75,9 +75,8 @@ function SpotDetailPage() {
             </div>
             <div className="review-stats">
               <i className="fa-solid fa-star"></i>
-              <span className={oldSpot}>{spot.avgRating}</span>{" "}
+              <span className={oldSpot}>{spot.avgRating} .</span>{" "}
               <span className={newSpot}>New</span>
-              {/* <i class="fa-solid fa-circle"></i> */}
               <i className={`fa-solid fa-hashtag ${oldSpot}`}></i>
               <span className={oldSpot}>
                 {spot.numReviews}
@@ -98,7 +97,7 @@ function SpotDetailPage() {
       <section className="spot-reviews">
         <div className="review-stats">
           <i className="fa-solid fa-star"></i>
-          <span className={oldSpot}>{spot.avgRating}</span>{" "}
+          <span className={oldSpot}>{spot.avgRating} .</span>{" "}
           <span className={newSpot}>New</span>{" "}
           <i className={`fa-solid fa-hashtag ${oldSpot}`}></i>
           <span className={oldSpot}>
