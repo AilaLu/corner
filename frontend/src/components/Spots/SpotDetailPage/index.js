@@ -37,7 +37,7 @@ function SpotDetailPage() {
   if (spot.numReviews > 1) review = " Reviews";
   if (spot.numReviews == 1) review = " Review";
   return (
-    <div className="components-border">
+    <div className="components-border padding">
       {/* <h1>SpotDetail SpotDetailPage {spot.id} </h1> */}
       <h3 className="padding-bottom">
         {spot.name} {""}
@@ -47,17 +47,20 @@ function SpotDetailPage() {
         {spot.city} {spot.state} {spot.country}
       </h4>
 
-      <section className="spot-imgs padding-bottom">
-        <div className="previewImg">
-          <img src={spot?.SpotImages[0].url} alt={spot.name} />
+      <section className="spot-imgs-grid-container padding-bottom">
+        <div className="previewImg big-photo">
+          <img
+            className="big-photo"
+            src={spot?.SpotImages[0].url}
+            alt={spot.name}
+          />
         </div>
-        <div className="four-img">
-          {spot?.SpotImages?.slice(1).map((img) => (
-            <div key={img.url}>
-              <img src={img.url} alt={spot.name} />
-            </div>
-          ))}
-        </div>
+
+        {spot?.SpotImages?.slice(1).map((img) => (
+          <div className="small-photo" key={img.url}>
+            <img className="small-photo" src={img.url} alt={spot.name} />
+          </div>
+        ))}
       </section>
 
       <section className="spot-description-and-reserve-card padding-bottom">

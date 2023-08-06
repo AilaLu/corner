@@ -28,16 +28,17 @@ function Spotcard({ spot }) {
       >
         {/* <h1>Spotcard{spot.id}</h1> */}
         <img src={spot.previewImage} alt={spot.name}></img>
-        <h2 className="tooltip">
-          {spot.id}
-          {spot.city}, {spot.state}
-        </h2>
-        <div>
-          <i className="fa-solid fa-star"></i>{" "}
-          <span className={oldSpot}>{spot.avgRating}</span>{" "}
-          <span className={newSpot}>New</span>
+        <div className="flex-space-between">
+          <div className="city-state">
+            {spot.city}, {spot.state}
+          </div>
+          <div className="rating">
+            <i className="fa-solid fa-star"></i>{" "}
+            <span className={oldSpot}>{spot.avgRating}</span>{" "}
+            <span className={newSpot}>New</span>
+          </div>
         </div>
-        <div>
+        <div className="price">
           <i className="fa-solid fa-dollar-sign"></i>
           {spot.price} night
         </div>

@@ -21,6 +21,8 @@ function SignupFormModal() {
   const [errors, setErrors] = useState({});
   const [frontendErrors, setFrontendErrors] = useState({});
   const { closeModal } = useModal();
+  console.log(lastName);
+  console.log(password);
 
   const hasErrors = Object.keys(errors).length > 0;
   let disableBtn = "big disabled button";

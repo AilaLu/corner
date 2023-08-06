@@ -19,17 +19,34 @@
   display: inline;
 }
 
-.spot-imgs {
-  display: flex;
-  flex-direction: row;
+.spot-imgs-grid-container {
+  display: grid;
+  grid-template-columns: 1fr repeat(2, 0.5fr); /* 1fr for padding, 0.5fr each for small photos */
+  grid-template-rows: repeat(2, 0.5fr); /* 0.5fr each for small photos */
+  gap: 10px; /* Adjust the gap between items as needed */
+  width: 100%; /* Full width */
+  max-width: 1024px; /* Maximum container width */
+  margin: 0px auto; /* Center the container */
+  padding: 20px;
 }
 
-.four-img {
+.big-photo {
+  grid-row: span 2; /* Occupies 2 grid rows */
+  aspect-ratio: 1/1; /* Maintain square aspect ratio */
+  width: 100%;
+  height: 100%;
+}
+
+.small-photo {
+  aspect-ratio: 1/1; /* Maintain square aspect ratio */
+  width: 100%;
+  height: 100%;
 }
 
 .spot-description-and-reserve-card {
   display: flex;
-  border-bottom: 2px solid rgb(195, 194, 194);
+  border-bottom: 2px solid black;
+  margin-bottom: 20px;
 }
 
 .reserve-card {
@@ -45,5 +62,9 @@
 }
 
 .review-stats {
-  /* padding-top: 20px; */
+  margin-bottom: 20px;
+}
+
+.padding {
+  padding: 0 60px;
 }
