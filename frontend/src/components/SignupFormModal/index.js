@@ -41,11 +41,11 @@ function SignupFormModal() {
     setFrontendErrors(errors);
   }, [email, firstName, lastName, username, password, confirmPassword]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors({});
-      return dispatch(
+      await dispatch(
         sessionActions.signup({
           email,
           username,
@@ -62,10 +62,16 @@ function SignupFormModal() {
           }
         });
     }
-    return setErrors({
+    setErrors({
       confirmPassword:
         "Confirm Password field must be the same as the Password field",
     });
+    setEmail("");
+    setUsername("");
+    setFirstName("");
+    setLastName("");
+    setPassword("");
+    setConfirmPassword("");
   };
 
   return (

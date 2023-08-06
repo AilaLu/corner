@@ -157,6 +157,7 @@ const SpotForm = ({ spot, formType }) => {
           <label>
             City:
             <input
+              className="city"
               type="text"
               placeholder="City"
               value={city}
@@ -166,9 +167,11 @@ const SpotForm = ({ spot, formType }) => {
           <div className="errors">
             {hasSubmitted && errors.city && `${errors.city}`}
           </div>
+          {/* <div>,</div> */}
           <label>
             State:
             <input
+              className="state"
               type="text"
               placeholder="STATE"
               value={state}
@@ -225,7 +228,9 @@ const SpotForm = ({ spot, formType }) => {
           </p>
           <label>
             <i className="fa-solid fa-dollar-sign"></i>
+            {"  "}
             <input
+              className="price"
               type="number"
               placeholder="Price per night (USD)"
               value={price}

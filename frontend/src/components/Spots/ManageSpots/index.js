@@ -24,15 +24,15 @@ function ManageSpots() {
       <NavLink className="navlink-to-btn button grey small" to="/spots/new">
         Create a new spot
       </NavLink>
-      <ul>
+      <div className="manage-spots-grid-container">
         {spots.map((spot) => (
-          <li
+          <div
             key={spot.id}
             // data-tooltip-content={spot.name}
             // data-tooltip-id="spot-card-tooltip"
           >
             <ManageSpotcard spot={spot} />
-          </li>
+          </div>
         ))}
         {/* <Tooltip
           id="spot-card-tooltip"
@@ -40,7 +40,7 @@ function ManageSpots() {
           type="dark"
           effect="float"
         /> */}
-      </ul>
+      </div>
     </div>
   );
 }

@@ -72,7 +72,7 @@ function SpotDetailPage() {
         </section>
         <section className="reserve-card black-line rounded">
           <div className="flex-space-between padding-bottom">
-            <div className="price">
+            <div className="reserve-price">
               <i className="fa-solid fa-dollar-sign"></i>
               {spot.price} night
             </div>

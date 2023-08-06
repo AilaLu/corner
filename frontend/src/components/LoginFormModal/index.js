@@ -28,19 +28,19 @@ function LoginFormModal() {
     setErrors(errors);
   }, [credential, password]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
-    return dispatch(sessionActions.login({ credential, password }))
+    await dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
-      .then(setCredential(""))
-      .then(setPassword(""))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) {
           setErrors(data.errors);
         }
       });
+    setCredential("");
+    setPassword("");
   };
 
   return (
@@ -80,7 +80,7 @@ function LoginFormModal() {
             setCredential("Demo-lition");
             setPassword("password");
           }}
-          className="demo-user-login hover-cursor-pointer"
+          className="demo-user-login hover-cursor-pointer center-self"
           type="submit"
         >
           Demo User

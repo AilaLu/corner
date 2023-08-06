@@ -1,6 +1,7 @@
 .underline-container {
-  border-bottom: 1px solid black;
-  padding-bottom: 30px;
+  border-bottom: 2px solid black;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .tooltip {
@@ -24,4 +25,37 @@
 
 .tooltip:hover .tooltip-text {
   visibility: visible;
+}
+
+.center-container {
+  padding: 20px 300px;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  height: 100px;
+  border: 2px solid black;
+  /* light-blue-input */
+  background-color: rgba(200, 226, 242, 0.515);
+  margin-bottom: 20px;
+}
+input {
+  display: block;
+  width: 100%;
+  height: 30px;
+  border: 2px solid black;
+  /* light-blue-input */
+  background-color: rgba(200, 226, 242, 0.515);
+  margin-bottom: 20px;
+}
+
+.city,
+.state {
+  width: 48%;
+}
+
+.price {
+  display: inline;
+  width: 95%;
 }

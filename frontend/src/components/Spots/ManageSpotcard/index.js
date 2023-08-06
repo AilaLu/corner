@@ -29,7 +29,7 @@ export default function ManageSpotcard({ spot }) {
           onClick={handleEdit}
         >
           Update
-        </button>
+        </button>{" "}
         <OpenModalButton
           buttonStyle="small grey button"
           buttonText="Delete"
