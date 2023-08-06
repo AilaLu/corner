@@ -4,7 +4,7 @@ import "./SignupForm.css";
 
 //On submit of the form, validate that the confirm password is the same as the password fields, then dispatch the signup thunk action with the form input values. Make sure to handle and display errors from the signup thunk action if there are any. If the confirm password is not the same as the password, display an error message for this.
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
@@ -20,6 +20,21 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+
+  const hasErrors = Object.keys(errors).length > 0;
+  let disableBtn = "big disabled button";
+  if (!hasErrors) disableBtn = "big red button";
+
+  useEffect(() => {
+    const errors = {};
+    if (!email) errors.email = "no email";
+    if (!firstName) errors.firstName = "no fn";
+    if (!lastName) errors.lastName = "no ln";
+    if (!username) errors.username = "no un";
+    if (!password) errors.password = "no password";
+    if (!confirmPassword) errors.confirmPassword = "no confrim password";
+    setErrors(errors);
+  }, [email, firstName, lastName, username, password, confirmPassword]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,7 +76,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {/* {errors.email && <p>{errors.email}</p>} */}
         <label>
           Username
           <input
@@ -71,7 +86,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {/* {errors.username && <p>{errors.username}</p>} */}
         <label>
           First Name
           <input
@@ -81,7 +96,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {/* {errors.firstName && <p>{errors.firstName}</p>} */}
         <label>
           Last Name
           <input
@@ -101,7 +116,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {/* {errors.password && <p>{errors.password}</p>} */}
         <label>
           Confirm Password
           <input
@@ -111,8 +126,14 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        {/* {errors.confirmPassword && <p>{errors.confirmPassword}</p>} */}
+        <button
+          className={`${disableBtn} hover-cursor-pointer `}
+          type="submit"
+          disabled={hasErrors}
+        >
+          Sign Up
+        </button>
       </form>
     </>
   );
