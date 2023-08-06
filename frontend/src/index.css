@@ -105,3 +105,8 @@ input {
   background-color: rgba(200, 226, 242, 0.515);
   margin-bottom: 20px;
 }
+
+.flex-column-centered {
+  display: flex;
+  flex-direction: column;
+}

@@ -27,7 +27,7 @@
   width: 100%; /* Full width */
   max-width: 1024px; /* Maximum container width */
   margin: 0px auto; /* Center the container */
-  padding: 20px;
+  padding: 20px 20px 20px 0;
 }
 
 .big-photo {
