@@ -73,7 +73,14 @@ function LoginFormModal() {
         >
           Log In
         </button>
-        <button className="demo-user-login hover-cursor-pointer" type="submit">
+        <button
+          onClick={(e) => {
+            setCredential("Demo-lition");
+            setPassword("password");
+          }}
+          className="demo-user-login hover-cursor-pointer"
+          type="submit"
+        >
           Demo User
         </button>
       </form>
