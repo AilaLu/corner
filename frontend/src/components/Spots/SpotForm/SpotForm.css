@@ -50,12 +50,22 @@ input {
   margin-bottom: 20px;
 }
 
+.city-state-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust the gap between label and input */
+}
+
 .city,
 .state {
-  width: 48%;
+  width: 197px;
 }
 
 .price {
-  display: inline;
   width: 95%;
+  display: inline;
+}
+
+.block {
+  display: block;
 }

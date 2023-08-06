@@ -138,9 +138,9 @@ const SpotForm = ({ spot, formType }) => {
           {/*  {hasSubmitted &&
               validationErrors.name &&
               `* ${validationErrors.name}`} */}
-          <div className="errors">
+          <p className="errors">
             {hasSubmitted && errors.country && `${errors.country}`}
-          </div>
+          </p>
           <label>
             Street Address:
             <input
@@ -150,36 +150,48 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setAddress(e.target.value)}
             />
           </label>
-          <div className="errors">
+          <p className="errors">
             {" "}
             {hasSubmitted && errors.address && `${errors.address}`}
-          </div>
-          <label>
-            City:
-            <input
-              className="city"
-              type="text"
-              placeholder="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-          </label>
-          <div className="errors">
-            {hasSubmitted && errors.city && `${errors.city}`}
-          </div>
-          {/* <div>,</div> */}
-          <label>
-            State:
-            <input
-              className="state"
-              type="text"
-              placeholder="STATE"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-            />
-          </label>
-          <div className="errors">
-            {hasSubmitted && errors.state && `${errors.state}`}
+          </p>
+          <div className="city-state-inline">
+            <div className="flex-column-centered">
+              <div>
+                <label>
+                  City:
+                  <input
+                    className="city"
+                    type="text"
+                    placeholder="City"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div className="errors block">
+                {hasSubmitted && errors.city && `${errors.city}`}
+              </div>
+            </div>
+            <div>,</div>
+            <div className="flex-column-centered">
+              <div>
+                <label>
+                  State:
+                  <input
+                    className="state"
+                    type="text"
+                    placeholder="STATE"
+                    value={state}
+                    onChange={(e) => setState(e.target.value)}
+                  />
+                </label>
+              </div>
+              <div>
+                <p className="errors">
+                  {hasSubmitted && errors.state && `${errors.state}`}
+                </p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -196,9 +208,9 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setDescription(e.target.value)}
             />
           </label>
-          <div className="errors">
+          <p className="errors">
             {hasSubmitted && errors.description && `${errors.description}`}
-          </div>
+          </p>
         </section>
 
         <section className="spot-name underline-container">
@@ -215,9 +227,9 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setName(e.target.value)}
             />
           </label>
-          <div className="errors">
+          <p className="errors">
             {hasSubmitted && errors.name && `${errors.name}`}
-          </div>
+          </p>
         </section>
 
         <section className="spot-price underline-container">
@@ -237,9 +249,9 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setPrice(e.target.value)}
             />
           </label>
-          <div className="errors">
+          <p className="errors">
             {hasSubmitted && errors.price && `${errors.price}`}
-          </div>
+          </p>
         </section>
 
         <section className="spot-imgs underline-container">
@@ -253,9 +265,9 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setPreviewImage(e.target.value)}
             />
           </label>
-          <div className="errors">
+          <p className="errors">
             {hasSubmitted && errors.previewImage && `${errors.previewImage}`}
-          </div>
+          </p>
 
           <label>
             <input
@@ -265,9 +277,9 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setImage2(e.target.value)}
             />
           </label>
-          <div className="errors">
+          <p className="errors">
             {hasSubmitted && errors.image2 && `${errors.image2}`}
-          </div>
+          </p>
           <label>
             <input
               type="url"
@@ -276,9 +288,9 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setImage3(e.target.value)}
             />
           </label>
-          <div className="errors">
+          <p className="errors">
             {hasSubmitted && errors.image3 && `${errors.image3}`}
-          </div>
+          </p>
           <label>
             <input
               type="url"
@@ -287,9 +299,9 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setImage4(e.target.value)}
             />
           </label>
-          <div className="errors">
+          <p className="errors">
             {hasSubmitted && errors.image4 && `${errors.image4}`}
-          </div>
+          </p>
 
           <label>
             <input
@@ -299,9 +311,9 @@ const SpotForm = ({ spot, formType }) => {
               onChange={(e) => setImage5(e.target.value)}
             />
           </label>
-          <div className="errors">
+          <p className="errors">
             {hasSubmitted && errors.image5 && `${errors.image5}`}
-          </div>
+          </p>
         </section>
 
         <button className="small red button center-self" type="submit">
