@@ -22,7 +22,7 @@ export default function AllReviews({ spot, hidePostBtn }) {
   //if the user have posted on this spot already, hide the post your view button with the popup Modal
   let posted = "";
   let sessionUserReview = reviews.find(
-    (review) => review.userId === sessionUser.id
+    (review) => review.userId === sessionUser?.id
   );
   if (sessionUserReview) posted = "hide";
 

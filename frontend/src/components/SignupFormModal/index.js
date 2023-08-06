@@ -24,7 +24,7 @@ function SignupFormModal() {
   console.log(lastName);
   console.log(password);
 
-  const hasErrors = Object.keys(errors).length > 0;
+  const hasErrors = Object.keys(frontendErrors).length > 0;
   let disableBtn = "big disabled button";
   if (!hasErrors) disableBtn = "big red button";
 

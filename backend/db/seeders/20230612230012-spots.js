@@ -50,7 +50,7 @@ module.exports = {
           price: 250,
         },
         {
-          ownerId: 3,
+          ownerId: 1,
           address: "5, Chapel Ct",
           city: "Greentown",
           state: "Pennsylvania",
@@ -61,6 +61,32 @@ module.exports = {
           description:
             "This 3 bedroom & 2 full bath lakefront chalet is located on a very desirable cove at Lake Wallenpaupack and features a lake front view from the large two story deck. Lounge in the sun and take a dip in the lake off the private dock. Enjoy beautiful sunsets while roasting smores and telling campfire stories around the fire pit.",
           price: 500,
+        },
+        {
+          ownerId: 2,
+          address: "15, ShieBhauser Str",
+          city: "Holzminden",
+          state: "Niedersachsen",
+          country: "Germany",
+          // lat: 37.7645358,
+          // lng: -122.4730327,
+          name: "Glamping in the Reindeer Grounds",
+          description:
+            "Enjoy the beautiful surroundings of this romantic spot in nature without sacrificing comfort. You have the unique reindeer glamping here and the chance to get very close to the animals. In addition, tours with the reindeer and huskies are possible.",
+          price: 97,
+        },
+        {
+          ownerId: 3,
+          address: "12, Volcano Rd",
+          city: "Mountain View",
+          state: "Hawaii",
+          country: "United States",
+          // lat: 37.7645358,
+          // lng: -122.4730327,
+          name: "🍃 Hawaiian Tree House 🍃 Peaceful Glamping Retreat",
+          description:
+            "BAUMHAUS - a brand new and fully off-grid 12 feet high tree house on 2 acres of tropical rainforest on the Big Island of Hawaii. Experience stargazing like no where else in the world, while warming up at the camp fire. Chill out in the large hanging net or spend rainy days in the hot bath tub. Wake up to your yoga routine on the spacious deck in this tranquil hide out. Conveniently located right between Hilo and VOLCANO NATIONAL PARK.",
+          price: 174,
         },
       ],
       {}
@@ -78,6 +104,9 @@ module.exports = {
             "Casa de la tierra",
             "Millie tree house",
             "Retreat mountain view",
+            "“Treehouse Heaven” Lakehouse",
+            "Glamping in the Reindeer Grounds",
+            "🍃 Hawaiian Tree House 🍃 Peaceful Glamping Retreat",
           ],
         },
       },
