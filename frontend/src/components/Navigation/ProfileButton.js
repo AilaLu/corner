@@ -2,7 +2,7 @@
 // Dropdown menu
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
@@ -11,6 +11,7 @@ import OpenModalButton from "../OpenModalButton";
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const history = useHistory();
   // create a state variable called showMenu to control displaying the dropdown.
   // showMenu defaults to false indicating that the menu is hidden. When the ProfileButton is clicked, toggle showMenu to true indicating that the menu should now be shown.
   const ulRef = useRef();
@@ -44,6 +45,8 @@ function ProfileButton({ user }) {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    //once log out, go to the home page
+    history.push("/");
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -92,7 +95,7 @@ function ProfileButton({ user }) {
           <i className="fas fa-user-circle" />
         </button>
         <div className={`${ulClassName} black-line session-user`} ref={ulRef}>
-          <div>{user.username}</div>
+          <div>Hello, {user.username}</div>
           <div>{user.email}</div>
           <div>
             <NavLink to="/spots/current">Manage Spots</NavLink>
