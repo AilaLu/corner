@@ -106,7 +106,7 @@ function SpotDetailPage() {
           </span>
         </div>
       </section>
-      <AllReviews spotId={spotId} hidePostBtn={hidePostBtn} />
+      <AllReviews spot={spot} hidePostBtn={hidePostBtn} />
     </div>
   );
 }

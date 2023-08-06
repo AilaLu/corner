@@ -7,7 +7,8 @@ import SingleReview from "../SingleReview";
 import OpenModalButton from "../../OpenModalButton";
 import ReviewFormModal from "../ReviewFormModal";
 
-export default function AllReviews({ spotId, hidePostBtn }) {
+export default function AllReviews({ spot, hidePostBtn }) {
+  const spotId = spot.id;
   const reviews = Object.values(
     useSelector((state) => (state.reviews.spot ? state.reviews.spot : []))
   );
@@ -25,6 +26,11 @@ export default function AllReviews({ spotId, hidePostBtn }) {
   );
   if (sessionUserReview) posted = "hide";
 
+  let notposted = "hide";
+  //If no reviews have been posted yet and the current user is logged-in and is NOT the owner of the spot, replace the reviews list with the text "Be the first to post a review!"
+  if (reviews.length === 0 && sessionUser && sessionUser.id !== spot.ownerId)
+    notposted = "";
+
   if (!reviews) return null;
   if (!sessionUser) return null;
   return (
@@ -36,7 +42,9 @@ export default function AllReviews({ spotId, hidePostBtn }) {
           modalComponent={<ReviewFormModal spotId={spotId} />}
         />
       </div>
+      <div className={notposted}>Be the first to post a review!</div>
       <ul>
+        {/* show the newest review on top */}
         {reviews
           .slice() //make a shallow copy if you don't want the original array reversed
           .reverse() //or you can use toReversed() without the slice()
