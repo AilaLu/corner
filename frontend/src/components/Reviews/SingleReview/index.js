@@ -1,6 +1,7 @@
 import React from "react";
 import OpenModalButton from "../../OpenModalButton";
 import DeleteReviewModal from "../DeleteReviewModal";
+import "./SingleReview.css";
 
 export default function SingleReview({ review, sessionUserReview }) {
   let time;
@@ -16,13 +17,15 @@ export default function SingleReview({ review, sessionUserReview }) {
   return (
     <>
       <section className="components-border">
-        <h1>{review.id}</h1>
-        <div>{review.User.firstName}</div>
-        <div className="time">
+        {/* <h1>{review.id}</h1> */}
+        <div className="review-user">{review.User.firstName}</div>
+        <div className="review-time">
           {time.slice(5, 7)} {time.slice(0, 4)}
         </div>
-        <p>{review.review}</p>
-        <div className={deleteReview}>
+        <div className="review padding-bottom">
+          <p>{review.review}</p>
+        </div>
+        <div className={`${deleteReview} padding-bottom`}>
           <OpenModalButton
             buttonStyle="small grey button"
             buttonText="Delete"

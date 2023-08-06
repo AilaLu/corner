@@ -35,7 +35,7 @@ export default function AllReviews({ spot, hidePostBtn }) {
   if (!sessionUser) return null;
   return (
     <div className="components-border">
-      <div className={`${hidePostBtn} ${posted}`}>
+      <div className={`${hidePostBtn} ${posted} padding-bottom`}>
         <OpenModalButton
           buttonStyle="small grey button"
           buttonText="Post Your Review"
