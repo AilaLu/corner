@@ -31,6 +31,7 @@ export default function AllReviews({ spotId, hidePostBtn }) {
     <div className="components-border">
       <div className={`${hidePostBtn} ${posted}`}>
         <OpenModalButton
+          buttonStyle="small grey button"
           buttonText="Post Your Review"
           modalComponent={<ReviewFormModal spotId={spotId} />}
         />

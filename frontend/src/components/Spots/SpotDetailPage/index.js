@@ -33,6 +33,9 @@ function SpotDetailPage() {
   //if the current user is the spot owner, hide the Post your review popup modal in the AllReviews component
   if (sessionUser.id === spot.ownerId) hidePostBtn = "hide";
 
+  let review = "";
+  if (spot.numReviews > 1) review = " Reviews";
+  if (spot.numReviews == 1) review = " Review";
   return (
     <div className="components-border">
       {/* <h1>SpotDetail SpotDetailPage {spot.id} </h1> */}
@@ -76,11 +79,19 @@ function SpotDetailPage() {
               <span className={newSpot}>New</span>
               {/* <i class="fa-solid fa-circle"></i> */}
               <i className={`fa-solid fa-hashtag ${oldSpot}`}></i>
-              <span className={oldSpot}>{spot.numReviews}</span>
+              <span className={oldSpot}>
+                {spot.numReviews}
+                {review}
+              </span>
             </div>
           </div>
           <div className="buttons-container">
-            <button className="red big button">Reserve</button>
+            <button
+              onClick={() => alert("Feature coming soon!")}
+              className="red big button hover-cursor-pointer"
+            >
+              Reserve
+            </button>
           </div>
         </section>
       </section>
@@ -90,7 +101,10 @@ function SpotDetailPage() {
           <span className={oldSpot}>{spot.avgRating}</span>{" "}
           <span className={newSpot}>New</span>{" "}
           <i className={`fa-solid fa-hashtag ${oldSpot}`}></i>
-          <span className={oldSpot}>{spot.numReviews}</span>
+          <span className={oldSpot}>
+            {spot.numReviews}
+            {review}
+          </span>
         </div>
       </section>
       <AllReviews spotId={spotId} hidePostBtn={hidePostBtn} />
