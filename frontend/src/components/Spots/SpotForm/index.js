@@ -100,16 +100,16 @@ const SpotForm = ({ spot, formType }) => {
       spot = newSpot;
     }
     const backendErrors = spot.errors;
-    console.log(
-      "************ in the create SpotForm component, getting the backend  errors",
-      backendErrors
-    );
+    // console.log(
+    //   "************ in the create SpotForm component, getting the backend  errors",
+    //   backendErrors
+    // );
     if (backendErrors) {
       setErrors({ ...backendErrors, ...errors });
-      console.log(
-        "************ in the create SpotForm component, getting the backend + frontend errors",
-        errors
-      );
+      //   console.log(
+      //     "************ in the create SpotForm component, getting the backend + frontend errors",
+      //     errors
+      //   );
     } else {
       history.push(`/spots/${spot.id}`);
     }

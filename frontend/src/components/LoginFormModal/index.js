@@ -2,7 +2,7 @@
 // Render a form with a controlled input for the user login credential (username or email) and a controlled input for the user password.
 
 // On submit of the form, dispatch the login thunk action with the form input values. Make sure to handle and display errors from the login thunk action if there are any.
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
@@ -14,6 +14,19 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+
+  const hasErrors = Object.keys(errors).length > 0;
+  let disableBtn = "big disabled button";
+  if (!hasErrors) disableBtn = "big red button";
+
+  useEffect(() => {
+    const errors = {};
+    if (credential.length < 4)
+      if (password.length < 6)
+        // errors.credential = "credential must be more than 4 character";
+        errors.password = "password must be more than 6 character";
+    setErrors(errors);
+  }, [credential, password]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,6 +45,9 @@ function LoginFormModal() {
     <div className="center-children">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
+        <div className="errors">
+          {errors.credential && <p>{errors.credential}</p>}
+        </div>
         <label>
           Username or Email
           <input
@@ -50,9 +66,14 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit">Log In</button>
-        <button className="demo-user-login" type="submit">
+        <button
+          className={`${disableBtn} hover-cursor-pointer`}
+          type="submit"
+          disabled={hasErrors}
+        >
+          Log In
+        </button>
+        <button className="demo-user-login hover-cursor-pointer" type="submit">
           Demo User
         </button>
       </form>
