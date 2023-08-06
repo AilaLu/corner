@@ -26,10 +26,7 @@ function Navigation({ isLoaded }) {
       <div className="flex-space-between">
         <div className="logo hover-cursor-pointer">
           <NavLink exact to="/">
-            <img
-              src="https://companieslogo.com/img/orig/ABNB-4aaade0f.png?t=1633511992"
-              alt=""
-            />{" "}
+            <i className="fa-solid fa-tree"></i>
             <h4 className="logo-text ">Corner</h4>
           </NavLink>
         </div>

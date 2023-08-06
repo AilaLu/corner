@@ -19,7 +19,7 @@ function AllSpotsHome() {
   return (
     <>
       {/* <h1 AllSpotsHome</h1> */}
-      <div className="components-border spot-cards">
+      <div className="components-border spot-cards-grid-container">
         {spots.map((spot) => (
           <div className="spot-card" key={spot.id}>
             <div

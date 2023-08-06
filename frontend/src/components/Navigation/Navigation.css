@@ -14,9 +14,11 @@
   margin-left: 10px;
 }
 
-.logo img {
+.fa-tree {
+  font-size: larger;
   width: 30px;
   height: 30px;
+  color: tomato;
 }
 
 .logo-text {
