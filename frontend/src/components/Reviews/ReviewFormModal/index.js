@@ -88,7 +88,7 @@ export default function ReviewFormModal({ spotId }) {
     <div className="center-children modal">
       <h1>How was your stay?</h1>
       <form onSubmit={handleSubmitReview}>
-        <div className="errors">{errors.review && `${errors.review}`}</div>
+        {/* <div className="errors">{errors.review && `${errors.review}`}</div> */}
         <label>
           <textarea
             type="text"

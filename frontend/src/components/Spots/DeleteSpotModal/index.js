@@ -16,10 +16,12 @@ export default function DeleteSpotModal({ spotId }) {
     <div className="center-children">
       <h1>Confirm Delete</h1>
       <p>Are you sure you want to remove this spot from the listings?</p>
-      <button type="submit" onClick={handleYes}>
+      <button className="big red button" type="submit" onClick={handleYes}>
         Yes(Delete Spot)
       </button>
-      <button onClick={closeModal}>No(Keep Spot)</button>
+      <button className="big grey button" onClick={closeModal}>
+        No(Keep Spot)
+      </button>
     </div>
   );
 }

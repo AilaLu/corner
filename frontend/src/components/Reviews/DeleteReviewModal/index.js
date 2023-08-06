@@ -15,10 +15,12 @@ export default function DeleteReviewModal({ review }) {
     <div className="center-children modal">
       <h1>Confirm Delete</h1>
       <p>Are you sure you want to delete this review?</p>
-      <button type="submit" onClick={handleYes}>
+      <button className="big red button" type="submit" onClick={handleYes}>
         Yes(Delete Review)
       </button>
-      <button onClick={closeModal}>No(Keep Review)</button>
+      <button className="big grey button" onClick={closeModal}>
+        No(Keep Review)
+      </button>
     </div>
   );
 }

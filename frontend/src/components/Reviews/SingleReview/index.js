@@ -24,6 +24,7 @@ export default function SingleReview({ review, sessionUserReview }) {
         <p>{review.review}</p>
         <div className={deleteReview}>
           <OpenModalButton
+            buttonStyle="small grey button"
             buttonText="Delete"
             modalComponent={<DeleteReviewModal review={review} />}
           />
