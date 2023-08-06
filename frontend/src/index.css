@@ -1,1 +1,92 @@
 /* TODO Add site wide styles */
+
+:root {
+  width: 1024px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* .app-frame {
+  border: 3px solid grey;
+} */
+
+/* .components-border {
+  border: 1px rgb(206, 117, 53) solid;
+} */
+
+.button {
+  color: white;
+  border: 2px solid black;
+  box-shadow: 2px 2px 0px black;
+}
+
+/* black border */
+.black-line {
+  border: 2px solid black;
+}
+
+.small {
+  padding: 5px;
+}
+
+.big {
+  padding: 10px 100px;
+}
+
+.errors {
+  color: tomato;
+}
+
+.disabled {
+  color: rgb(173, 173, 173);
+  background-color: white;
+  border: 2px solid rgb(173, 173, 173);
+}
+
+.red {
+  background-color: tomato;
+}
+
+.grey {
+  background-color: grey;
+}
+
+.center-children {
+  text-align: center;
+}
+
+.center-self {
+  display: block;
+  margin: auto;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.hover-cursor-pointer:hover {
+  cursor: pointer;
+}
+
+img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 20px;
+}
+
+.rounded {
+  border-radius: 30px;
+}
+
+.padding-bottom {
+  padding-bottom: 20px;
+}
+
+.flex-column-centered {
+  display: flex;
+  flex-direction: column;
+}

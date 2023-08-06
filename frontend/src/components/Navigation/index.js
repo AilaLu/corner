@@ -12,35 +12,32 @@ function Navigation({ isLoaded }) {
 
   let sessionLinks;
   if (sessionUser) {
-    sessionLinks = (
-      <li>
-        <ProfileButton user={sessionUser} />
-      </li>
-    );
+    sessionLinks = <ProfileButton user={sessionUser} />;
   } else {
-    sessionLinks = (
-      <li>
-        <OpenModalButton
-          buttonText="Log In"
-          modalComponent={<LoginFormModal />}
-        />
-        <OpenModalButton
-          buttonText="Sign Up"
-          modalComponent={<SignupFormModal />}
-        />
-      </li>
-    );
+    sessionLinks = <ProfileButton />;
   }
 
+  //if logged in, then can create spot
+  let noCreateSpot = "";
+  if (!sessionUser) noCreateSpot = "hide";
+
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">
-          Home
-        </NavLink>
-      </li>
-      {isLoaded && sessionLinks}
-    </ul>
+    <div className="components-border navigation">
+      <div className="flex-space-between">
+        <div className="logo hover-cursor-pointer">
+          <NavLink exact to="/">
+            <i className="fa-solid fa-tree"></i>
+            <h4 className="logo-text ">Corner</h4>
+          </NavLink>
+        </div>
+        <div className="createSpot-profileBtn">
+          <div className={noCreateSpot}>
+            <NavLink to="/spots/new">Create a new spot</NavLink>
+          </div>
+          <div className="profile-btn">{isLoaded && sessionLinks}</div>
+        </div>
+      </div>
+    </div>
   );
 }
 

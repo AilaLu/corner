@@ -1,0 +1,8 @@
+.review-user,
+.review-time {
+  padding-bottom: 5px;
+}
+
+.review-time {
+  color: rgb(173, 173, 173);
+}

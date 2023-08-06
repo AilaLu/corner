@@ -2,11 +2,16 @@
 // Dropdown menu
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { NavLink, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
+import OpenModalButton from "../OpenModalButton";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const history = useHistory();
   // create a state variable called showMenu to control displaying the dropdown.
   // showMenu defaults to false indicating that the menu is hidden. When the ProfileButton is clicked, toggle showMenu to true indicating that the menu should now be shown.
   const ulRef = useRef();
@@ -40,29 +45,74 @@ function ProfileButton({ user }) {
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    //once log out, go to the home page
+    history.push("/");
+    setShowMenu(false);
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   //  Modify the return value of your functional component conditionally to either show or hide the menu based on the showMenu state variable using CSS.
   // For example, if the showMenu state variable is false, then apply a className of "hidden" to the dropdown menu element. Otherwise, don't apply that className. Add a .hidden CSS rule that will add a CSS style of display: none to the dropdown menu element.
 
-  return (
-    <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
-      <ul className={ulClassName} ref={ulRef}>
-        <li>{user.username}</li>
-        <li>
-          {user.firstName} {user.lastName}
-        </li>
-        <li>{user.email}</li>
-        <li>
-          <button onClick={logout}>Log Out</button>
-        </li>
-      </ul>
-    </>
-  );
+  if (!user) {
+    console.log("no user from Profile Button");
+    return (
+      <>
+        <button
+          className="profile-button black-line hover-cursor-pointer"
+          onClick={openMenu}
+        >
+          <i className="fa-solid fa-bars"></i>{" "}
+          <i className="fas fa-user-circle" />
+        </button>
+        <ul className={ulClassName} ref={ulRef}>
+          <div className="signUp-logIn black-line">
+            <li>
+              <OpenModalButton
+                buttonStyle="signUp-logIn-btn"
+                buttonText="Sign Up"
+                modalComponent={<SignupFormModal />}
+              />
+            </li>
+            <li>
+              <OpenModalButton
+                buttonStyle="signUp-logIn-btn"
+                buttonText="Log In"
+                modalComponent={<LoginFormModal />}
+              />
+            </li>
+          </div>
+        </ul>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <button
+          className="profile-button black-line hover-cursor-pointer"
+          onClick={openMenu}
+        >
+          <i className="fa-solid fa-bars"></i>{" "}
+          <i className="fas fa-user-circle" />
+        </button>
+        <div className={`${ulClassName} black-line session-user`} ref={ulRef}>
+          <div>Hello, {user.username}</div>
+          <div>{user.email}</div>
+          <div>
+            <NavLink to="/spots/current">Manage Spots</NavLink>
+          </div>
+          <div>
+            <button
+              className="small grey button rounded hover-cursor-pointer"
+              onClick={logout}
+            >
+              Log Out
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
 }
 
 export default ProfileButton;
