@@ -41,12 +41,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          noEntry(value) {
-            if (value === "") {
-              throw new Error("Requires a review");
-            }
-          },
+          len: [10, 1000],
         },
+        // validate: {
+        //   noEntry(value) {
+        //     if (value === "") {
+        //       throw new Error("Requires a review");
+        //     }
+        //   },
+        // },
       },
       stars: {
         type: DataTypes.INTEGER,
