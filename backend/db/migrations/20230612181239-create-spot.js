@@ -24,19 +24,19 @@ module.exports = {
         },
         address: {
           allowNull: false,
-          type: Sequelize.TEXT,
+          type: Sequelize.STRING,
         },
         city: {
           allowNull: false,
-          type: Sequelize.TEXT,
+          type: Sequelize.STRING,
         },
         state: {
           allowNull: false,
-          type: Sequelize.TEXT,
+          type: Sequelize.STRING,
         },
         country: {
           allowNull: false,
-          type: Sequelize.TEXT,
+          type: Sequelize.STRING,
         },
         lat: {
           allowNull: true,
@@ -48,11 +48,11 @@ module.exports = {
         },
         name: {
           allowNull: false,
-          type: Sequelize.TEXT(49),
+          type: Sequelize.STRING(49),
         },
         description: {
           allowNull: false,
-          type: Sequelize.TEXT,
+          type: Sequelize.STRING(1000),
         },
         price: {
           allowNull: false,
