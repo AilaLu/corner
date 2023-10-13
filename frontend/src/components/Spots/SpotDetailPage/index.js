@@ -3,7 +3,8 @@ import "./SpotDetailPage.css";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css';
 import { spotDetailThunk } from "../../../store/spots";
 import AllReviews from "../../Reviews/AllReviews";
 
@@ -88,6 +89,8 @@ function SpotDetailPage() {
             </div>
           </div>
           <div className="buttons-container">
+            <Calendar
+            locale="en-GB"/ >
             <button
               onClick={() => alert("Feature coming soon!")}
               className="red big button hover-cursor-pointer"
