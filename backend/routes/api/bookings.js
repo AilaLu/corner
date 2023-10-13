@@ -40,7 +40,6 @@ router.get("/current", requireAuth, async (req, res) => {
   });
   let bookingsWSpotImg = bookings.map((booking) => {
     let bookingJson = booking.toJSON();
-    console.log(bookingJson);
     if (bookingJson.Spot.SpotImages.length) {
       bookingJson.Spot.previewImage = bookingJson.Spot.SpotImages[0].url;
     }
@@ -74,36 +73,46 @@ router.put(
   requireAuth,
   createBookingChecker,
   async (req, res) => {
-    const { startDate, endDate } = req.body;
     let booking = await Booking.findByPk(req.params.bookingId);
-    if (booking.userId !== req.user.id) {
-      return res.status(403).json({
-        message: "Forbidden, booking must belong to the current user",
-      });
-    }
     if (!booking) {
       res.status(404);
       return res.json({
         message: "booking couldn't be found",
       });
     }
-    const today = new Date().toISOString().split("T")[0];
+    if (booking.userId !== req.user.id) {
+      return res.status(403).json({
+        message: "Forbidden, booking must belong to the current user",
+      });
+    }
+    let { startDate, endDate } = req.body;
+    //make the String type startDate, endDate into Date type, because the database has the startDate, endDate as Datatype, you need it to try to find booking from Bookings table
+    startDate = new Date(startDate); //making startDate into Date type
+    endDate = new Date(endDate); //making endDate into Date type
+    const today = new Date();
+    //dayDate = "2023-06-15T23:15:29.719Z"
+    //= dayString = day.toISOString().split("T")[0];
+    //datString = "2023-06-15"
     if (today > endDate) {
+      //today, startDate, endDate are all Strings type
       return res.status(403).json({
         message: "Past bookings can't be modified",
       });
     }
     const bookingConflicted = await Booking.findOne({
       where: {
-        [Op.or]: {
-          startDate: { [Op.between]: [req.body.startDate, req.body.endDate] },
+        [Op.and]: {
+          spotId: booking.spotId,
+          [Op.or]: {
+            startDate: { [Op.between]: [startDate, endDate] },
+          },
+          endDate: { [Op.between]: [startDate, endDate] },
         },
-        endDate: { [Op.between]: [req.body.startDate, req.body.endDate] },
       },
     });
     if (bookingConflicted) {
       res.status(403);
-      res.json({
+      return res.json({
         message: "Sorry, this spot is already booked for the specified dates",
         errors: {
           startDate: "Start date conflicts with an existing booking",
@@ -138,8 +147,8 @@ router.delete("/:bookingId", requireAuth, async (req, res, next) => {
   }
   const today = new Date();
   //.toISOString().split("T")[0];
-  // console.log(booking.startDate);
-  // console.log(today);
+  // print out (booking.startDate);
+  // print out (today);
   if (today >= booking.startDate) {
     return res.status(403).json({
       message: "Bookings that have been started can't be deleted",

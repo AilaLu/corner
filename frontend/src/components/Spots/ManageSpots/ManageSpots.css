@@ -1,0 +1,40 @@
+.navlink-to-btn {
+  border: 2px solid black;
+  text-decoration: none;
+  margin-left: 60px;
+}
+
+.manage-spots {
+  margin-bottom: 20px;
+  margin-left: 60px;
+}
+
+.edit-delete-buttons-container {
+  margin-top: 20px;
+}
+
+.manage-spots-grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px 60px;
+}
+
+/* Media Query for 2 columns */
+@media (max-width: 768px) {
+  .manage-spots-grid-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    grid-template-rows: repeat(4, 0.5fr);
+    /* 4 rows for small photos */
+  }
+}
+
+/* Media Query for 1 column */
+@media (max-width: 480px) {
+  .manage-spots-grid-container {
+    grid-template-columns: 1fr; /* 1 column */
+    grid-template-rows: repeat(8, 0.5fr);
+    /* 8 rows for small photos */
+    padding: 0 30px; /* Adjust padding for smaller screens */
+  }
+}

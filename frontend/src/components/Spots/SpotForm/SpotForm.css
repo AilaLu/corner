@@ -1,0 +1,71 @@
+.underline-container {
+  border-bottom: 2px solid black;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  position: absolute;
+  width: 120px;
+  background-color: grey;
+  color: white;
+  text-align: center;
+  /* border-radius: 6px; */
+  padding: 5px 0;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+}
+
+.center-container {
+  padding: 20px 300px;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  height: 100px;
+  border: 2px solid black;
+  /* light-blue-input */
+  background-color: rgba(200, 226, 242, 0.515);
+  margin-bottom: 20px;
+}
+input {
+  display: block;
+  width: 100%;
+  height: 30px;
+  border: 2px solid black;
+  /* light-blue-input */
+  background-color: rgba(200, 226, 242, 0.515);
+  margin-bottom: 20px;
+}
+
+.city-state-inline {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adjust the gap between label and input */
+}
+
+.city,
+.state {
+  width: 197px;
+}
+
+.price {
+  width: 95%;
+  display: inline;
+}
+
+.block {
+  display: block;
+}

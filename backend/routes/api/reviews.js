@@ -18,7 +18,6 @@ const router = express.Router();
 // Add an Image to a Review based on the Review's id
 router.post("/:reviewId/images", requireAuth, async (req, res) => {
   const review = await Review.findByPk(req.params.reviewId);
-  console.log(review);
   if (!review) {
     res.status(404);
     res.json({
@@ -74,20 +73,21 @@ router.get("/current", requireAuth, async (req, res) => {
           "name",
           "price",
         ],
+        include: [{ model: SpotImage, attributes: ["url"] }],
       },
     ],
     where: { userId: req.user.id },
   });
-  // let reviewsJson = reviews.toJSON();
-  // let reviewswSpotImg = reviewsJson.map(async (review) => {
-  //   review.Spot.previewImage = await Spot.findOne({
-  //     where: {
-  //       id: review.spotId,
-  //     },
-  //   }).SpotImages[0].url;
-  // });
+  let reviewsWSpotImg = reviews.map((review) => {
+    let reviewJson = review.toJSON();
+    if (reviewJson.Spot.SpotImages.length) {
+      reviewJson.Spot.previewImage = reviewJson.Spot.SpotImages[0].url;
+    }
+    delete reviewJson.Spot.SpotImages;
+    return reviewJson;
+  });
   res.json({
-    Reviews: reviews,
+    Reviews: reviewsWSpotImg,
   });
 });
 
@@ -112,15 +112,15 @@ const createReviewChecker = (req, res, next) => {
 //Edit review
 router.put("/:reviewId", requireAuth, createReviewChecker, async (req, res) => {
   let review = await Review.findByPk(req.params.reviewId);
-  if (review.userId !== req.user.id) {
-    return res.status(403).json({
-      message: "Forbidden, review must belong to the current user",
-    });
-  }
   if (!review) {
     res.status(404);
     return res.json({
       message: "Review couldn't be found",
+    });
+  }
+  if (review.userId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden, review must belong to the current user",
     });
   }
 

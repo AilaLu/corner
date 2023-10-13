@@ -69,7 +69,8 @@ router.delete("/", (_req, res) => {
 });
 
 //restore
-router.get("/", requireAuth, (req, res) => {
+router.get("/", (req, res) => {
+  // requireAuth
   const { user } = req;
   if (user) {
     const safeUser = {
