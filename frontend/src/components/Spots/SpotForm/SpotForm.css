@@ -31,24 +31,26 @@
   padding: 20px 300px;
 }
 
-textarea {
-  display: block;
-  width: 100%;
-  height: 100px;
-  border: 2px solid black;
-  /* light-blue-input */
-  background-color: rgba(200, 226, 242, 0.515);
-  margin-bottom: 20px;
-}
-input {
-  display: block;
-  width: 100%;
-  height: 30px;
-  border: 2px solid black;
-  /* light-blue-input */
-  background-color: rgba(200, 226, 242, 0.515);
-  margin-bottom: 20px;
-}
+
+
+  label>textarea {
+    display: block;
+    width: 100%;
+    height: 100px;
+    border: 2px solid black;
+    background-color: rgba(200, 226, 242, 0.515);
+    margin-bottom: 20px;
+  }
+  label>input {
+    display: block;
+    width: 100%;
+    height: 30px;
+    border: 2px solid black;
+    background-color: rgba(200, 226, 242, 0.515);
+    margin-bottom: 20px;
+  }
+
+
 
 .city-state-inline {
   display: flex;

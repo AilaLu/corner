@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getSpotsThunk } from "../../../store/spots";
 // import { Tooltip } from "react-tooltip";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
 
 function AllSpotsHome() {
   const spots = Object.values(

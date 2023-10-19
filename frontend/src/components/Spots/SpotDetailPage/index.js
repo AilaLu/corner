@@ -3,10 +3,15 @@ import "./SpotDetailPage.css";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
 import { spotDetailThunk } from "../../../store/spots";
 import AllReviews from "../../Reviews/AllReviews";
+
+import Calendar from 'react-calendar'
+import 'react-calendar/dist/Calendar.css';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import "./datepicker.css"
 
 function SpotDetailPage() {
   let { spotId } = useParams();
@@ -37,6 +42,7 @@ function SpotDetailPage() {
   let review = "";
   if (spot.numReviews > 1) review = " Reviews";
   if (spot.numReviews == 1) review = " Review";
+
   return (
     <div className="components-border padding">
       {/* <h1>SpotDetail SpotDetailPage {spot.id} </h1> */}
@@ -88,9 +94,13 @@ function SpotDetailPage() {
               </span>
             </div>
           </div>
+          <div> <DateRangePicker
+            locale="en-GB"
+            isOpen={true}
+            autoFocus={true}
+            / ></div>
+           
           <div className="buttons-container">
-            <Calendar
-            locale="en-GB"/ >
             <button
               onClick={() => alert("Feature coming soon!")}
               className="red big button hover-cursor-pointer"
