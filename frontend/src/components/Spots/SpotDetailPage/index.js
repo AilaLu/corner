@@ -1,7 +1,7 @@
 import React from "react";
 import "./SpotDetailPage.css";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { spotDetailThunk } from "../../../store/spots";
 import AllReviews from "../../Reviews/AllReviews";
@@ -17,6 +17,9 @@ function SpotDetailPage() {
   let { spotId } = useParams();
   spotId = Number(spotId);
   const dispatch = useDispatch();
+  const [value, onChange] = useState(new Date());
+// value is an array with 2 elements, element datatype is Date [start date, end date]
+
 
   const spot = useSelector((state) =>
     state.spots.singleSpot ? state.spots.singleSpot[spotId] : null
@@ -98,9 +101,20 @@ function SpotDetailPage() {
             locale="en-GB"
             isOpen={true}
             autoFocus={true}
+            minDate={new Date()}
+            dayPlaceholder="dd"
+            monthPlaceholder="mm"
+            yearPlaceholder="yyyy"
+            format="y-MM-dd"
+            calendarClassName="calendar"
+            className="date-picker"
+            // onCalendarClose={() => alert(value)}
+            onChange={onChange}
+            required={true}
+            value={value}
             / ></div>
            
-          <div className="buttons-container">
+          <div className="buttons-container reserve-btn">
             <button
               onClick={() => alert("Feature coming soon!")}
               className="red big button hover-cursor-pointer"

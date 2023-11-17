@@ -23,11 +23,5 @@
   "bugs": {
     "url": "https://github.com/AilaLu/corner/issues"
   },
-  "homepage": "https://github.com/AilaLu/corner#readme",
-  "dependencies": {
-    "react-calendar": "^4.6.0"
-  },
-  "dependencies": {
-    "react-tooltip": "^5.20.0"
-  }
+  "homepage": "https://github.com/AilaLu/corner#readme"
 }
