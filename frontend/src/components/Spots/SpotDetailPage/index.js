@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { spotDetailThunk } from "../../../store/spots";
+import { createBookingThunk, getSpotBookingsThunk } from "../../../store/bookings";
 import AllReviews from "../../Reviews/AllReviews";
 
 import 'react-calendar/dist/Calendar.css';
@@ -20,7 +21,8 @@ function SpotDetailPage() {
 // value is an array with 2 elements, element datatype is Date [start date, end date]
 
 const reserveClicked = (e)=>{
-  alert("Feature coming soon!")
+  e.preventDefault();
+  dispatch(createBookingThunk({startDate: value[0], endDate: value[1]}, spotId))
 }
 
   const spot = useSelector((state) =>
@@ -31,6 +33,7 @@ const reserveClicked = (e)=>{
 
   useEffect(() => {
     dispatch(spotDetailThunk(spotId));
+    dispatch(getSpotBookingsThunk(spotId))
   }, [dispatch, spotId]);
   let oldSpot = "";
   let newSpot = "";

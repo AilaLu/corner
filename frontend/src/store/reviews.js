@@ -4,13 +4,13 @@ import { spotDetailThunk } from "./spots";
 //type CRUD
 /** Action Type Constants: */
 export const GET_SPOT_REVIEWS = "reviews/GET_REVIEWS";
-// export const GET_USER_REVIEWS = "reviews/GET_REVIEWS";
+// export const GET_USER_REVIEWS = "reviews/GET_USER_REVIEWS";
 export const GET_REVIEW_DETAIL = "reviews/GET_REVIEW_DETAIL";
 
 /**  Action Creators: */
-export const getSpotReviewsAction = (reviews) => ({
+export const getSpotReviewsAction = (spotReviews) => ({
   type: GET_SPOT_REVIEWS,
-  reviews,
+  spotReviews,
 });
 
 // export const getUserReviewsAction = (reviews) => ({
@@ -90,7 +90,7 @@ const reviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SPOT_REVIEWS:
       const reviews = {};
-      action.reviews.forEach((review) => {
+      action.spotReviews.forEach((review) => {
         reviews[review.id] = review;
       });
       return { spot: reviews };

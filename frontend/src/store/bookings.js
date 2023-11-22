@@ -29,7 +29,8 @@ export const getSpotBookingsThunk = (spotId) => async (dispatch) => {
   if (res.ok) {
     const bookings = await res.json();
     const bookingsArr = bookings.Bookings;
-    dispatch(getUserBookingsAction(bookingsArr));
+    console.log("*********************", bookingsArr);
+    dispatch(getSpotBookingsAction(bookingsArr));
   }
 };
 
@@ -92,7 +93,7 @@ const bookingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SPOT_BOOKINGS:
       const bookings = {};
-      action.bookings.forEach((booking) => {
+      action.spotBookings.forEach((booking) => {
         bookings[booking.id] = booking;
       });
       return { spot: bookings };

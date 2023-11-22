@@ -325,7 +325,7 @@ router.get("/:spotId/bookings", async (req, res) => {
     where: { spotId: req.params.spotId },
   });
   let userBookings = await Booking.findAll({
-    attributes: ["spotId", "startDate", "endDate"],
+    // attributes: ["spotId", "startDate", "endDate"],
     where: { spotId: req.params.spotId },
   });
   if (!spot) {
