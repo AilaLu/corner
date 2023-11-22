@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { spotDetailThunk } from "../../../store/spots";
 import AllReviews from "../../Reviews/AllReviews";
 
-import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
@@ -20,6 +19,9 @@ function SpotDetailPage() {
   const [value, onChange] = useState(new Date());
 // value is an array with 2 elements, element datatype is Date [start date, end date]
 
+const reserveClicked = (e)=>{
+  alert("Feature coming soon!")
+}
 
   const spot = useSelector((state) =>
     state.spots.singleSpot ? state.spots.singleSpot[spotId] : null
@@ -116,7 +118,7 @@ function SpotDetailPage() {
            
           <div className="buttons-container reserve-btn">
             <button
-              onClick={() => alert("Feature coming soon!")}
+              onClick={reserveClicked}
               className="red big button hover-cursor-pointer"
             >
               Reserve
