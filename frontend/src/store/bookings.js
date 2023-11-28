@@ -61,14 +61,12 @@ export const createBookingThunk = (newBooking, spotId) => async (dispatch) => {
       //to get the most updated avgRating
       // dispatch(bookingDetailThunk(spotId));
       // console.log("2. newReview from database", newReviewResponse);
+      console.log("###############in store###############");
       return newBookingResponse;
-    } else {
-      const errors = await res.json();
-      return errors;
-    }
+    } 
   } catch (error) {
-    // const errors = await error.json();
-    return error;
+    const errors = await error.json();
+    return errors;
   }
 };
 

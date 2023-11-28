@@ -18,11 +18,23 @@ function SpotDetailPage() {
   spotId = Number(spotId);
   const dispatch = useDispatch();
   const [value, onChange] = useState(new Date());
+  console.log("endDate ", value[1]);
 // value is an array with 2 elements, element datatype is Date [start date, end date]
 
-const reserveClicked = (e)=>{
+const reserveClicked = async (e)=>{
   e.preventDefault();
-  dispatch(createBookingThunk({startDate: value[0], endDate: value[1]}, spotId))
+  const startDate = value[0]
+  const endDate = value[1]
+  
+  const backendResponse = await dispatch(createBookingThunk({startDate: startDate, endDate: endDate}, spotId))
+  // if booking conflicted return 403 errors
+  if(backendResponse.errors){
+    alert(`${backendResponse.message} ${backendResponse.errors.startDate} ${backendResponse.errors.endDate}`)
+  }
+  //no errors
+  else if(!backendResponse.errors){
+    alert(`You have reserved ${spot.name} from ${startDate?.toISOString().split("T")[0]} to ${endDate?.toISOString().split("T")[0]}.`)
+  }
 }
 
   const spot = useSelector((state) =>
