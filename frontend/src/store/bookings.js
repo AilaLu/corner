@@ -90,17 +90,17 @@ const initialState = { spot: {}, user: {} }; //the Redux store shape on github
 const bookingsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SPOT_BOOKINGS:
-      const bookings = {};
-      action.spotBookings.forEach((booking) => {
-        bookings[booking.id] = booking;
+      const spotBookings = {};
+      action.spotBookings?.forEach((booking) => {
+        spotBookings[booking.id] = booking;
       });
-      return { spot: bookings };
-    // case GET_USER_BOOKINGS:
-    //   const bookings = {};
-    //   action.bookings.forEach((booking) => {
-    //     bookings[booking.id] = booking;
-    //   });
-    // return { user: bookings };
+      return { spot: spotBookings };
+    case GET_USER_BOOKINGS:
+      const userBookings = {};
+      action.userBookings?.forEach((booking) => {
+        userBookings[booking.id] = booking;
+      });
+    return { user: userBookings };
     case GET_BOOKING_DETAIL:
       return { ...state, [action.booking.id]: action.booking };
     // case UPDATE_spot:
