@@ -29,7 +29,6 @@ export const getSpotBookingsThunk = (spotId) => async (dispatch) => {
   if (res.ok) {
     const bookings = await res.json();
     const bookingsArr = bookings.Bookings;
-    console.log("*********************", bookingsArr);
     dispatch(getSpotBookingsAction(bookingsArr));
   }
 };
@@ -61,7 +60,6 @@ export const createBookingThunk = (newBooking, spotId) => async (dispatch) => {
       //to get the most updated avgRating
       // dispatch(bookingDetailThunk(spotId));
       // console.log("2. newReview from database", newReviewResponse);
-      console.log("###############in store###############");
       return newBookingResponse;
     } 
   } catch (error) {
@@ -70,20 +68,36 @@ export const createBookingThunk = (newBooking, spotId) => async (dispatch) => {
   }
 };
 
-// export const deleteReviewThunk = (booking) => async (dispatch) => {
-//   const res = await csrfFetch(`/api/reviews/${booking.id}`, {
-//     method: "DELETE",
-//   });
+export const updateBookingThunk = (updatedBooking, bookingId) => async (dispatch) => {
+  try {
+  const res = await csrfFetch(`/api/bookings/${bookingId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedBooking),
+  });
 
-//   if (res.ok) {
-//     dispatch(getSpotReviewsThunk(booking.spotId));
-//     //to get the most updated avgRating
-//     dispatch(spotDetailThunk(booking.spotId));
-//   } else {
-//     const errors = await res.json();
-//     return errors;
-//   }
-// };
+  if (res.ok) {
+    dispatch(getUserBookingsThunk());
+    //to get the most updated user bookings 
+  } 
+} catch (error) {
+    const errors = await error.json();
+    return errors;
+  }
+};
+
+export const deleteBookingThunk = (bookingId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/bookings/${bookingId}`, {
+    method: "DELETE",
+  });
+
+  if (res.ok) {
+    dispatch(getUserBookingsThunk());
+  } else {
+    const errors = await res.json();
+    return errors;
+  }
+};
 
 const initialState = { spot: {}, user: {} }; //the Redux store shape on github
 

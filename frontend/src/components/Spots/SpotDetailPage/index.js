@@ -17,14 +17,17 @@ function SpotDetailPage() {
   let { spotId } = useParams();
   spotId = Number(spotId);
   const dispatch = useDispatch();
-  const [value, onChange] = useState(new Date());
-  console.log("endDate ", value[1]);
-// value is an array with 2 elements, element datatype is Date [start date, end date]
-
-const reserveClicked = async (e)=>{
-  e.preventDefault();
+  let today = new Date()
+  let tomorrow = new Date(today)
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  // set the calendar date to be defaulted as today, and the next day
+  const [value, onChange] = useState([today, tomorrow]);
   const startDate = value[0]
   const endDate = value[1]
+// value is an array with 2 elements, element datatype is Date [start date, end date]
+
+const reserveBooking = async (e)=>{
+  e.preventDefault();
   
   const backendResponse = await dispatch(createBookingThunk({startDate: startDate, endDate: endDate}, spotId))
   // if booking conflicted return 403 errors
@@ -118,7 +121,8 @@ const reserveClicked = async (e)=>{
             locale="en-GB"
             isOpen={true}
             autoFocus={true}
-            minDate={new Date()}
+            minDate={startDate}
+            maxDate={endDate}
             dayPlaceholder="dd"
             monthPlaceholder="mm"
             yearPlaceholder="yyyy"
@@ -133,7 +137,7 @@ const reserveClicked = async (e)=>{
            
           <div className="buttons-container reserve-btn">
             <button
-              onClick={reserveClicked}
+              onClick={reserveBooking}
               className="red big button hover-cursor-pointer"
             >
               Reserve

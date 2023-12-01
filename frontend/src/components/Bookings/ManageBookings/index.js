@@ -1,5 +1,5 @@
 import "./ManageBookings.css";
-// import ManageSpotcard from "../ManageSpotcard";
+import BookingDetail from "../BookingDetail/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserBookingsThunk } from "../../../store/bookings";
@@ -20,22 +20,15 @@ function ManageBookings() {
   return (
     <div className="components-border">
       <h1 className="manage-spots">Manage Bookings</h1>
-      {/* <div className="manage-spots-grid-container"> */}
         {bookings.map((booking, index) => (
           <div
             key={booking.id}
           >
-          <div>{index + 1}</div>
-          {booking.Spot.name}
-        <div>{booking.startDate}</div>
-        <div>{booking.endDate}</div>
-
-            {/* <BookingDetail spot={spot} /> */}
+            <BookingDetail booking={booking} index={index} />
           </div>
         ))}
 
       </div>
-    // </div>
   );
 }
 
