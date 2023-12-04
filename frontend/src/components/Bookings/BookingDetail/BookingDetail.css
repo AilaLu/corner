@@ -1,0 +1,8 @@
+.hidden {
+ /* display: none; */
+ border: 5px solid red;
+}
+
+.edit-booking{
+ border: 1px solid grey;
+}

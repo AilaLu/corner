@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { updateBookingThunk } from "../../../store/bookings";
 import OpenModalButton from "../../OpenModalButton";
 import DeleteBookingModal from "../DeleteBookingModal";
-// import "./SingleReview.css";
+import "./BookingDetail.css";
 
 import 'react-calendar/dist/Calendar.css';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
@@ -32,6 +32,12 @@ const updateBooking = async (e)=>{
  }
 }
 
+// Past bookings can't be modified 
+// hide the dateRangePicker edit button/ delete button
+
+let bookingHasStarted  = ""
+if(new Date() > new Date(booking.endDate)) bookingHasStarted = "hidden"
+
   if (!booking) return null;
   return (
     <>
@@ -43,7 +49,7 @@ const updateBooking = async (e)=>{
 <div>{booking.startDate.split("T")[0]}</div>
 <div>{booking.endDate.split("T")[0]}</div>
         </div>
-        <div className="edit-booking">
+        <div className={`edit-booking ${bookingHasStarted}`}>
         <div> <DateRangePicker
             locale="en-GB"
             isOpen={false}
@@ -68,7 +74,7 @@ const updateBooking = async (e)=>{
             </button>
           </div>
         </div>
-        <div className="delete-booking">
+        <div className={`delete-booking ${bookingHasStarted}`}>
           <OpenModalButton
             buttonStyle="small grey button"
             buttonText="Delete"

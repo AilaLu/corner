@@ -105,6 +105,9 @@ function ProfileButton({ user }) {
             <NavLink to="/bookings/current">Manage Bookings</NavLink>
           </div>
           <div>
+            <NavLink to="/booking-history/current">Booking History</NavLink>
+          </div>
+          <div>
             <button
               className="small grey button rounded hover-cursor-pointer"
               onClick={logout}
