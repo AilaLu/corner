@@ -20,14 +20,17 @@ function ManageBookings() {
   if (!bookings) return null;
   return (
     <div className="components-border">
-      <h1 className="manage-spots">Manage Future Bookings</h1>
-        {futureBookings.map((booking, index) => (
-          <div
-            key={booking.id}
-          >
-            <BookingDetail booking={booking} index={index} />
-          </div>
-        ))}
+      <h1 className="manage-bookings">Manage Future Bookings</h1>
+
+        <div className="bookings">
+          {futureBookings.map((booking, index) => (
+            <div
+              key={booking.id}
+            >
+              <BookingDetail booking={booking} index={index} />
+            </div>
+          ))}
+        </div>
 
       </div>
   );

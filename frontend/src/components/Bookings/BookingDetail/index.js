@@ -44,10 +44,10 @@ if(new Date() > new Date(booking.endDate)) bookingHasStarted = "hidden"
       <section className="components-border">
         {/* <h1>{review.id}</h1> */}
         <div className="review padding-bottom">
-<div>{index + 1}</div>
+<h3>Booking {index + 1}</h3>
 {booking.Spot.name}
-<div>{booking.startDate.split("T")[0]}</div>
-<div>{booking.endDate.split("T")[0]}</div>
+<div>Start Date: {booking.startDate.split("T")[0]}</div>
+<div>End Date: {booking.endDate.split("T")[0]}</div>
         </div>
         <div className={`edit-booking ${bookingHasStarted}`}>
         <div> <DateRangePicker
@@ -68,7 +68,7 @@ if(new Date() > new Date(booking.endDate)) bookingHasStarted = "hidden"
               <div className="buttons-container reserve-btn">
             <button
               onClick={updateBooking}
-              className="red big button hover-cursor-pointer"
+              className="small grey button hover-cursor-pointer"
             >
               Update Booking
             </button>

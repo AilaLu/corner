@@ -4,11 +4,22 @@
  margin-left: 60px;
 }
 
-.manage-spots {
+.manage-bookings {
  margin-bottom: 20px;
  margin-left: 60px;
 }
 
+.bookings{
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  margin-left: 60px;
+}
+
+
+
+
+/* to be revised */
 .edit-delete-buttons-container {
  margin-top: 20px;
 }
