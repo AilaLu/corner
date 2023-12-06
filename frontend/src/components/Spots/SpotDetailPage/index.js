@@ -21,22 +21,38 @@ function SpotDetailPage() {
   let tomorrow = new Date(today)
   tomorrow.setDate(tomorrow.getDate() + 1)
   // set the calendar date to be defaulted as today, and the next day
-  const [value, onChange] = useState([today, tomorrow]);
+  const [value, onChange] = useState([today, tomorrow]); 
   const startDate = value[0]
-  const endDate = value[1]
+
+  const options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+  
+  console.log("=====================", startDate.toLocaleDateString('en-gb', options));
+  // console.log("=====================", startDate.toISOString().split("T")[0]+"T"+"15:00:00");
+  const endDate = value[1] //! plus one day after toISOString()
+  let endDateMinusOneDay = new Date(endDate)
+  endDateMinusOneDay.setDate(endDateMinusOneDay.getDate() - 1)
+  console.log("=====================", endDate.toLocaleDateString('en-gb', options));
+  // console.log("=====================", endDateMinusOneDay.toISOString().split("T")[0]+"T"+"11:00:00");
+
 // value is an array with 2 elements, element datatype is Date [start date, end date]
 
 const reserveBooking = async (e)=>{
   e.preventDefault();
   
-  const backendResponse = await dispatch(createBookingThunk({startDate: startDate, endDate: endDate}, spotId))
-  // if booking conflicted return 403 errors
-  if(backendResponse.errors){
-    alert(`${backendResponse.message} ${backendResponse.errors.startDate} ${backendResponse.errors.endDate}`)
+  const backendResponse = await dispatch(createBookingThunk({startDate: new Date(startDate.toLocaleDateString('en-gb', options)), endDate: new Date(endDate.toLocaleDateString('en-gb', options))}, spotId))
+  // if booking conflicted return errors
+  if(backendResponse?.message){
+    alert(`Message: ${backendResponse?.message} \nstartDateError: ${backendResponse?.errors?.startDate} \nendDateError: ${backendResponse?.errors?.endDate} \nendDateError: ${backendResponse?.errors?.checkendDate} \nendDateError: ${backendResponse?.errors?.boolean}`)
+
   }
   //no errors
-  else if(!backendResponse.errors){
-    alert(`You have reserved ${spot.name} from ${startDate?.toISOString().split("T")[0]} to ${endDate?.toISOString().split("T")[0]}.`)
+  else if(!backendResponse.message){
+    alert(`You have reserved ${spot.name} from ${startDate?.toISOString().split("T")[0]} to ${endDateMinusOneDay?.toISOString().split("T")[0]}.`)
   }
 }
 
@@ -119,10 +135,12 @@ const reserveBooking = async (e)=>{
           </div>
           <div> <DateRangePicker
             locale="en-GB"
-            isOpen={true}
+            isOpen={false}
             autoFocus={true}
-            minDate={startDate}
-            maxDate={endDate}
+            minDate={new Date()} //you can select date from today 
+            // maxDate={}
+            disabledDates={[new Date(2023, 11, 24), new Date(2023,11, 25)]}
+            excludeDates={[new Date(2023, 11, 24), new Date(2023,11, 25)]}
             dayPlaceholder="dd"
             monthPlaceholder="mm"
             yearPlaceholder="yyyy"
