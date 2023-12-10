@@ -18,7 +18,7 @@ export const getUserReviewsAction = (reviews) => ({
   reviews,
 });
 
-export const reviewDetailAction = (review) => ({
+export const ManageReviewDetailAction = (review) => ({
   type: GET_REVIEW_DETAIL,
   review,
 });
@@ -33,7 +33,6 @@ export const getSpotReviewsThunk = (spotId) => async (dispatch) => {
   }
 };
 
-//! check everything especially route
 export const getUserReviewsThunk = () => async (dispatch) => {
   const res = await csrfFetch("/api/reviews/current");
   if (res.ok) {
@@ -69,6 +68,30 @@ export const createReviewThunk = (newReview, spotId) => async (dispatch) => {
   }
 };
 
+export const updateReviewThunk =
+  (updatedReview, reviewId, spotId) => async (dispatch) => {
+    try {
+      const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedReview),
+      });
+
+      if (res.ok) {
+        const updatedReviewResponse = await res.json();
+        dispatch(getSpotReviewsThunk(spotId));
+        dispatch(getUserReviewsThunk());
+        return updatedReviewResponse;
+      } else {
+        const errors = await res.json();
+        return errors;
+      }
+    } catch (error) {
+      // const errors = await error.json();
+      return error;
+    }
+  };
+
 export const deleteReviewThunk = (review) => async (dispatch) => {
   const res = await csrfFetch(`/api/reviews/${review.id}`, {
     method: "DELETE",
@@ -76,8 +99,8 @@ export const deleteReviewThunk = (review) => async (dispatch) => {
 
   if (res.ok) {
     dispatch(getSpotReviewsThunk(review.spotId));
-    //to get the most updated avgRating
-    dispatch(spotDetailThunk(review.spotId));
+    dispatch(getUserReviewsThunk());
+    // dispatch(spotDetailThunk(review.spotId));
   } else {
     const errors = await res.json();
     return errors;
@@ -99,7 +122,7 @@ const reviewsReducer = (state = initialState, action) => {
       action.reviews.forEach((review) => {
         userReviews[review.id] = review;
       });
-    return { user: userReviews };
+      return { user: userReviews };
     case GET_REVIEW_DETAIL:
       return { ...state, [action.review.id]: action.review };
     // case UPDATE_spot:

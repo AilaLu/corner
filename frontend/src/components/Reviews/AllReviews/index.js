@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { getSpotReviewsThunk } from "../../../store/reviews";
 import SingleReview from "../SingleReview";
 import OpenModalButton from "../../OpenModalButton";
-import ReviewFormModal from "../ReviewFormModal";
+import CreateReviewFormModal from "../CreateReviewFormModal";
 
 export default function AllReviews({ spot, hidePostBtn }) {
   const spotId = spot.id;
@@ -39,7 +39,7 @@ export default function AllReviews({ spot, hidePostBtn }) {
         <OpenModalButton
           buttonStyle="small grey button"
           buttonText="Post Your Review"
-          modalComponent={<ReviewFormModal spotId={spotId} />}
+          modalComponent={<CreateReviewFormModal spotId={spotId} />}
         />
       </div>
       <div className={notposted}>Be the first to post a review!</div>

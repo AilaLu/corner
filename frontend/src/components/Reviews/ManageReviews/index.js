@@ -1,5 +1,5 @@
 // import "./Managereviews.css";
-import ReviewDetail from "../ReviewDetail";
+import ManageReviewDetail from "../ManageReviewDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserReviewsThunk } from "../../../store/reviews";
@@ -21,10 +21,8 @@ function ManageReviews() {
       <h1 className="manage-reviews">Manage Reviews</h1>
       <div className="manage-reviews-grid-container">
         {reviews.map((review) => (
-          <div
-            key={review.id}
-          >
-            <ReviewDetail review={review} />
+          <div key={review.id}>
+            <ManageReviewDetail review={review} />
           </div>
         ))}
       </div>

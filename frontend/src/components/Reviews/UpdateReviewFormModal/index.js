@@ -3,15 +3,15 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { createReviewThunk } from "../../../store/reviews";
+import { updateReviewThunk } from "../../../store/reviews";
 
-export default function ReviewFormModal({ spotId }) {
+export default function UpdateReviewFormModal({ originalReview }) {
   //for the rating stars
   const starEmpty = "fa-regular fa-star";
   const starFilled = "fa-solid fa-star";
   //for the review inputs
-  const [review, setReview] = useState("");
-  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState(originalReview.review);
+  const [rating, setRating] = useState(originalReview.stars);
   const [stars, setStars] = useState(rating);
   // errors are validation errors
   const [errors, setErrors] = useState({});
@@ -36,24 +36,12 @@ export default function ReviewFormModal({ spotId }) {
 
   const handleSubmitReview = async (e) => {
     e.preventDefault();
-    // setErrors({});
-    let nextReview = {
+    let updatedReview = {
       review,
       stars,
-      User: { ...sessionUser },
-      spotId,
     };
-    let newReview = await dispatch(createReviewThunk(nextReview, spotId));
+    await dispatch(updateReviewThunk(updatedReview, originalReview.id, originalReview.spotId));
     await closeModal();
-
-    const backendErrors = newReview.errors;
-    if (backendErrors) {
-      setErrors(backendErrors);
-    }
-    // console.log(
-    //   "***in review form*** --getting the errors of invalid reviews from the backend----,",
-    //   newReview
-    // );
   };
 
   //tracking the clicked rating changing
@@ -86,9 +74,9 @@ export default function ReviewFormModal({ spotId }) {
 
   return (
     <div className="center-children modal">
-      <h1>How was your stay?</h1>
+      <h1>Update your review</h1>
       <form onSubmit={handleSubmitReview}>
-        {/* <div className="errors">{errors.review && `${errors.review}`}</div> */}
+        <div className="errors">{errors.review && `${errors.review}`}</div>
         <label>
           <textarea
             type="text"
