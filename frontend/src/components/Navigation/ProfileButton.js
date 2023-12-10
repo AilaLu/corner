@@ -102,6 +102,9 @@ function ProfileButton({ user }) {
             <NavLink to="/spots/current">Manage Spots</NavLink>
           </div>
           <div>
+            <NavLink to="/spots/current">Manage Reviews</NavLink>
+          </div>
+          <div>
             <NavLink to="/bookings/current">Manage Bookings</NavLink>
           </div>
           <div>

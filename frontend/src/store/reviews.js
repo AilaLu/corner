@@ -4,7 +4,7 @@ import { spotDetailThunk } from "./spots";
 //type CRUD
 /** Action Type Constants: */
 export const GET_SPOT_REVIEWS = "reviews/GET_REVIEWS";
-// export const GET_USER_REVIEWS = "reviews/GET_USER_REVIEWS";
+export const GET_USER_REVIEWS = "reviews/GET_USER_REVIEWS";
 export const GET_REVIEW_DETAIL = "reviews/GET_REVIEW_DETAIL";
 
 /**  Action Creators: */
@@ -13,10 +13,10 @@ export const getSpotReviewsAction = (spotReviews) => ({
   spotReviews,
 });
 
-// export const getUserReviewsAction = (reviews) => ({
-//   type: GET_USER_REVIEWS,
-//   reviews,
-// });
+export const getUserReviewsAction = (reviews) => ({
+  type: GET_USER_REVIEWS,
+  reviews,
+});
 
 export const reviewDetailAction = (review) => ({
   type: GET_REVIEW_DETAIL,
@@ -34,14 +34,14 @@ export const getSpotReviewsThunk = (spotId) => async (dispatch) => {
 };
 
 //! check everything especially route
-// export const getUserReviewsThunk = () => async (dispatch) => {
-//   const res = await csrfFetch("/api/reviews/current");
-//   if (res.ok) {
-//     const reviews = await res.json();
-//     const reviewsArr = reviews.Reviews;
-//     dispatch(getUserReviewsAction(reviewsArr));
-//   }
-// };
+export const getUserReviewsThunk = () => async (dispatch) => {
+  const res = await csrfFetch("/api/reviews/current");
+  if (res.ok) {
+    const reviews = await res.json();
+    const reviewsArr = reviews.Reviews;
+    dispatch(getUserReviewsAction(reviewsArr));
+  }
+};
 
 export const createReviewThunk = (newReview, spotId) => async (dispatch) => {
   try {
