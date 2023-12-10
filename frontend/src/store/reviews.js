@@ -94,12 +94,12 @@ const reviewsReducer = (state = initialState, action) => {
         reviews[review.id] = review;
       });
       return { spot: reviews };
-    // case GET_USER_REVIEWS:
-    //   const reviews = {};
-    //   action.reviews.forEach((review) => {
-    //     reviews[review.id] = review;
-    //   });
-    // return { user: reviews };
+    case GET_USER_REVIEWS:
+      const userReviews = {};
+      action.reviews.forEach((review) => {
+        userReviews[review.id] = review;
+      });
+    return { user: userReviews };
     case GET_REVIEW_DETAIL:
       return { ...state, [action.review.id]: action.review };
     // case UPDATE_spot:
