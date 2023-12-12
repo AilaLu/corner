@@ -13,7 +13,7 @@ export default function DeleteReviewModal({ review, usage }) {
 
   return (
     <div className="center-children modal">
-      <h1>Confirm Delete</h1>
+      <h3>Confirm Delete</h3>
       <div className="padding-bottom">
         <p>Are you sure you want to delete this review?</p>
       </div>

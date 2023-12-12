@@ -40,7 +40,14 @@ export default function UpdateReviewFormModal({ originalReview, usage }) {
       review,
       stars,
     };
-    await dispatch(updateReviewThunk(updatedReview, originalReview.id, originalReview.spotId, usage));
+    await dispatch(
+      updateReviewThunk(
+        updatedReview,
+        originalReview.id,
+        originalReview.spotId,
+        usage
+      )
+    );
     await closeModal();
   };
 
@@ -74,7 +81,7 @@ export default function UpdateReviewFormModal({ originalReview, usage }) {
 
   return (
     <div className="center-children modal">
-      <h1>Update your review</h1>
+      <h3>Update your review</h3>
       <form onSubmit={handleSubmitReview}>
         <div className="errors">{errors.review && `${errors.review}`}</div>
         <label>

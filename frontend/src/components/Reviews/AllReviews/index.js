@@ -9,16 +9,16 @@ import CreateReviewFormModal from "../CreateReviewFormModal";
 
 export default function AllReviews({ spot, hidePostBtn }) {
   const spotId = spot.id;
-  const spotReviews = Object.values(
-    useSelector((state) => (state.reviews?.spot ? state.reviews?.spot : []))
-  );
+  const spotReviews = 
+    useSelector((state) => (state.reviews?.spot ? Object.values(state.reviews?.spot) : [])).slice() //make a shallow copy if you don't want the original array reversed
+    .reverse() //or you can use toReversed() without the slice() show the latest review first.
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getSpotReviewsThunk(spotId));
   }, [dispatch]);
 
-  const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user? state.session.user: null);
   //if the user have posted on this spot already, hide the post your view button with the popup Modal
   let posted = "";
   let sessionUserReview = spotReviews.find(
@@ -31,10 +31,8 @@ export default function AllReviews({ spot, hidePostBtn }) {
   if (spotReviews.length === 0 && sessionUser && sessionUser.id !== spot.ownerId)
     notposted = "";
 
-  if (!spotReviews) return null;
-  if (!sessionUser) return null;
   return (
-    <div className="components-border">
+    <section className="all-reviews">
       <div className={`${hidePostBtn} ${posted} padding-bottom`}>
         <OpenModalButton
           buttonStyle="small grey button"
@@ -44,10 +42,7 @@ export default function AllReviews({ spot, hidePostBtn }) {
       </div>
       <div className={notposted}>Be the first to post a review!</div>
       <ul>
-        {/* show the newest review on top */}
         {spotReviews
-          .slice() //make a shallow copy if you don't want the original array reversed
-          .reverse() //or you can use toReversed() without the slice()
           .map((review) => (
             <li key={review.id}>
               <SingleReview
@@ -57,6 +52,6 @@ export default function AllReviews({ spot, hidePostBtn }) {
             </li>
           ))}
       </ul>
-    </div>
+    </section>
   );
 }

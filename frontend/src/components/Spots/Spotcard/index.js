@@ -26,7 +26,7 @@ function Spotcard({ spot }) {
         // data-tooltip-content={spot.name}
         // data-tooltip-id="spot-card-tooltip"
       >
-        {/* <h1>Spotcard{spot.id}</h1> */}
+        {/* <h3>Spotcard{spot.id}</h3> */}
         <img src={spot.previewImage} alt={spot.name}></img>
         <div className="flex-space-between">
           <div className="city-state">

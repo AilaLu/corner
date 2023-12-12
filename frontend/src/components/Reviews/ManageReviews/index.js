@@ -5,22 +5,24 @@ import { useEffect } from "react";
 import { getUserReviewsThunk } from "../../../store/reviews";
 
 function ManageReviews() {
+  const sessionUser = useSelector((state) => state.session.user);
   let userReviews = useSelector((state) =>
     state.reviews.user ? Object.values(state.reviews.user) : []
   );
-  console.log("======reviews array======", userReviews);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
-    console.log("======useEffect triggered======");
     dispatch(getUserReviewsThunk());
   }, [dispatch]);
 
   return (
     <div className="components-border">
-      <h1 className="manage-reviews">Manage Reviews</h1>
+      <h3 className="manage-reviews padding margin-bottom">
+        Hello {sessionUser.username}, Manage Reviews
+      </h3>
       <div className="manage-reviews-grid-container">
-        {userReviews.map((review) => (
+      {/* sort it  */}
+        {userReviews.toReversed().map((review) => (
           <div key={review.id}>
             <ManageReviewDetail review={review} />
           </div>

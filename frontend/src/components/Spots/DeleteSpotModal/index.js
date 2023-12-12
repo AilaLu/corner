@@ -14,7 +14,7 @@ export default function DeleteSpotModal({ spotId }) {
 
   return (
     <div className="center-children">
-      <h1>Confirm Delete</h1>
+      <h3>Confirm Delete</h3>
       <div className="padding-bottom">
         <p>Are you sure you want to remove this spot from the listings?</p>
       </div>

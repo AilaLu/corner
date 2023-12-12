@@ -45,7 +45,7 @@ function LoginFormModal() {
 
   return (
     <div className="center-children">
-      <h1>Log In</h1>
+      <h3>Log In</h3>
       <form onSubmit={handleSubmit}>
         <div className="errors">
           {errors.credential && <p>{errors.credential}</p>}

@@ -3,9 +3,10 @@ import BookingDetail from "../BookingDetail/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserBookingsThunk } from "../../../store/bookings";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 function ManageBookings() {
+  const sessionUser = useSelector((state) => state.session.user);
+
   let bookings = useSelector((state) =>
     state.bookings.user ? state.bookings.user : []
   );
@@ -16,23 +17,26 @@ function ManageBookings() {
   }, [dispatch]);
 
   if (bookings) bookings = Object.values(bookings);
-  let futureBookings = bookings.filter((booking)=> new Date() <= new Date(booking.endDate))
+  // sorted by the startDate of the bookings
+  let futureBookings = bookings
+    .filter((booking) => new Date() <= new Date(booking.endDate))
+    .sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+
   if (!bookings) return null;
   return (
     <div className="components-border">
-      <h1 className="manage-bookings">Manage Future Bookings</h1>
+      <h3 className="manage-bookings">
+        Hello {sessionUser.username}, Manage Future Bookings
+      </h3>
 
-        <div className="bookings">
-          {futureBookings.map((booking, index) => (
-            <div
-              key={booking.id}
-            >
-              <BookingDetail booking={booking} index={index} />
-            </div>
-          ))}
-        </div>
-
+      <div className="bookings">
+        {futureBookings.map((booking, index) => (
+          <div key={booking.id}>
+            <BookingDetail booking={booking} index={index} />
+          </div>
+        ))}
       </div>
+    </div>
   );
 }
 

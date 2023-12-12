@@ -80,7 +80,7 @@ export default function CreateReviewFormModal({ spotId }) {
 
   return (
     <div className="center-children modal">
-      <h1>How was your stay?</h1>
+      <h3>How was your stay?</h3>
       <form onSubmit={handleSubmitReview}>
         <div className="errors">{errors.review && `${errors.review}`}</div>
         <label>

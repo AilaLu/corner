@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 // import { Tooltip } from "react-tooltip";
 
 function ManageSpots() {
+  const sessionUser = useSelector((state) => state.session.user);
   let spots = useSelector((state) =>
     state.spots.allSpots ? state.spots.allSpots : []
   );
@@ -20,7 +21,9 @@ function ManageSpots() {
   if (!spots) return null;
   return (
     <div className="components-border">
-      <h1 className="manage-spots">Manage Spots</h1>
+      <h3 className="manage-spots">
+        Hello {sessionUser.username},Manage Spots
+      </h3>
       <NavLink className="navlink-to-btn button grey small" to="/spots/new">
         Create a new spot
       </NavLink>
