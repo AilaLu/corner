@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { updateReviewThunk } from "../../../store/reviews";
 
-export default function UpdateReviewFormModal({ originalReview }) {
+export default function UpdateReviewFormModal({ originalReview, usage }) {
   //for the rating stars
   const starEmpty = "fa-regular fa-star";
   const starFilled = "fa-solid fa-star";
@@ -40,7 +40,7 @@ export default function UpdateReviewFormModal({ originalReview }) {
       review,
       stars,
     };
-    await dispatch(updateReviewThunk(updatedReview, originalReview.id, originalReview.spotId));
+    await dispatch(updateReviewThunk(updatedReview, originalReview.id, originalReview.spotId, usage));
     await closeModal();
   };
 

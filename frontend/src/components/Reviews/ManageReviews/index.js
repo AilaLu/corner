@@ -5,22 +5,22 @@ import { useEffect } from "react";
 import { getUserReviewsThunk } from "../../../store/reviews";
 
 function ManageReviews() {
-  let reviews = useSelector((state) =>
-    state.reviews.user ? state.reviews.user : []
+  let userReviews = useSelector((state) =>
+    state.reviews.user ? Object.values(state.reviews.user) : []
   );
+  console.log("======reviews array======", userReviews);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
+    console.log("======useEffect triggered======");
     dispatch(getUserReviewsThunk());
   }, [dispatch]);
 
-  if (reviews) reviews = Object.values(reviews);
-  if (!reviews) return null;
   return (
     <div className="components-border">
       <h1 className="manage-reviews">Manage Reviews</h1>
       <div className="manage-reviews-grid-container">
-        {reviews.map((review) => (
+        {userReviews.map((review) => (
           <div key={review.id}>
             <ManageReviewDetail review={review} />
           </div>

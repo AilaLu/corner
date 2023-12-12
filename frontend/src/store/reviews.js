@@ -3,7 +3,7 @@ import { spotDetailThunk } from "./spots";
 
 //type CRUD
 /** Action Type Constants: */
-export const GET_SPOT_REVIEWS = "reviews/GET_REVIEWS";
+export const GET_SPOT_REVIEWS = "reviews/GET_SPOT_REVIEWS";
 export const GET_USER_REVIEWS = "reviews/GET_USER_REVIEWS";
 export const GET_REVIEW_DETAIL = "reviews/GET_REVIEW_DETAIL";
 
@@ -13,9 +13,9 @@ export const getSpotReviewsAction = (spotReviews) => ({
   spotReviews,
 });
 
-export const getUserReviewsAction = (reviews) => ({
+export const getUserReviewsAction = (userReviews) => ({
   type: GET_USER_REVIEWS,
-  reviews,
+  userReviews,
 });
 
 export const ManageReviewDetailAction = (review) => ({
@@ -58,18 +58,15 @@ export const createReviewThunk = (newReview, spotId) => async (dispatch) => {
       dispatch(spotDetailThunk(spotId));
       // console.log("2. newReview from database", newReviewResponse);
       return newReviewResponse;
-    } else {
-      const errors = await res.json();
-      return errors;
-    }
+    } 
   } catch (error) {
-    // const errors = await error.json();
-    return error;
+    const errors = await error.json();
+    return errors;
   }
 };
 
 export const updateReviewThunk =
-  (updatedReview, reviewId, spotId) => async (dispatch) => {
+  (updatedReview, reviewId, spotId, usage) => async (dispatch) => {
     try {
       const res = await csrfFetch(`/api/reviews/${reviewId}`, {
         method: "PUT",
@@ -79,28 +76,26 @@ export const updateReviewThunk =
 
       if (res.ok) {
         const updatedReviewResponse = await res.json();
-        dispatch(getSpotReviewsThunk(spotId));
-        dispatch(getUserReviewsThunk());
+        if(usage === "manage reviews") dispatch(getUserReviewsThunk());
+        if(usage === "spot detail") dispatch(getSpotReviewsThunk(spotId));
+        dispatch(spotDetailThunk(spotId));
         return updatedReviewResponse;
-      } else {
-        const errors = await res.json();
-        return errors;
       }
     } catch (error) {
-      // const errors = await error.json();
-      return error;
+      const errors = await error.json();
+      return errors;
     }
   };
 
-export const deleteReviewThunk = (review) => async (dispatch) => {
+export const deleteReviewThunk = (review, usage) => async (dispatch) => {
   const res = await csrfFetch(`/api/reviews/${review.id}`, {
     method: "DELETE",
   });
 
   if (res.ok) {
-    dispatch(getSpotReviewsThunk(review.spotId));
-    dispatch(getUserReviewsThunk());
-    // dispatch(spotDetailThunk(review.spotId));
+    if(usage === "manage reviews") dispatch(getUserReviewsThunk());
+    if(usage === "spot detail") dispatch(getSpotReviewsThunk(review.spotId));
+    dispatch(spotDetailThunk(review.spotId));
   } else {
     const errors = await res.json();
     return errors;
@@ -112,14 +107,14 @@ const initialState = { spot: {}, user: {} }; //the Redux store shape on github
 const reviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SPOT_REVIEWS:
-      const reviews = {};
+      const spotReviews = {};
       action.spotReviews.forEach((review) => {
-        reviews[review.id] = review;
+        spotReviews[review.id] = review;
       });
-      return { spot: reviews };
-    case GET_USER_REVIEWS:
-      const userReviews = {};
-      action.reviews.forEach((review) => {
+      return { spot: spotReviews };
+      case GET_USER_REVIEWS:
+        const userReviews = {};
+      action.userReviews?.forEach((review) => {
         userReviews[review.id] = review;
       });
       return { user: userReviews };

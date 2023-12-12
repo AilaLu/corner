@@ -24,18 +24,19 @@ export default function ManageReviewDetail({ review }) {
           {time.slice(5, 7)} {time.slice(0, 4)}
         </div>
         <div className="review padding-bottom">
-          <p>{review.review}</p>
+          <i className="fa-solid fa-star"></i><span>rating: {review.stars} </span>
+          <p>review: {review.review}</p>
         </div>
         <div className={`padding-bottom`}>
           <OpenModalButton
             buttonStyle="small grey button"
             buttonText="Update"
-            modalComponent={<UpdateReviewFormModal originalReview={review}/>}
+            modalComponent={<UpdateReviewFormModal originalReview={review} usage={"manage reviews"}/>}
           />
           <OpenModalButton
             buttonStyle="small grey button"
             buttonText="Delete"
-            modalComponent={<DeleteReviewModal review={review} />}
+            modalComponent={<DeleteReviewModal review={review} usage={"manage reviews"}/>}
           />
         </div>
       </section>

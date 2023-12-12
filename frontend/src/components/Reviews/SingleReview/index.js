@@ -30,12 +30,12 @@ export default function SingleReview({ review, sessionUserReview }) {
           <OpenModalButton
             buttonStyle="small grey button"
             buttonText="Update"
-            modalComponent={<UpdateReviewFormModal originalReview={review}/>}
+            modalComponent={<UpdateReviewFormModal originalReview={review} usage={"spot detail"}/>}
           />
           <OpenModalButton
             buttonStyle="small grey button"
             buttonText="Delete"
-            modalComponent={<DeleteReviewModal review={review} />}
+            modalComponent={<DeleteReviewModal review={review} usage={"spot detail"}/>}
           />
         </div>
       </section>

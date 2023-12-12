@@ -9,8 +9,8 @@ import CreateReviewFormModal from "../CreateReviewFormModal";
 
 export default function AllReviews({ spot, hidePostBtn }) {
   const spotId = spot.id;
-  const reviews = Object.values(
-    useSelector((state) => (state.reviews.spot ? state.reviews.spot : []))
+  const spotReviews = Object.values(
+    useSelector((state) => (state.reviews?.spot ? state.reviews?.spot : []))
   );
   const dispatch = useDispatch();
 
@@ -21,17 +21,17 @@ export default function AllReviews({ spot, hidePostBtn }) {
   const sessionUser = useSelector((state) => state.session.user);
   //if the user have posted on this spot already, hide the post your view button with the popup Modal
   let posted = "";
-  let sessionUserReview = reviews.find(
+  let sessionUserReview = spotReviews.find(
     (review) => review.userId === sessionUser?.id
   );
   if (sessionUserReview) posted = "hide";
 
   let notposted = "hide";
-  //If no reviews have been posted yet and the current user is logged-in and is NOT the owner of the spot, replace the reviews list with the text "Be the first to post a review!"
-  if (reviews.length === 0 && sessionUser && sessionUser.id !== spot.ownerId)
+  //If no spotReviews have been posted yet and the current user is logged-in and is NOT the owner of the spot, replace the spotReviews list with the text "Be the first to post a review!"
+  if (spotReviews.length === 0 && sessionUser && sessionUser.id !== spot.ownerId)
     notposted = "";
 
-  if (!reviews) return null;
+  if (!spotReviews) return null;
   if (!sessionUser) return null;
   return (
     <div className="components-border">
@@ -45,7 +45,7 @@ export default function AllReviews({ spot, hidePostBtn }) {
       <div className={notposted}>Be the first to post a review!</div>
       <ul>
         {/* show the newest review on top */}
-        {reviews
+        {spotReviews
           .slice() //make a shallow copy if you don't want the original array reversed
           .reverse() //or you can use toReversed() without the slice()
           .map((review) => (
