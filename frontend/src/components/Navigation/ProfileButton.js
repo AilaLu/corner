@@ -89,7 +89,7 @@ function ProfileButton({ user }) {
     return (
       <>
         <button
-          className="profile-button black-line hover-cursor-pointer"
+          className="profile-button black-line hover-cursor-pointer rounded"
           onClick={openMenu}
         >
           <i className="fa-solid fa-bars"></i>{" "}
@@ -102,6 +102,15 @@ function ProfileButton({ user }) {
             <NavLink to="/spots/current">Manage Spots</NavLink>
           </div>
           <div>
+            <NavLink to="/reviews/current">Manage Reviews</NavLink>
+          </div>
+          <div>
+            <NavLink to="/bookings/current">Manage Bookings</NavLink>
+          </div>
+          <div>
+            <NavLink to="/booking-history/current">Booking History</NavLink>
+          </div>
+          <div className="margin-top margin-bottom">
             <button
               className="small grey button rounded hover-cursor-pointer"
               onClick={logout}

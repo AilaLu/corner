@@ -1,4 +1,4 @@
-/* TODO Add site wide styles */
+
 
 :root {
   width: 1024px;
@@ -10,12 +10,8 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* .app-frame {
-  border: 3px solid grey;
-} */
-
-/* .components-border {
-  border: 1px rgb(206, 117, 53) solid;
+/* .border{
+  border: 5px solid red;
 } */
 
 .button {
@@ -24,7 +20,6 @@
   box-shadow: 2px 2px 0px black;
 }
 
-/* black border */
 .black-line {
   border: 2px solid black;
 }
@@ -84,6 +79,21 @@ img {
 
 .padding-bottom {
   padding-bottom: 20px;
+}
+
+.margin-top {
+  margin-top: 20px;
+}
+.margin-bottom {
+  margin-bottom: 20px;
+}
+
+.padding-right {
+  padding-right: 20px
+}
+
+.margin-right {
+  margin-right: 20px
 }
 
 .flex-column-centered {

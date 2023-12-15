@@ -18,7 +18,7 @@ function AllSpotsHome() {
 
   return (
     <>
-      {/* <h1 AllSpotsHome</h1> */}
+      {/* <h3 AllSpotsHome</h3> */}
       <div className="components-border spot-cards-grid-container">
         {spots.map((spot) => (
           <div className="spot-card" key={spot.id}>

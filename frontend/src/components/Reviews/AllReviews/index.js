@@ -5,49 +5,44 @@ import { useEffect } from "react";
 import { getSpotReviewsThunk } from "../../../store/reviews";
 import SingleReview from "../SingleReview";
 import OpenModalButton from "../../OpenModalButton";
-import ReviewFormModal from "../ReviewFormModal";
+import CreateReviewFormModal from "../CreateReviewFormModal";
 
 export default function AllReviews({ spot, hidePostBtn }) {
   const spotId = spot.id;
-  const reviews = Object.values(
-    useSelector((state) => (state.reviews.spot ? state.reviews.spot : []))
-  );
+  const spotReviews = 
+    useSelector((state) => (state.reviews?.spot ? Object.values(state.reviews?.spot) : [])).slice() //make a shallow copy if you don't want the original array reversed
+    .reverse() //or you can use toReversed() without the slice() show the latest review first.
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getSpotReviewsThunk(spotId));
   }, [dispatch]);
 
-  const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user? state.session.user: null);
   //if the user have posted on this spot already, hide the post your view button with the popup Modal
   let posted = "";
-  let sessionUserReview = reviews.find(
+  let sessionUserReview = spotReviews.find(
     (review) => review.userId === sessionUser?.id
   );
   if (sessionUserReview) posted = "hide";
 
   let notposted = "hide";
-  //If no reviews have been posted yet and the current user is logged-in and is NOT the owner of the spot, replace the reviews list with the text "Be the first to post a review!"
-  if (reviews.length === 0 && sessionUser && sessionUser.id !== spot.ownerId)
+  //If no spotReviews have been posted yet and the current user is logged-in and is NOT the owner of the spot, replace the spotReviews list with the text "Be the first to post a review!"
+  if (spotReviews.length === 0 && sessionUser && sessionUser.id !== spot.ownerId)
     notposted = "";
 
-  if (!reviews) return null;
-  if (!sessionUser) return null;
   return (
-    <div className="components-border">
+    <section className="all-reviews">
       <div className={`${hidePostBtn} ${posted} padding-bottom`}>
         <OpenModalButton
           buttonStyle="small grey button"
           buttonText="Post Your Review"
-          modalComponent={<ReviewFormModal spotId={spotId} />}
+          modalComponent={<CreateReviewFormModal spotId={spotId} />}
         />
       </div>
       <div className={notposted}>Be the first to post a review!</div>
       <ul>
-        {/* show the newest review on top */}
-        {reviews
-          .slice() //make a shallow copy if you don't want the original array reversed
-          .reverse() //or you can use toReversed() without the slice()
+        {spotReviews
           .map((review) => (
             <li key={review.id}>
               <SingleReview
@@ -57,6 +52,6 @@ export default function AllReviews({ spot, hidePostBtn }) {
             </li>
           ))}
       </ul>
-    </div>
+    </section>
   );
 }

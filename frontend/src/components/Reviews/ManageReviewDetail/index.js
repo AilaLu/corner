@@ -1,33 +1,32 @@
 import React from "react";
 import OpenModalButton from "../../OpenModalButton";
-import UpdateReviewFormModal from "../UpdateReviewFormModal";
 import DeleteReviewModal from "../DeleteReviewModal";
-import "./SingleReview.css";
+import UpdateReviewFormModal from "../UpdateReviewFormModal";
+import "./ManageReviewDetail.css";
 
-export default function SingleReview({ review, sessionUserReview }) {
- 
-  let hideButton = "hide";
-  if (review === sessionUserReview) hideButton = "";
+export default function ManageReviewDetail({ review }) {
   if (!review) return null;
   return (
     <>
-      <section className="single-spot-review margin-bottom">
+      <section className="components-border padding">
         {/* <h3>{review.id}</h3> */}
-        <div className="review-user">{review.User.firstName}</div>
+        <div className="review-spot">Spot: {review.Spot.name}</div>
         <div className="review-time">
-          {review.updatedAt.slice(5, 7)} {review.updatedAt.slice(0, 4)}
+          {review.updatedAt.slice(0, 10)} {review.updatedAt.slice(11, 19)}
         </div>
-        <div className="review padding-bottom">
-          <p>{review.review}</p>
+        <div className="review-rating">
+          <i className="fa-solid fa-star"></i>
+          <span>Rating: {review.stars} </span>
+          <p className="review">Review: {review.review}</p>
         </div>
-        <div className={`${hideButton} padding-bottom`}>
+        <div className="edit-review">
           <OpenModalButton
             buttonStyle="small grey button margin-right"
             buttonText="Update"
             modalComponent={
               <UpdateReviewFormModal
                 originalReview={review}
-                usage={"spot detail"}
+                usage={"manage reviews"}
               />
             }
           />
@@ -35,7 +34,7 @@ export default function SingleReview({ review, sessionUserReview }) {
             buttonStyle="small grey button"
             buttonText="Delete"
             modalComponent={
-              <DeleteReviewModal review={review} usage={"spot detail"} />
+              <DeleteReviewModal review={review} usage={"manage reviews"} />
             }
           />
         </div>

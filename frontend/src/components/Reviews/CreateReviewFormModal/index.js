@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { createReviewThunk } from "../../../store/reviews";
 
-export default function ReviewFormModal({ spotId }) {
+export default function CreateReviewFormModal({ spotId }) {
   //for the rating stars
   const starEmpty = "fa-regular fa-star";
   const starFilled = "fa-solid fa-star";
@@ -46,14 +46,8 @@ export default function ReviewFormModal({ spotId }) {
     let newReview = await dispatch(createReviewThunk(nextReview, spotId));
     await closeModal();
 
-    const backendErrors = newReview.errors;
-    if (backendErrors) {
-      setErrors(backendErrors);
-    }
-    // console.log(
-    //   "***in review form*** --getting the errors of invalid reviews from the backend----,",
-    //   newReview
-    // );
+    const backendErrors = newReview.message;
+    console.log("=====backend error=====", backendErrors);
   };
 
   //tracking the clicked rating changing
@@ -86,9 +80,9 @@ export default function ReviewFormModal({ spotId }) {
 
   return (
     <div className="center-children modal">
-      <h1>How was your stay?</h1>
+      <h3>How was your stay?</h3>
       <form onSubmit={handleSubmitReview}>
-        {/* <div className="errors">{errors.review && `${errors.review}`}</div> */}
+        <div className="errors">{errors.review && `${errors.review}`}</div>
         <label>
           <textarea
             type="text"

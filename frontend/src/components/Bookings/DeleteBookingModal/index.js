@@ -1,32 +1,31 @@
 // Render a pop up to see if you want to delete or not
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
-import { deleteSpotThunk } from "../../../store/spots";
-
-export default function DeleteSpotModal({ spotId }) {
+import { deleteBookingThunk } from "../../../store/bookings";
+export default function DeleteBookingModal({ bookingId }) {
   const dispatch = useDispatch();
 
   const { closeModal } = useModal();
   const handleYes = (e) => {
     e.preventDefault();
-    dispatch(deleteSpotThunk(spotId)).then(closeModal);
+    dispatch(deleteBookingThunk(bookingId)).then(closeModal);
   };
 
   return (
-    <div className="center-children">
+    <div className="center-children modal">
       <h3>Confirm Delete</h3>
       <div className="padding-bottom">
-        <p>Are you sure you want to remove this spot from the listings?</p>
+        <p>Are you sure you want to delete this booking?</p>
       </div>
       <div className="flex-column-centered">
         <div className="padding-bottom">
           <button className="big red button" type="submit" onClick={handleYes}>
-            Yes(Delete Spot)
+            Yes(Delete Booking)
           </button>
         </div>
         <div>
           <button className="big grey button" onClick={closeModal}>
-            No(Keep Spot)
+            No(Keep Booking)
           </button>
         </div>
       </div>

@@ -239,10 +239,17 @@ router.post(
 
 const createBookingChecker = (req, res, next) => {
   const { startDate, endDate } = req.body;
-
+  console.log("****************************", startDate); //Date type
+  console.log("****************************", endDate); //Date type
   const errors = {};
-  if (endDate <= startDate)
+  
+  console.log("****************************", endDate <= startDate); //Date type
+  if (endDate <= startDate){
+    errors.startDate = startDate
     errors.endDate = "endDate cannot be on or before startDate";
+    errors.checkendDate = endDate
+    errors.boolean = endDate <= startDate
+  }
 
   if (Object.keys(errors).length > 0) {
     return res.status(400).json({
@@ -275,8 +282,12 @@ router.post(
     }
 
     let { startDate, endDate } = req.body;
+    // console.log("****************************", startDate); //Date type
+    // console.log("****************************", endDate); //Date type
     startDate = new Date(startDate);
     endDate = new Date(endDate);
+    console.log("************after****************", startDate); //Date type
+    console.log("************after****************", endDate); //Date type
     const bookingConflicted = await Booking.findOne({
       where: {
         [Op.and]: {
@@ -301,8 +312,8 @@ router.post(
     const newSpotBooking = await Booking.create({
       userId: req.user.id,
       spotId: req.params.spotId,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
+      startDate: startDate,
+      endDate: endDate,
     });
     //formatting the date with toISOString().split("T")[0] or splice(0, 10)
     res.json({
@@ -325,7 +336,7 @@ router.get("/:spotId/bookings", async (req, res) => {
     where: { spotId: req.params.spotId },
   });
   let userBookings = await Booking.findAll({
-    attributes: ["spotId", "startDate", "endDate"],
+    // attributes: ["spotId", "startDate", "endDate"],
     where: { spotId: req.params.spotId },
   });
   if (!spot) {

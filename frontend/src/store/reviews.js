@@ -3,22 +3,22 @@ import { spotDetailThunk } from "./spots";
 
 //type CRUD
 /** Action Type Constants: */
-export const GET_SPOT_REVIEWS = "reviews/GET_REVIEWS";
-// export const GET_USER_REVIEWS = "reviews/GET_REVIEWS";
+export const GET_SPOT_REVIEWS = "reviews/GET_SPOT_REVIEWS";
+export const GET_USER_REVIEWS = "reviews/GET_USER_REVIEWS";
 export const GET_REVIEW_DETAIL = "reviews/GET_REVIEW_DETAIL";
 
 /**  Action Creators: */
-export const getSpotReviewsAction = (reviews) => ({
+export const getSpotReviewsAction = (spotReviews) => ({
   type: GET_SPOT_REVIEWS,
-  reviews,
+  spotReviews,
 });
 
-// export const getUserReviewsAction = (reviews) => ({
-//   type: GET_USER_REVIEWS,
-//   reviews,
-// });
+export const getUserReviewsAction = (userReviews) => ({
+  type: GET_USER_REVIEWS,
+  userReviews,
+});
 
-export const reviewDetailAction = (review) => ({
+export const ManageReviewDetailAction = (review) => ({
   type: GET_REVIEW_DETAIL,
   review,
 });
@@ -33,15 +33,14 @@ export const getSpotReviewsThunk = (spotId) => async (dispatch) => {
   }
 };
 
-//! check everything especially route
-// export const getUserReviewsThunk = () => async (dispatch) => {
-//   const res = await csrfFetch("/api/reviews/current");
-//   if (res.ok) {
-//     const reviews = await res.json();
-//     const reviewsArr = reviews.Reviews;
-//     dispatch(getUserReviewsAction(reviewsArr));
-//   }
-// };
+export const getUserReviewsThunk = () => async (dispatch) => {
+  const res = await csrfFetch("/api/reviews/current");
+  if (res.ok) {
+    const reviews = await res.json();
+    const reviewsArr = reviews.Reviews;
+    dispatch(getUserReviewsAction(reviewsArr));
+  }
+};
 
 export const createReviewThunk = (newReview, spotId) => async (dispatch) => {
   try {
@@ -59,24 +58,43 @@ export const createReviewThunk = (newReview, spotId) => async (dispatch) => {
       dispatch(spotDetailThunk(spotId));
       // console.log("2. newReview from database", newReviewResponse);
       return newReviewResponse;
-    } else {
-      const errors = await res.json();
-      return errors;
-    }
+    } 
   } catch (error) {
-    // const errors = await error.json();
-    return error;
+    const errors = await error.json();
+    return errors;
   }
 };
 
-export const deleteReviewThunk = (review) => async (dispatch) => {
+export const updateReviewThunk =
+  (updatedReview, reviewId, spotId, usage) => async (dispatch) => {
+    try {
+      const res = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedReview),
+      });
+
+      if (res.ok) {
+        const updatedReviewResponse = await res.json();
+        if(usage === "manage reviews") dispatch(getUserReviewsThunk());
+        if(usage === "spot detail") dispatch(getSpotReviewsThunk(spotId));
+        dispatch(spotDetailThunk(spotId));
+        return updatedReviewResponse;
+      }
+    } catch (error) {
+      const errors = await error.json();
+      return errors;
+    }
+  };
+
+export const deleteReviewThunk = (review, usage) => async (dispatch) => {
   const res = await csrfFetch(`/api/reviews/${review.id}`, {
     method: "DELETE",
   });
 
   if (res.ok) {
-    dispatch(getSpotReviewsThunk(review.spotId));
-    //to get the most updated avgRating
+    if(usage === "manage reviews") dispatch(getUserReviewsThunk());
+    if(usage === "spot detail") dispatch(getSpotReviewsThunk(review.spotId));
     dispatch(spotDetailThunk(review.spotId));
   } else {
     const errors = await res.json();
@@ -89,17 +107,17 @@ const initialState = { spot: {}, user: {} }; //the Redux store shape on github
 const reviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SPOT_REVIEWS:
-      const reviews = {};
-      action.reviews.forEach((review) => {
-        reviews[review.id] = review;
+      const spotReviews = {};
+      action.spotReviews.forEach((review) => {
+        spotReviews[review.id] = review;
       });
-      return { spot: reviews };
-    // case GET_USER_REVIEWS:
-    //   const reviews = {};
-    //   action.reviews.forEach((review) => {
-    //     reviews[review.id] = review;
-    //   });
-    // return { user: reviews };
+      return { spot: spotReviews };
+      case GET_USER_REVIEWS:
+        const userReviews = {};
+      action.userReviews?.forEach((review) => {
+        userReviews[review.id] = review;
+      });
+      return { user: userReviews };
     case GET_REVIEW_DETAIL:
       return { ...state, [action.review.id]: action.review };
     // case UPDATE_spot:

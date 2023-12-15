@@ -2,18 +2,18 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { deleteReviewThunk } from "../../../store/reviews";
-export default function DeleteReviewModal({ review }) {
+export default function DeleteReviewModal({ review, usage }) {
   const dispatch = useDispatch();
 
   const { closeModal } = useModal();
   const handleYes = (e) => {
     e.preventDefault();
-    dispatch(deleteReviewThunk(review)).then(closeModal);
+    dispatch(deleteReviewThunk(review, usage)).then(closeModal);
   };
 
   return (
     <div className="center-children modal">
-      <h1>Confirm Delete</h1>
+      <h3>Confirm Delete</h3>
       <div className="padding-bottom">
         <p>Are you sure you want to delete this review?</p>
       </div>

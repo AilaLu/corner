@@ -1,8 +1,9 @@
-.review-user,
-.review-time {
-  padding-bottom: 5px;
+.single-spot-review{
+  border-bottom:1px solid grey ;
 }
 
 .review-time {
+  padding-bottom: 5px;
   color: rgb(173, 173, 173);
 }
+

@@ -18,7 +18,7 @@ function Navigation({ isLoaded }) {
   }
 
   //if logged in, then can create spot
-  let noCreateSpot = "";
+  let noCreateSpot = "create-spot";
   if (!sessionUser) noCreateSpot = "hide";
 
   return (

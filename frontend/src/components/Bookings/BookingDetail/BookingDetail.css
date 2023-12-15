@@ -1,0 +1,14 @@
+.hidden {
+ /* display: none; */
+ border: 5px solid red;
+}
+
+.edit-booking{
+/* display: flex; */
+}
+
+.delete-booking{
+ margin-top: 20px;
+ padding-bottom: 50px;
+ border-bottom:1px solid grey ;
+}
